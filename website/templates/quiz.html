@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <title>Senaryolar</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: start;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 80%;
+            text-align: center;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-around; /* Butonlar arasında eşit mesafe */
+            align-items: center;
+            flex-wrap: wrap; /* Ekran daraldığında otomatik alt satıra geçer */
+        }
+
+        .full-width-button {
+            min-width: 140px; /* Butonların minimum genişliği */
+            height: 70px;
+            margin: 10px;
+            padding: 10px;
+            background-color: #4CAF50; /* Yeşil arka plan rengi */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 20px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scenario {
+            display: flex;
+            align-items: center;
+        }
+
+        .completed-checkbox {
+            margin-left: 10px;
+        }
+
+        .scenario-header {
+            font-size: 40px;
+            margin: 40px 0;
+        }
+
+        p {
+            margin: 20px auto;
+            width: 90%;
+        }
+
+        .homepage-button {
+            display: block;
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            width: 200px;
+            padding: 10px;
+            background-color: #4CAF50; /* Yeşil arka plan rengi */
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="scenario-header">Senaryolar</div>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci perspiciatis, explicabo molestiae dolorem aspernatur minus ab error culpa totam assumenda delectus ea officiis exercitationem cumque quisquam doloremque tempora eius? Quasi.</p>
+    <div class="button-container">
+        <div class="scenario">
+            <a href="{{ url_for('views.senaryo1') }}" class="full-width-button">Senaryo 1</a>
+            <input type="checkbox" class="completed-checkbox" onclick="toggleButtonActive(this)">
+        </div>
+        <div class="scenario">
+            <a href="{{ url_for('views.senaryo2') }}" class="full-width-button">Senaryo 2</a>
+            <input type="checkbox" class="completed-checkbox" onclick="toggleButtonActive(this)">
+        </div>
+        <div class="scenario">
+            <a href="{{ url_for('views.senaryo3') }}" class="full-width-button">Senaryo 3</a>
+            <input type="checkbox" class="completed-checkbox" onclick="toggleButtonActive(this)">
+        </div>
+        <div class="scenario">
+            <a href="{{ url_for('views.senaryo4') }}" class="full-width-button">Senaryo 4</a>
+            <input type="checkbox" class="completed-checkbox" onclick="toggleButtonActive(this)">
+        </div>
+        <div class="scenario">
+            <a href="{{ url_for('views.senaryo5') }}" class="full-width-button">Senaryo 5</a>
+            <input type="checkbox" class="completed-checkbox" onclick="toggleButtonActive(this)">
+        </div>
+    </div>
+    <a href="/" class="homepage-button">Ana Sayfaya Dön</a>
+</div>
+
+<script>
+    function toggleButtonActive(checkbox) {
+        var button = checkbox.previousElementSibling;
+        if (checkbox.checked) {
+            button.style.backgroundColor = "#D4EDDA"; // Açık yeşil renk tamamlandığında
+        } else {
+            button.style.backgroundColor = "#4CAF50"; // Orjinal yeşil renk
+        }
+    }
+</script>
+</body>
+</html>

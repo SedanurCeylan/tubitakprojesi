@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sonraki Adım</title>
+</head>
+<body>
+    <h1>Sonraki Adım</h1>
+    <p>Bu sayfada bir sonraki adıma geçiş yapabilirsiniz.</p>
+
+    <!-- Analiz Butonu -->
+    <button class="next-page-button" onclick="analyzeData()">Analiz Yap</button>
+
+    <!-- Veri Tablosu -->
+    <table id="data-table" class="next-page-table">
+        <thead>
+            <tr>
+                <th>Seç</th>
+                <th>id.orig_h</th>
+                <th>id.resp_h</th>
+                <th>duration</th>
+                <th>orig_bytes</th>
+                <th>resp_bytes</th>
+                <th>missed_bytes</th>
+                <th>history</th>
+                <th>orig_pkts</th>
+                <th>orig_ip_bytes</th>
+                <th>resp_pkts</th>
+                <th>resp_ip_bytes</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr data-source="{{ row['source'] }}">
+                <td><input type="checkbox" class="select-row"></td>
+                <td>{{ row['id.orig_h'] }}</td>
+                <td>{{ row['id.resp_h'] }}</td>
+                <td>{{ row['duration'] }}</td>
+                <td>{{ row['orig_bytes'] }}</td>
+                <td>{{ row['resp_bytes'] }}</td>
+                <td>{{ row['missed_bytes'] }}</td>
+                <td>{{ row['history'] }}</td>
+                <td>{{ row['orig_pkts'] }}</td>
+                <td>{{ row['orig_ip_bytes'] }}</td>
+                <td>{{ row['resp_pkts'] }}</td>
+                <td>{{ row['resp_ip_bytes'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- İkinci İlerle Butonu -->
+    <div class="next-page-button-container">
+        <a href="/final-step" class="next-page-proceed-button">Son Adıma Geç</a>
+    </div>
+
+    <script>
+        function analyzeData() {
+            let selectedRows = [];
+            document.querySelectorAll('#data-table tbody tr').forEach(row => {
+                if (row.querySelector('.select-row').checked) {
+                    let rowData = {
+                        'id.orig_h': row.cells[1].innerText,
+                        'id.resp_h': row.cells[2].innerText,
+                        'duration': row.cells[3].innerText,
+                        'orig_bytes': row.cells[4].innerText,
+                        'resp_bytes': row.cells[5].innerText,
+                        'missed_bytes': row.cells[6].innerText,
+                        'history': row.cells[7].innerText,
+                        'orig_pkts': row.cells[8].innerText,
+                        'orig_ip_bytes': row.cells[9].innerText,
+                        'resp_pkts': row.cells[10].innerText,
+                        'resp_ip_bytes': row.cells[11].innerText,
+                        'source': row.getAttribute('data-source')
+                    };
+                    selectedRows.push(rowData);
+                }
+            });
+
+            fetch('/submit-analysis', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ selected_rows: selectedRows }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(`Analiz Sonucu: ${data.accuracy}% doğru`);
+            });
+        }
+    </script>
+</body>
+</html>

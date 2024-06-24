@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Senaryo 1</title>
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+  }
+
+  .center-content {
+    text-align: center;
+    width: 100%;
+  }
+
+  h1, p {
+    margin: 10px 0;
+  }
+
+  button {
+    margin: 5px;
+    padding: 10px 20px;
+  }
+
+  .button-container {
+    margin: 20px 0;
+  }
+
+  .footer {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  .footer input[type="checkbox"] {
+    margin-right: 5px;
+  }
+
+  .footer label {
+    margin-right: 15px;
+  }
+
+</style>
+</head>
+<body>
+<div class="center-content">
+  <div id="question1">
+    <h1>SENARYO 1</h1>
+    <p>Önemli bir uyarı almak üzeresiniz! Buzdolabınızdan şüpheli faaliyetler tespit edildi. Cihazlarınızın güvenliği bizim için büyük önem taşıyor. Bu nedenle, hemen kontrol etmeye hazır mısınız?</p>
+    <div class="button-container">
+      <button onclick="showQuestion('question2')">EVET sorunu çözmeye başlayalım</button>
+      <button onclick="showQuestion('question3')">Hayır, daha sonra</button>
+    </div>
+  </div>
+
+  <div id="question2" style="display:none;">
+    <p>Hadi başlayalım! Trafik detaylarını inceleyin.</p>
+    <div class="button-container">
+      <button onclick="showQuestion('question4')">Trafik detaylarını inceleyin</button>
+      <button onclick="showQuestion('postpone')">Çok uzun iş, sonra yaparım</button>
+    </div>
+  </div>
+
+  <div id="question3" style="display:none;">
+    <p>Güvenlik sorunlarını göz ardı etmek, ağınızda daha büyük risklere yol açabilir. Sorunları hemen çözmek önemli, daha sonra kontrol etmek istediğine emin misin?</p>
+    <div class="button-container">
+      <button onclick="showQuestion('question4')">Vazgeçtim hemen şimdi yapalım</button>
+      <button onclick="showQuestion('endScenario')">Asla, bu konuda endişelenmiyorum</button>
+    </div>
+  </div>
+
+  <div id="endScenario" style="display:none;">
+    <p>Ağ güvenliği ciddiye alınması gereken bir konudur ve ihmal edilmesi, kişisel verilerin kötü niyetli kişilerin eline geçmesine neden olabilir. Yine de yardıma hazırız, ne zaman istersen.</p>
+    <div class="button-container">
+      <button onclick="location.href='http://127.0.0.1:5000/quiz'">Senaryoyu Bitir</button>
+    </div>
+  </div>
+
+  <div id="question4" style="display:none;">
+    <p>Buzdolabının son trafiğini analiz edeceğiz. Bunu hangi araç yardımıyla yapabiliriz?</p>
+    <div class="button-container">
+      <button onclick="showQuestion('question5')">nmap</button>
+      <button onclick="showQuestion('question6')">wireshark</button>
+      <button onclick="showQuestion('incorrectTool', 'shodan')">shodan</button>
+      <button onclick="showQuestion('incorrectTool', 'hydra')">hydra</button>
+    </div>
+  </div>
+
+  <div id="question5" style="display:none;">
+    <p>Bu çıktıya göre devam etmek ister misin yoksa başka araçların çıktılarını da denemek ister misin?</p>
+    <div class="button-container">
+      <button onclick="showQuestion('question7')">bu bilgiler bana yeterli devam edelim</button>
+      <button onclick="showQuestion('question4')">başka araçların çıktılarını da incelemek istiyorum</button>
+    </div>
+  </div>
+
+  <div id="question6" style="display:none;">
+    <p>Wireshark ile yapılan tarama sonuçlarına göre, buzdolabının belirli bir IP adresi ile büyük miktarda veri gönderdiğini görüyoruz. Şimdi ne yapacaksın?</p>
+    <div class="button-container">
+      <button onclick="showQuestion('moreResearch')">İlgili IP adresini daha fazla araştırırım</button>
+      <button onclick="showQuestion('disconnectFridge')">Buzdolabını ağdan çıkarırım</button>
+    </div>
+  </div>
+
+  <div id="question7" style="display:none;">
+    <p>Bu bilgiler sana yeterli değil :) Başka araçları kullanmalıydın. Ne yapmak istersin?</p>
+    <div class="button-container">
+      <button onclick="showQuestion('question4')">hadi inceleyelim</button>
+      <button onclick="location.href='http://127.0.0.1:5000/quiz'">burada bitsin, incelemek istemiyorum</button>
+    </div>
+  </div>
+
+  <div id="incorrectTool" style="display:none;">
+    <p>Bu araç bu senaryo için doğru bir kullanım değil tekrar dene.</p>
+    <div class="button-container">
+      <button onclick="showQuestion('question4')">Soru 4'e Geri Dön</button>
+      <button onclick="location.href='http://127.0.0.1:5000/quiz'">Senaryolara Geri Dön</button>
+    </div>
+  </div>
+
+  <div id="postpone" style="display:none;">
+    <p>Anlıyorum, şu anda başka önceliklerin olabilir. Ancak unutma, ağ güvenliğini ertelemek, beklenmedik sorunlara yol açabilir. Kişisel bilgilerin korunması ve ağının güvenliği için düzenli kontroller ve güncellemeler önemlidir. Güvenlik tehditlerini erken tespit etmek, daha büyük zararları önlemek için kritik olabilir. Ne zaman hazır hissedersen, buradayız ve yardım etmeye hazırız!</p>
+  </div>
+
+  <div id="moreResearch" style="display:none;">
+    <p>IP adresi daha detaylı araştırılıyor...</p>
+  </div>
+
+  <div id="disconnectFridge" style="display:none;">
+    <p>Buzdolabı ağdan çıkarıldı.</p>
+  </div>
+
+  <div class="footer">
+    <input type="checkbox" id="completed" name="completed">
+    <label for="completed">Tamamlandı</label>
+    <button onclick="location.href='http://127.0.0.1:5000/quiz'">Senaryolara Dön</button>
+    <button onclick="location.href='http://127.0.0.1:5000/'">Anasayfaya Dön</button>
+  </div>
+
+  <script>
+    function showQuestion(questionId, toolName) {
+      if (toolName) {
+        var incorrectMessage = document.getElementById('incorrectTool').querySelector('p');
+        incorrectMessage.textContent = `${toolName.toUpperCase()} bu senaryo için doğru bir kullanım değil, tekrar dene.`;
+      }
+      var questions = document.querySelectorAll('div[id^="question"], div[id^="incorrectTool"], div[id^="postpone"], div[id^="moreResearch"], div[id^="disconnectFridge"]');
+      questions.forEach(function(question) {
+        question.style.display = 'none';
+      });
+      document.getElementById(questionId).style.display = 'block';
+    }
+  </script>
+</div>
+</body>
+</html>

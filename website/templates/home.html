@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}
+Hoş Geldiniz!
+{% endblock %}
+
+{% block content %}
+<style>
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin: 0 auto;
+        max-width: 90%;
+    }
+
+    .header {
+        font-size: 2em;
+        margin-top: 20px;
+    }
+
+    .text {
+        margin: 20px 0;
+    }
+
+    .button-container {
+        margin: 20px 0;
+    }
+
+    .btn {
+        margin: 10px;
+    }
+</style>
+
+<div class="container">
+    <h1 class="header">Hoş Geldiniz!</h1>
+    <p class="text">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt quia officia, necessitatibus eligendi ea, dignissimos repudiandae asperiores voluptatem, porro odio nisi deleniti excepturi. Animi sint in illum architecto, eaque minima!
+    </p>
+    <p class="text">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum nostrum voluptatum porro atque error laborum aliquam? Perferendis itaque consequuntur, voluptate alias illum inventore asperiores dolorem facilis totam, velit impedit quia?
+    </p>
+    
+    <div class="button-container">
+        <!-- Teste Başla butonu için Flask url_for kullanımı -->
+        <a href="{{ url_for('views.start_test') }}" class="btn btn-success">Teste Başla</a>
+    </div>
+    
+    <p class="text">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. At doloremque officia tenetur nostrum, ut beatae, dolores libero temporibus illo voluptate repellendus! Impedit reprehenderit hic cumque, est rem at quae obcaecati!
+    </p>
+    
+    <div class="button-container">
+        <!-- Senaryolara Git butonu için Flask url_for kullanımı -->
+        <a href="{{ url_for('views.quiz') }}" class="btn btn-primary">Senaryolara Git</a>
+    </div>
+</div>
+{% endblock %}

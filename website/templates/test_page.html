@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Simülasyon Sayfası{% endblock %}
+
+{% block content %}
+<h1 align="center">Simülasyon Sayfası</h1>
+<p align="center">Bu sayfa, Yapay Zeka Destekli Ağ Güvenliği Simülasyonudur.</p>
+
+<div align="center">
+    <!-- Zararlı Verileri İnceleme Butonu -->
+    <button onclick="window.location.href='/malicious'">Zararlı Verileri İncele</button>
+    <!-- Zararsız Verileri İnceleme Butonu -->
+    <button onclick="window.location.href='/benign'">Zararsız Verileri İncele</button>
+</div>
+<!-- İlerle Butonu -->
+<div class="button-container">
+    <a href="/next-page" class="proceed-button">İlerle</a>
+</div>
+
+{% endblock %}
