@@ -11,19 +11,26 @@
             display: flex;
             align-items: start;
             justify-content: center;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom right, #FFD1DC, #D1FFD6, #D1D6FF, #FFFFD1); /* Pastel gradient arka plan */
         }
 
         .container {
             width: 80%;
             text-align: center;
+            padding: 20px;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
         }
 
         .button-container {
             display: flex;
-            justify-content: space-around; /* Butonlar arasında eşit mesafe */
+            justify-content: center; /* Butonlar arasında eşit mesafe */
             align-items: center;
             flex-wrap: wrap; /* Ekran daraldığında otomatik alt satıra geçer */
+            margin-top: 20px;
         }
 
         .full-width-button {
@@ -31,21 +38,29 @@
             height: 70px;
             margin: 10px;
             padding: 10px;
-            background-color: #4CAF50; /* Yeşil arka plan rengi */
+            background: linear-gradient(to right, #FFC1CC, #FFDEE2); /* Gradient pastel pembe */
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 20px;
             cursor: pointer;
             font-size: 20px;
             text-decoration: none;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .full-width-button:hover {
+            background: linear-gradient(to right, #FF99A5, #FFC1CC); /* Hover efekti */
+            transform: translateY(-2px);
         }
 
         .scenario {
             display: flex;
             align-items: center;
+            margin: 10px;
         }
 
         .completed-checkbox {
@@ -53,28 +68,38 @@
         }
 
         .scenario-header {
-            font-size: 40px;
-            margin: 40px 0;
+            font-size: 36px;
+            margin: 20px 0;
+            color: #333;
         }
 
         p {
             margin: 20px auto;
             width: 90%;
+            color: #555;
+            font-size: 18px;
+            line-height: 1.6;
         }
 
         .homepage-button {
-            display: block;
-            position: absolute;
-            right: 10px;
-            bottom: 10px;
+            position: fixed; /* Sabit pozisyon */
+            bottom: 20px; /* Alt kenardan 20px */
+            right: 20px; /* Sağ kenardan 20px */
             width: 200px;
-            padding: 10px;
-            background-color: #4CAF50; /* Yeşil arka plan rengi */
+            padding: 15px;
+            background: linear-gradient(to right, #FFC1CC, #FFDEE2); /* Gradient pastel pembe */
             color: white;
             text-align: center;
-            border-radius: 5px;
+            border-radius: 20px;
             text-decoration: none;
             font-size: 18px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .homepage-button:hover {
+            background: linear-gradient(to right, #FF99A5, #FFC1CC); /* Hover efekti */
+            transform: translateY(-2px);
         }
     </style>
 </head>
@@ -85,36 +110,52 @@
     <div class="button-container">
         <div class="scenario">
             <a href="{{ url_for('views.senaryo1') }}" class="full-width-button">Senaryo 1</a>
-            <input type="checkbox" class="completed-checkbox" onclick="toggleButtonActive(this)">
+            <input type="checkbox" id="checkbox1" class="completed-checkbox" onclick="toggleButtonActive(this)">
         </div>
         <div class="scenario">
             <a href="{{ url_for('views.senaryo2') }}" class="full-width-button">Senaryo 2</a>
-            <input type="checkbox" class="completed-checkbox" onclick="toggleButtonActive(this)">
+            <input type="checkbox" id="checkbox2" class="completed-checkbox" onclick="toggleButtonActive(this)">
         </div>
         <div class="scenario">
             <a href="{{ url_for('views.senaryo3') }}" class="full-width-button">Senaryo 3</a>
-            <input type="checkbox" class="completed-checkbox" onclick="toggleButtonActive(this)">
+            <input type="checkbox" id="checkbox3" class="completed-checkbox" onclick="toggleButtonActive(this)">
         </div>
         <div class="scenario">
             <a href="{{ url_for('views.senaryo4') }}" class="full-width-button">Senaryo 4</a>
-            <input type="checkbox" class="completed-checkbox" onclick="toggleButtonActive(this)">
+            <input type="checkbox" id="checkbox4" class="completed-checkbox" onclick="toggleButtonActive(this)">
         </div>
         <div class="scenario">
             <a href="{{ url_for('views.senaryo5') }}" class="full-width-button">Senaryo 5</a>
-            <input type="checkbox" class="completed-checkbox" onclick="toggleButtonActive(this)">
+            <input type="checkbox" id="checkbox5" class="completed-checkbox" onclick="toggleButtonActive(this)">
         </div>
     </div>
-    <a href="/" class="homepage-button">Ana Sayfaya Dön</a>
 </div>
+<a href="/" class="homepage-button">Ana Sayfaya Dön</a>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Load the checkbox states from localStorage
+        for (let i = 1; i <= 5; i++) {
+            const checkbox = document.getElementById('checkbox' + i);
+            checkbox.checked = localStorage.getItem('checkbox' + i) === 'true';
+            toggleButtonActive(checkbox);
+        }
+    });
+
     function toggleButtonActive(checkbox) {
         var button = checkbox.previousElementSibling;
         if (checkbox.checked) {
-            button.style.backgroundColor = "#D4EDDA"; // Açık yeşil renk tamamlandığında
+            button.style.background = "#D4EDDA"; // Açık yeşil renk tamamlandığında
         } else {
-            button.style.backgroundColor = "#4CAF50"; // Orjinal yeşil renk
+            button.style.background = "linear-gradient(to right, #FFC1CC, #FFDEE2)"; // Orjinal pastel gradient renk
         }
+        // Save the checkbox state to localStorage
+        localStorage.setItem(checkbox.id, checkbox.checked);
+        syncCheckboxes(checkbox.id, checkbox.checked);
+    }
+
+    function syncCheckboxes(checkboxId, isChecked) {
+        localStorage.setItem(checkboxId, isChecked);
     }
 </script>
 </body>

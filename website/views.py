@@ -96,6 +96,11 @@ def final_step():
 def quiz():
     return render_template('quiz.html')
 
+@views.route('/hakkimda')
+def hakkimda():
+    return render_template('hakkimda.html')
+
+
 @views.route('/senaryo1')
 @login_required
 def senaryo1():
