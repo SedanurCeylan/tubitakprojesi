@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Senaryo 2</title>
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Roboto", sans-serif;
+      background: rgb(18, 27, 45);
+      color: #ecf0f1;
+    }
+
+    .center-content {
+      text-align: center;
+      width: 80%;
+      max-width: 600px;
+      background-color: #151f35;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+    }
+
+    h1 {
+      margin: 20px 0;
+      font-size: 28px;
+      color: #ecf0f1;
+      font-weight: bold;
+    }
+
+    p {
+      margin: 20px 0;
+      color: #ecf0f1;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .button-container {
+      margin: 30px 0;
+    }
+
+    button {
+      margin: 10px;
+      padding: 15px 30px;
+      font-size: 16px;
+      border: none;
+      border-radius: 25px;
+      background-color: #3868d0;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background: #4d80ee;
+      transform: scale(1.05);
+    }
+
+    .footer {
+      position: fixed;
+      right: 10px;
+      bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    .footer input[type="checkbox"] {
+      margin-right: 5px;
+    }
+
+    .footer label {
+      margin-right: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="center-content">
+    <div id="question0">
+      <h1>SENARYO 2</h1>
+      <p>Termostatınızda anormal sıcaklık dalgalanmaları tespit edildi. Bunun nedenini araştıracağız.</p>
+      <div class="button-container">
+        <button onclick="showQuestion('question1')">Hadi Başlayalım</button>
+      </div>
+    </div>
+
+    <div id="question1" style="display: none">
+      <p>Ağınıza bağlanan diğer IoT cihazları var mı? IoT cihazlarınızı ayrı bir ağda tutarak ana ağınızdaki diğer cihazlardan izole etmeyi düşündünüz mü?</p>
+      <div class="button-container">
+        <button onclick="showQuestion('question2')">Evet, ayrı bir ağda tutuyorum</button>
+        <button onclick="showQuestion('question3')">Evet, ama ayrı bir ağda tutmuyorum</button>
+        <button onclick="showQuestion('question4')">Hayır, başka IoT cihazım yok</button>
+      </div>
+    </div>
+
+    <div id="question2" style="display: none">
+      <p>Harika! IoT cihazlarınızı ayrı bir ağda tutarak güvenliği artırmış oluyorsunuz. Yine de ağ trafiğinizi izleyerek güvenliğinizi daha da pekiştirebiliriz. Devam etmek ister misiniz?</p>
+      <div class="button-container">
+        <button onclick="showQuestion('question6')">Evet, başka önerin var mı?</button>
+        <button onclick="showQuestion('question10')">Hayır, şimdilik yeterli</button>
+      </div>
+    </div>
+
+    <div id="question3" style="display: none">
+      <p> IoT cihazlarınızı ayrı bir ağda tutmak, güvenliği artırmanın önemli bir yoludur. Bu, ana ağınızdaki cihazlarınızın siber saldırılara karşı daha iyi korunmasını sağlar. IoT cihazlarınızı izole bir ağa taşımak ve güvenliği artırmak için yardım almak ister misiniz?</p>
+      <div class="button-container">
+        <button onclick="showQuestion('açiklama1')">Evet, IoT cihazlarımı nasıl izole edebileceğimi gösterin.</button>
+        <button onclick="showQuestion('question10')">Hayır, şimdilik yeterli</button>
+      </div>
+    </div>
+
+    <div id="açiklama1" style="display: none">
+      <p>açıklamawireshark</p>
+      <div class="button-container">
+        <button onclick="showQuestion('question5', this)">Devam et</button>
+      </div>
+    </div>
+
+    <div id="question4" style="display: none">
+      <p> Bu durumda, yalnızca termostatınızın güvenliğine odaklanmak yeterli olacaktır. Yine de ağ trafiğinizi izleyerek ve güvenlik önlemlerini kontrol ederek cihazınızın güvenliğini sağlayabiliriz. Devam etmek ister misiniz?</p>
+      <div class="button-container">
+        <button onclick="showQuestion('question6')">Evet, başka önerin var mı?</button>
+        <button onclick="showQuestion('question10')">Hayır, şimdilik yeterli</button>
+      </div>
+    </div>
+
+    <div id="question5" style="display: none">
+      <p>Bu adımları izleyerek IoT cihazlarınızı ana ağınızdan izole edebilir ve genel ağ güvenliğinizi artırabilirsiniz. Yardıma ihtiyacınız olursa, adım adım rehberlik sağlamaya devam edebiliriz. Devam etmek ister misiniz?</p>
+      <div class="button-container">
+        <button onclick="showQuestion('question6')">Evet, başka önerin var mı?</button>
+        <button onclick="showQuestion('question10')">Hayır, şimdilik yeterli</button>
+      </div>
+    </div>
+
+    <div id="question6" style="display: none">
+      <p>Termostatınızın yazılımı en son ne zaman güncellendi?</p>
+      <div class="button-container">
+        <button onclick="showQuestion('question7')">Yakın zamanda güncellendi.</button>
+        <button onclick="showQuestion('question8')">Uzun bir süre önce güncellendi.</button>
+      </div>
+    </div>
+
+    <div id="question7" style="display: none">
+      <p>Harika! Güncel yazılım genellikle cihazınızın güvenliğini artırır. Ancak, yine de ağ trafiğinizi kontrol etmek ve olası sorunları analiz etmek faydalı olacaktır. Devam etmek ister misiniz?</p>
+      <div class="button-container">
+        <button onclick="showQuestion('question9')">Evet, ağ trafiğini kontrol edelim</button>
+        <button onclick="showQuestion('question10')">Hayır, şimdilik yeterli.</button>
+      </div>
+    </div>
+
+    <div id="question8" style="display: none">
+      <p>Yazılım güncellemeleri genellikle güvenlik açıklarını kapatır ve performansı artırır. Termostatınızın yazılımını güncellemek önemlidir. Yazılımı güncellemeyi ve ardından sorunu tekrar kontrol etmeyi öneririm. Yazılımı güncellemek için yardım almak ister misiniz? yazılımı nasıl güncelleyeceğimi gösterin.</p>
+      <div class="button-container">
+        <button onclick="showQuestion('question9')">Evet, ağ trafiğini kontrol edelim</button>
+        <button onclick="showQuestion('question10')">Hayır, şimdilik yeterli.</button>
+      </div>
+    </div>
+
+    <div id="question9" style="display: none">
+      <p>Akıllı termostatınızın anormal sıcaklık dalgalanmalarının sebebini anlamak için ağ trafiğini analiz etmeliyiz. Bu, cihazınızın güvenliğini sağlamak ve olası siber saldırılara karşı korunmak için kritik öneme sahiptir.</p>
+      <div class="button-container">
+        <button onclick="showQuestion('açiklama2')">Wireshark ile Analiz Yapın</button>
+        <button onclick="showQuestion('açiklama3')">Trafik Detaylarını Kaydedin ve Analiz Edin</button>
+      </div>
+    </div>
+
+    <div id="açiklama2" style="display: none">
+      <p>açıklama2</p>
+    </div>
+
+    <div id="açiklama3" style="display: none">
+      <p>açıklama3</p>
+    </div>
+
+    <div id="question10" style="display: none">
+      <p>Ne zaman kontrol etmek istersiniz?</p>
+      <div class="button-container">
+        <button onclick="showQuestion('açiklama4')">Şimdi değil, daha sonra.</button>
+        <button onclick="showQuestion('açiklama5')">Asla, bu konuda endişelenmiyorum.</button>
+      </div>
+    </div>
+
+    <div id="açiklama4" style="display: none">
+      <p>açıklama4</p>
+    </div>
+    
+    <div id="açiklama5" style="display: none">
+      <p>açıklama5</p>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Load the checkbox state from localStorage
+        const checkbox2 = document.getElementById("checkbox2");
+        checkbox2.checked = localStorage.getItem("checkbox2") === "true";
+      });
+
+      function syncCheckboxes(checkboxId, isChecked) {
+        localStorage.setItem(checkboxId, isChecked);
+      }
+
+      function showQuestion(questionId, buttonElement) {
+        var questions = document.querySelectorAll('div[id^="question"], div[id^="açiklama"]');
+        questions.forEach(function (question) {
+          question.style.display = "none";
+        });
+        document.getElementById(questionId).style.display = "block";
+
+        // Hide the clicked button
+        if (buttonElement) {
+          buttonElement.style.display = "none";
+        }
+      }
+    </script>
+  </div>
+  <div class="footer">
+    <input type="checkbox" id="checkbox2" name="completed" onclick="syncCheckboxes('checkbox2', this.checked)" />
+    <label for="completed">Tamamlandı</label>
+    <button onclick="location.href='http://127.0.0.1:5000/quiz'">Senaryolara Dön</button>
+    <button onclick="location.href='http://127.0.0.1:5000/'">Anasayfaya Dön</button>
+  </div>
+</body>
+</html>

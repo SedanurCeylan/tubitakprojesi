@@ -9,14 +9,20 @@
     <style>
         /* Beyaz navbar için ekstra stiller */
         .navbar-custom {
-            background-color: rgb(208, 51, 51);
+            background-color: #3868d0;
             color: black;
         }
         .navbar-custom .navbar-nav .nav-link {
-            color: black;
+            color: rgb(255, 255, 255);
         }
         .navbar-custom .navbar-nav .nav-link:hover {
-            color: gray;
+            color: #4d80ee;
+        }
+        .navbar-custom .navbar-brand img {
+            height: 40px; /* Adjust height as necessary */
+        }
+        .navbar-custom .navbar-collapse {
+            justify-content: space-between;
         }
     </style>
 </head>
@@ -36,6 +42,10 @@
                 <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
                 {% endif %}
             </div>
+            <a class="navbar-brand ml-auto" href="#">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+
+            </a>
         </div>
     </nav>
 

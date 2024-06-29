@@ -1,49 +1,116 @@
-{% extends "base.html" %} {% block title %}Sign Up{% endblock %} {% block
-    content %}
-    <form method="POST">
-      <h3 align="center">Sign Up</h3>
-      <div class="form-group">
-        <label for="email">Email Address</label>
-        <input
-          type="email"
-          class="form-control"
-          id="email"
-          name="email"
-          placeholder="Enter email"
-        />
-      </div>
-      <div class="form-group">
-        <label for="firstName">First Name</label>
-        <input
-          type="text"
-          class="form-control"
-          id="firstName"
-          name="firstName"
-          placeholder="Enter first name"
-        />
-      </div>
-      <div class="form-group">
-        <label for="password1">Password</label>
-        <input
-          type="password"
-          class="form-control"
-          id="password1"
-          name="password1"
-          placeholder="Enter password"
-        />
-      </div>
-      <div class="form-group">
-        <label for="password2">Password (Confirm)</label>
-        <input
-          type="password"
-          class="form-control"
-          id="password2"
-          name="password2"
-          placeholder="Confirm password"
-        />
-      </div>
-      <br />
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-    {% endblock %}
-    
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+    <title>{% block title %}Home{% endblock %}</title>
+    <style>
+        body {
+            background: url("{{ url_for('static', filename='images/sign-in.png') }}") no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar-custom {
+            background-color: #a00b0d;
+            color: black;
+        }
+        .navbar-custom .navbar-nav .nav-link {
+            color: rgb(255, 255, 255);
+        }
+        .navbar-custom .navbar-nav .nav-link:hover {
+            color: #c21919;
+        }
+        .navbar-custom .navbar-brand img {
+            height: 40px;
+        }
+        .navbar-custom .navbar-collapse {
+            justify-content: space-between;
+        }
+        .form-container {
+            margin-top: 50px;
+            z-index: 1; /* Ensures form is above the background image */
+        }
+        .form-container .form-card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 30px;
+            background-color: rgba(0, 0, 0, 0.8); /* Black with some transparency */
+        }
+        .form-container .form-card .form-group label {
+            font-weight: bold;
+            color: white; /* Label text color */
+        }
+        .form-container .form-card .btn-primary {
+            background-color: #a00b0d;
+            border-color: #a00b0d;
+        }
+        .form-container .form-card .btn-primary:hover {
+            background-color: #c21919;
+            border-color: #c21919;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar">
+            <div class="navbar-nav">
+                {% if user.is_authenticated %}
+                <a class="nav-item nav-link" id="home" href="/">Home</a>
+                <a class="nav-item nav-link" id="hakkimda" href="/hakkimda">Hakkımda</a>
+                <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+                {% else %}
+                <a class="nav-item nav-link" id="login" href="/login">Login</a>
+                <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
+                {% endif %}
+            </div>
+            <a class="navbar-brand ml-auto" href="#">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+            </a>
+        </div>
+    </nav>
+
+    <div class="container form-container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="form-card">
+                    <h3 class="text-center" style="color: white;">Sign Up</h3>
+                    <form method="post" action="/sign-up">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email address</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="Confirm Password">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

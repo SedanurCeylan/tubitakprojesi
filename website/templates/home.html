@@ -1,59 +1,128 @@
 {% extends "base.html" %}
 
-{% block title %}
-Hoş Geldiniz!
-{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block content %}
-<style>
-    .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        margin: 0 auto;
-        max-width: 90%;
-    }
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='images/background.png') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #f5f5f5;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
-    .header {
-        font-size: 2em;
-        margin-top: 20px;
-    }
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin: 0 auto;
+            max-width: 90%;
+            background: rgba(0, 0, 0, 0.7); /* Semi-transparent black background for readability */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
 
-    .text {
-        margin: 20px 0;
-    }
+        .header {
+            font-size: 3em;
+            margin-top: 20px;
+            color: rgb(56, 104, 208);
+            text-shadow: 0 0 10px rgba(56, 104, 208);
+        }
 
-    .button-container {
-        margin: 20px 0;
-    }
+        .text {
+            margin: 20px 0;
+            color: #e0e0e0;
+        }
 
-    .btn {
-        margin: 10px;
-    }
-</style>
+        .button-container {
+            margin: 20px 0;
+        }
 
-<div class="container">
-    <h1 class="header">Hoş Geldiniz!</h1>
-    <p class="text">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt quia officia, necessitatibus eligendi ea, dignissimos repudiandae asperiores voluptatem, porro odio nisi deleniti excepturi. Animi sint in illum architecto, eaque minima!
-    </p>
-    <p class="text">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum nostrum voluptatum porro atque error laborum aliquam? Perferendis itaque consequuntur, voluptate alias illum inventore asperiores dolorem facilis totam, velit impedit quia?
-    </p>
-    
-    <div class="button-container">
-        <!-- Teste Başla butonu için Flask url_for kullanımı -->
-        <a href="{{ url_for('views.start_test') }}" class="btn btn-success">Teste Başla</a>
+        .btn {
+            margin: 10px;
+            padding: 15px 30px;
+            text-decoration: none;
+            color: white;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            box-shadow: 0 0 15px rgba(40, 167, 69, 0.6);
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            transform: scale(1.1);
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            box-shadow: 0 0 15px rgba(0, 123, 255, 0.6);
+        }
+
+        .btn-primary:hover {
+            background-color: #0069d9;
+            transform: scale(1.1);
+        }
+
+        .contact {
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            margin: 40px 0;
+            width: 80%;
+            text-align: left;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .contact h2 {
+            margin-bottom: 20px;
+            color: #3868d0;
+            text-shadow: 0 0 10px rgba(56, 104, 208,0.8);
+        }
+    </style>
+
+    <div class="main-container">
+        <h1 class="header">Hoş Geldiniz!</h1>
+        <p class="text">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt quia
+            officia, necessitatibus eligendi ea, dignissimos repudiandae asperiores
+            voluptatem, porro odio nisi deleniti excepturi. Animi sint in illum
+            architecto, eaque minima!
+        </p>
+
+        <div class="button-container">
+            <a href="{{ url_for('views.start_test') }}" class="btn btn-success">Teste Başla</a>
+        </div>
+
+        <p class="text">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum nostrum
+            voluptatum porro atque error laborum aliquam? Perferendis itaque
+            consequuntur, voluptate alias illum inventore asperiores dolorem facilis
+            totam, velit impedit quia?
+        </p>
+
+        <div class="button-container">
+            <a href="{{ url_for('views.quiz') }}" class="btn btn-primary">Senaryolara Git</a>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div class="contact">
+            <h2>İletişim</h2>
+            <p>Ad: John Doe</p>
+            <p>Email: johndoe@example.com</p>
+            <p>Telefon: 123-456-7890</p>
+        </div>
     </div>
-    
-    <p class="text">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. At doloremque officia tenetur nostrum, ut beatae, dolores libero temporibus illo voluptate repellendus! Impedit reprehenderit hic cumque, est rem at quae obcaecati!
-    </p>
-    
-    <div class="button-container">
-        <!-- Senaryolara Git butonu için Flask url_for kullanımı -->
-        <a href="{{ url_for('views.quiz') }}" class="btn btn-primary">Senaryolara Git</a>
-    </div>
-</div>
 {% endblock %}
