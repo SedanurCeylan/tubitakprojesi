@@ -1,15 +1,12 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from os import path
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user
 
 db = SQLAlchemy()
-DB_NAME = "database.db"
-
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'hjshjhdjah.k_jshkjdhjs'
+    app.config['SECRET_KEY'] = 'hjshjhdjah_k_jshkjdhjs'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:12345@localhost:3306/tubitak2'
     db.init_app(app)
 
@@ -20,7 +17,7 @@ def create_app():
     app.register_blueprint(auth, url_prefix='/')
 
     from .models import User, Note
-    
+
     with app.app_context():
         db.create_all()
 
@@ -32,10 +29,8 @@ def create_app():
     def load_user(id):
         return User.query.get(int(id))
 
+    @app.context_processor
+    def inject_user():
+        return {'user': current_user}
+
     return app
-
-
-def create_database(app):
-    if not path.exists('website/' + DB_NAME):
-        db.create_all(app=app)
-        print('Created Database!')

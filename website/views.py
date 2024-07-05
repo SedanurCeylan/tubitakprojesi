@@ -1,14 +1,19 @@
-from flask import Blueprint, render_template, request, jsonify
+from flask import Blueprint, render_template, request, jsonify, flash
 from flask_login import login_required, current_user
-from .models import Note
+from .models import BeignDataset, GeneratedDataDataset, MaliciousDataset
 from . import db
-import json
-import pandas as pd
 import random
+import pandas as pd
+import json
+import mysql.connector
+
+
 
 views = Blueprint('views', __name__)
 
+
 @views.route('/')
+
 @views.route('/home', methods=['GET', 'POST'])
 @login_required
 def home():
@@ -24,55 +29,19 @@ def home():
 
     return render_template("home.html", user=current_user)
 
-@views.route('/delete-note', methods=['POST'])
-def delete_note():
-    note = json.loads(request.data)
-    noteId = note['noteId']
-    note = Note.query.get(noteId)
-    if note:
-        if note.user_id == current_user.id:
-            db.session.delete(note)
-            db.session.commit()
-    return jsonify({})
-
-@views.route('/start-test')
-def start_test():
-    return render_template('test_page.html')
-
 @views.context_processor
 def inject_user():
     return {'user': current_user}
 
-# CSV dosyalarını yükle
-df_malicious = pd.read_csv(r"C:\Users\sdnrc\Desktop\csvler\zararli.csv", delimiter=';')
-df_benign = pd.read_csv(r"C:\Users\sdnrc\Desktop\csvler\zararsiz.csv", delimiter=';')
+@views.route('/data')
+def data_display():
+    datasets = MaliciousDataset.query.all()  # Veritabanından verileri çekerken hangi tabloyu kullanacağını belirtiyoruz
 
-@views.route('/malicious')
-def malicious():
-    sample_data = df_malicious.sample(20)
-    title = "Zararlı Verilerin Detayları"
-    return render_template('data_display.html', data=sample_data.to_html(classes='data-table', index=False, escape=False), title=title)
+    random_data1 = random.choice(datasets)
+    random_data2 = random.choice(datasets)
+    random_data3 = random.choice(datasets)
 
-@views.route('/benign')
-def benign():
-    sample_data = df_benign.sample(20)
-    title = "Zararsız Verilerin Detayları"
-    return render_template('data_display.html', data=sample_data.to_html(classes='data-table', index=False, escape=False), title=title)
-
-@views.route('/next-page')
-def next_page():
-    sample_malicious = df_malicious.sample(10).to_dict(orient='records')
-    sample_benign = df_benign.sample(10).to_dict(orient='records')
-
-    for row in sample_malicious:
-        row['source'] = 'malicious'
-    for row in sample_benign:
-        row['source'] = 'benign'
-    
-    mixed_samples = sample_malicious + sample_benign
-    random.shuffle(mixed_samples)
-
-    return render_template('next_page.html', data=mixed_samples)
+    return render_template('data_display.html', random_data1=random_data1, random_data2=random_data2, random_data3=random_data3)
 
 @views.route('/submit-analysis', methods=['POST'])
 def submit_analysis():
@@ -87,6 +56,37 @@ def submit_analysis():
 
     return jsonify({'accuracy': accuracy})
 
+@views.route('/start-test')
+def start_test():
+    return render_template('test_page.html')
+
+@views.route('/malicious')
+def malicious():
+    malicious_data = MaliciousDataset.query.all()
+    sample_data = random.sample(malicious_data, min(20, len(malicious_data)))
+    title = "Zararlı Verilerin Detayları"
+    return render_template('data_display.html', data=sample_data, title=title)
+
+@views.route('/benign')
+def benign():
+    benign_data = BeignDataset.query.all()
+    sample_data = random.sample(benign_data, min(20, len(benign_data)))
+    title = "Zararsız Verilerin Detayları"
+    return render_template('data_display.html', data=sample_data, title=title)
+
+@views.route('/next-page')
+def next_page():
+    malicious_data = MaliciousDataset.query.all()
+    benign_data = BeignDataset.query.all()
+
+    sample_malicious = random.sample(malicious_data, min(10, len(malicious_data)))
+    sample_benign = random.sample(benign_data, min(10, len(benign_data)))
+
+    mixed_samples = sample_malicious + sample_benign
+    random.shuffle(mixed_samples)
+
+    return render_template('next_page.html', data=mixed_samples)
+
 @views.route('/final-step')
 def final_step():
     return render_template('final_step.html')
@@ -99,7 +99,6 @@ def quiz():
 @views.route('/hakkimda')
 def hakkimda():
     return render_template('hakkimda.html')
-
 
 @views.route('/senaryo1')
 @login_required
@@ -125,3 +124,4 @@ def senaryo4():
 @login_required
 def senaryo5():
     return render_template('senaryo5.html')
+

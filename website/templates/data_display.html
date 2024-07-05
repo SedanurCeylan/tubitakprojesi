@@ -1,27 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
-</head>
-<body>
-    <h1 align="center">{{ title }}</h1>
-    <div align="center">
-        {{ data|safe }}
-    </div>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<h1 align="center">{{ title }}</h1>
+<table align="center" border="1">
+    <tr>
+        <th>ID</th>
+        <th>Orig_H</th>
+        <th>Resp_H</th>
+        <th>Resp_P</th>
+        <th>Proto</th>
+        <th>Duration</th>
+        <th>Orig_Bytes</th>
+        <th>Resp_Bytes</th>
+        <th>History</th>
+        <th>Orig_Pkts</th>
+        <th>Orig_IP_Bytes</th>
+        <th>Resp_Pkts</th>
+        <th>Malware Status</th>
+    </tr>
+    {% for item in data %}
+    <tr>
+        <td>{{ item.id }}</td>
+        <td>{{ item.id_orig_h }}</td>
+        <td>{{ item.id_resp_h }}</td>
+        <td>{{ item.id_resp_p }}</td>
+        <td>{{ item.proto }}</td>
+        <td>{{ item.duration }}</td>
+        <td>{{ item.orig_bytes }}</td>
+        <td>{{ item.resp_bytes }}</td>
+        <td>{{ item.history }}</td>
+        <td>{{ item.orig_pkts }}</td>
+        <td>{{ item.orig_ip_bytes }}</td>
+        <td>{{ item.resp_pkts }}</td>
+        <td>{{ item.malware_status }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

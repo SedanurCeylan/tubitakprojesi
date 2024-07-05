@@ -25,6 +25,8 @@
       border-radius: 15px;
       box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.7);
       backdrop-filter: blur(5px);
+      overflow-y: auto;
+      max-height: 60vh; /* Yüksekliği ekran yüksekliğine göre ayarlayın */
     }
 
     h1 {
@@ -78,6 +80,57 @@
     .footer label {
       margin-right: 15px;
     }
+    .list {
+      text-align: justify;
+    }
+    .list2{
+      text-align: justify;
+    }
+    .metin1{
+      text-align: justify;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    table, th, td {
+      border: 1px solid #ecf0f1;
+    }
+
+    th, td {
+      padding: 5px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #3868d0;
+    }
+
+    td {
+      background-color: #2c3e50;
+    }
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #151f35;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #3868d0;
+      border-radius: 10px;
+      border: 3px solid #151f35;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: #4d80ee;
+    }
+  
+
   </style>
 </head>
 <body>
@@ -116,7 +169,42 @@
     </div>
 
     <div id="açiklama1" style="display: none">
-      <p>açıklamawireshark</p>
+      <h1>IoT Cihazlaını izole etmek</h1>
+      <p class="metin1">IoT cihazlarınızı ayrı bir ağda tutmak, güvenliği artırmanın etkili bir yoludur. Bu işlem, ana ağınızdaki diğer cihazların siber saldırılara karşı daha iyi korunmasını sağlar. İşte IoT cihazlarınızı nasıl izole edebileceğinizle ilgili adımlar:
+        <ol class="list">
+          <li>İkinci Bir Router veya Access Point Kullanın:
+            <ul>
+              <li><b>Yeni bir router veya access point edinin:</b> İkinci bir router veya access point ile ayrı bir ağ oluşturabilirsiniz. Bu cihaz, ana routerınıza bağlanarak yeni bir alt ağ (subnet) oluşturacaktır.</li>
+              <li><b>Router veya access point ayarlarını yapılandırın:</b> Yeni cihazınızı ana routerınıza bağlayın ve ağ ayarlarını yapılandırın. Genellikle bu ayarlar cihazın yönetim panelinden yapılır (örneğin, 192.168.1.1 gibi bir IP adresi üzerinden).</li>
+            </ul>
+          </li>
+          <li>Guest Network (Misafir Ağı) Kullanın:
+            <ul>
+              <li><b>Mevcut router ayarlarına erişin:</b> Birçok modern router, misafir ağı (guest network) oluşturma özelliğine sahiptir. Bu ağ, ana ağınızdan izole edilir ve sadece internet erişimi sağlar.</li>
+              <li><b>Guest network oluşturun:</b> Router yönetim paneline gidin ve misafir ağı ayarlarını etkinleştirin. Bu ağı IoT cihazlarınız için kullanabilirsiniz.</li>
+            </ul>
+          </li>
+          <li>VLAN (Virtual Local Area Network) Kullanarak Ağ Segmentasyonu:
+            <ul>
+              <li><b>Router veya switch ayarlarını yapılandırın:</b> VLAN desteği olan bir router veya switch kullanarak ağınızı segmentlere ayırabilirsiniz. Bu işlem, belirli cihazların yalnızca belirli ağ segmentlerinde çalışmasını sağlar.</li>
+              <li><b>VLAN yapılandırması:</b> Router veya switch’in yönetim paneline giderek VLAN ayarlarını yapılandırın. Her VLAN’a belirli bir ID atayın ve IoT cihazlarınızı bu VLAN’a dahil edin.</li>
+            </ul>
+          </li>
+          <li>IoT Cihazlarını Yeni Ağa Bağlayın:
+            <ul>
+              <li><b>Cihaz ayarlarını güncelleyin:</b> IoT cihazlarınızı yeni oluşturduğunuz ağa bağlayın. Bu, cihazların ağ ayarlarından Wi-Fi ağını değiştirerek yapılabilir.</li>
+            </ul>
+          </li>
+
+          <li>Ağ Güvenliğini Sağlama:
+            <ul>
+              <li><b>Güçlü parolalar kullanın:</b> Her iki ağ için de güçlü ve benzersiz parolalar kullanın.</li>
+              <li><b>Düzenli yazılım güncellemeleri:</b> Router ve IoT cihazlarınızın yazılımlarını düzenli olarak güncelleyin.</li>
+              <li><b>Ağ trafiğini izleyin:</b> Wireshark veya benzeri araçlarla ağ trafiğinizi izleyerek olası anormallikleri tespit edin.</li>
+            </ul>
+          </li>
+        </ol>
+      </p>
       <div class="button-container">
         <button onclick="showQuestion('question5', this)">Devam et</button>
       </div>
@@ -171,8 +259,77 @@
     </div>
 
     <div id="açiklama2" style="display: none">
-      <p>açıklama2</p>
-    </div>
+      <h1>Wireshark Kullanımı</h1>
+        <ol class="list2">
+            <li>Wireshark’ı İndirin ve Kurun:
+                <ul>
+                    <li>Wireshark'ı <a href="https://www.wireshark.org/" target="_blank">resmi web sitesinden</a> indirin ve bilgisayarınıza kurun.</li>
+                </ul>
+            </li>
+            <li>Wireshark’ı Açın ve Ağ Arayüzünü Seçin:
+                <ul>
+                    <li>Wireshark’ı başlatın ve "Capture" menüsünden ağ arayüzünüzü (örneğin, "eth0" veya "Wi-Fi") seçin.</li>
+                </ul>
+            </li>
+            <li>Ağ Trafiğini İzlemeye Başlayın:
+                <ul>
+                    <li>"Start" butonuna tıklayarak ağ trafiğini izlemeye başlayın.</li>
+                </ul>
+            </li>
+            <li>İlgili Paketleri Seçin ve İnceleyin:
+                <ul>
+                    <li>Ağ trafiğini izlerken, özellikle IoT cihazınızın IP adresine dikkat edin. Şüpheli görünen paketleri seçin ve detaylarını inceleyin.</li>
+                </ul>
+            </li>
+        </ol>
+
+        <h1>Wireshark Analizinde Dikkat Edilmesi Gerekenler</h1>
+        <ul class="list2">
+            <li><strong>Protokoller:</strong> HTTP, HTTPS, MQTT gibi yaygın IoT protokollerini izleyin. Örneğin, termostatınızın bir HTTP bağlantısı üzerinden veri gönderip göndermediğini kontrol edin.</li>
+            <li><strong>Şüpheli Trafik:</strong> Normal olmayan portlara yapılan bağlantılar, anormal veri miktarları, sık tekrar eden bağlantılar gibi şüpheli aktiviteleri tespit edin.</li>
+            <li><strong>Cihaz IP Adresi:</strong> IoT cihazınızın IP adresini belirleyin ve bu IP adresine yönelik tüm trafiği izleyin. Örneğin, 192.168.1.100 IP adresine sahip termostatınızın trafiğini filtreleyebilirsiniz.</li>
+        </ul>
+        <h2>Örnek Wireshark Filtreleri</h2>
+        <ul class="list2">
+            <li><strong>Belirli bir IP adresini izlemek için:</strong><br>
+            <code>ip.addr == 192.168.1.100</code></li>
+            <br>
+            <li><strong>Belirli bir portu izlemek için:</strong><br>
+            <code>tcp.port == 80</code></li>
+        </ul>
+
+        <h2>Örnek Wireshark Analiz Sonucu</h2>
+        <table>
+            <tr>
+                <th>No.</th>
+                <th>Time</th>
+                <th>Source</th>
+                <th>Destination</th>
+                <th>Protocol</th>
+                <th>Length</th>
+                <th>Info</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>0.000000</td>
+                <td>192.168.1.2</td>
+                <td>192.168.1.1</td>
+                <td>TCP</td>
+                <td>66</td>
+                <td>443 → 59366 [SYN, ACK]</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>0.000034</td>
+                <td>192.168.1.1</td>
+                <td>192.168.1.2</td>
+                <td>TCP</td>
+                <td>66</td>
+                <td>59366 → 443 [ACK]</td>
+            </tr>
+        </table>
+        <p class="list2">Bu paket, cihazınızdan gelen ve şüpheli olarak işaretlenen bir TCP bağlantısını göstermektedir. IoT cihazınıza ait trafik verilerini analiz ederken aşağıdaki veri setinde yer alan örnek paketler üzerinden benzer analizler yapabilirsiniz.</p>
+      </div>
 
     <div id="açiklama3" style="display: none">
       <p>açıklama3</p>
@@ -217,6 +374,9 @@
           buttonElement.style.display = "none";
         }
       }
+      
+
+
     </script>
   </div>
   <div class="footer">
