@@ -3,6 +3,8 @@ from flask_login import login_required, current_user
 from .models import BeignDataset, GeneratedDataDataset, MaliciousDataset
 from . import db
 import random
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy import text
 import pandas as pd
 import json
 import mysql.connector
@@ -106,9 +108,22 @@ def senaryo1():
     return render_template('senaryo1.html')  # Senaryo 1'e özel içerik
 
 @views.route('/senaryo2')
-@login_required
 def senaryo2():
-    return render_template('senaryo2.html')  # Senaryo 2'ye özel içerik
+    # Veritabanı oturumu oluştur
+    Session = sessionmaker(bind=db.engine)
+    session = Session()
+    
+    # Veritabanından rastgele üç satır çek
+    query = text("SELECT * FROM beign_dataset ORDER BY RAND() LIMIT 5")
+    result = session.execute(query)
+    data = result.fetchall()
+    
+    # Verileri konsola yazdır
+    print(data)
+    
+    session.close()
+    
+    return render_template('senaryo2.html', data=data)
 
 @views.route('/senaryo3')
 @login_required
