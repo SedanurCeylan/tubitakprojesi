@@ -1,10 +1,201 @@
 {% extends "base.html" %}
 
 {% block title %}
-Hakkımda
+About
 {% endblock %}
 
 {% block content %}
-<br>
-<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum, sequi. Magnam quia neque nemo sequi quos quidem! Omnis unde magni quas dolorem sint, numquam aliquam impedit magnam aspernatur! Quod, perferendis.</p>
+<style>
+    body {
+        background: rgb(18, 27, 45);
+        /* Background color */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    h1 {
+        margin-top: 20px;
+        color: rgb(56, 104, 208);
+        text-shadow: 0 0 10px rgba(56, 104, 208);
+        text-align: center;
+        font-weight: bold;
+    }
+
+    h3 {
+        margin-top: 20px;
+        color: rgb(56, 104, 208);
+        text-shadow: 0 0 10px rgba(56, 104, 208);
+    }
+
+    .isim {
+        font-weight: bold;
+        
+    }
+
+    .hakkında {
+        color: #fff;
+    }
+
+    .content {
+        padding: 20px;
+        color: rgb(255, 255, 255);
+        text-align: justify;
+    }
+
+    .boxes {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .center-content {
+        text-align: center;
+        width: 80%;
+        max-width: 600px;
+        background-color: rgb(21, 31, 53, 0.8);
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(5px);
+        overflow-y: auto;
+        max-height: 60vh;
+        margin-bottom: 20px;
+        color: #fff;
+    }
+
+    .bottom-boxes {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 1200px;
+    }
+
+    .bottom-box {
+        flex-basis: 30%;
+        margin: 10px;
+        padding: 20px;
+        background-color: rgba(21, 31, 53, 0.8);
+        border-radius: 15px;
+        box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.7);
+        color: #fff;
+        text-align: center;
+    }
+
+    .bottom-box img,
+    .top-box img {
+        width: 30px;
+        height: 30px;
+        margin: 0 5px;
+    }
+
+    .bottom-box a,
+    .top-box a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    footer {
+        color: #fff;
+        text-align: center;
+        padding: 10px 0;
+        margin-top: 20px;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+    }
+</style>
+
+<div class="content">
+    <header>
+        <div class="container">
+            <h1>Development of a Manufacturer AI-Supported Web Platform for IoT Penetration Testing Project</h1>
+        </div>
+    </header>
+    <div class="container">
+        <div class="content">
+            <p><strong>TÜBİTAK–2209-A University Students Research Projects Support Program</strong> within the scope of
+                this project, we aim to develop a unique AI-supported web platform to ensure the security of IoT devices.
+                IoT (Internet of Things) devices stand out in daily life with their ability to collect and process data
+                synchronously. However, the security of these devices is a major concern due to many vulnerabilities and
+                security gaps.</p>
+
+            <h3>Our Project Team</h3>
+            <p>Our project is conducted by the academic advisor from Süleyman Demirel University, <strong>Assoc. Prof. Dr. Utku Köse</strong> and project executives <strong>Zehra Hatipoğlu, Sedanur Ceylan</strong> and <strong>Büşra Yaman</strong>. As a team, we develop innovative and effective solutions to enhance the security of IoT devices.</p>
+
+            <h3>Project Aim and Objectives</h3>
+            <p>The main aim of our project is to develop a web platform using artificial intelligence techniques to create unique malware datasets that can be used for educational purposes and penetration testing of IoT devices. In this context, previously collected datasets are processed using the <strong>Generative Adversarial Networks (GAN)</strong> deep learning technique to create new datasets that are very close to reality. These unique datasets will be available for users to use for educational and penetration testing purposes.</p>
+
+            <h3>Original Value</h3>
+            <p>Our project differentiates itself from other studies with GAN-based approaches developed to detect and solve the security vulnerabilities of IoT devices. The datasets created with GAN models contain real-like but entirely unique malware examples. This way, users will have the opportunity to simulate real attack scenarios and practice.</p>
+
+            <h3>Project Impact</h3>
+            <p>The developed web platform can be used by both individual users and institutions for education and awareness purposes. Through this platform, users will be able to test the security of IoT devices, identify security vulnerabilities, and be prepared against possible attacks.</p>
+            <p>With this project, we aim to make significant contributions to the field of IoT security and create a more secure IoT ecosystem in the future.</p>
+
+            <p>To learn more about our project and follow our work, you can visit our <a href="https://github.com/SedanurCeylan/tubitakprojesi.git">GitHub repository</a>.</p>
+        </div>
+    </div>
+
+    <br>
+    <div class="boxes">
+        <div class="center-content top-box">
+            <h5 class="isim">ASSOC. PROF. DR. UTKU KÖSE</h5>
+            <p>Academic Advisor</p>
+            <a href="mailto:utkukose@gmail.com">utkukose@gmail.com</a>
+            <br><br>
+            <a href="https://www.linkedin.com/in/utku-k%C3%B6se-97b12532/" target="_blank">
+                <img src="{{ url_for('static', filename='images/linkedin.png') }}" alt="LinkedIn">
+            </a>
+            <a href="https://github.com" target="_blank">
+                <img src="{{ url_for('static', filename='images/github.png') }}" alt="GitHub">
+            </a>
+        </div>
+        <div class="bottom-boxes">
+            <div class="bottom-box center-content">
+                <h5 class="isim">Zehra HATİPOĞLU</h5>
+                <p>Executive</p>
+                <a href="mailto:hatipogluuzehra@gmail.com">hatipogluuzehra@gmail.com</a>
+                <br><br>
+                <a href="https://www.linkedin.com/in/zehra-hatipoglu/" target="_blank">
+                    <img src="{{ url_for('static', filename='images/linkedin.png') }}" alt="LinkedIn">
+                </a>
+                <a href="https://github.com/zerahtp" target="_blank">
+                    <img src="{{ url_for('static', filename='images/github.png') }}" alt="GitHub">
+                </a>
+            </div>
+            <div class="bottom-box center-content">
+                <h5 class="isim">Sedanur CEYLAN</h5>
+                <p>Project Partner</p>
+                <a href="mailto:sdnrcyln2@gmail.com">sdnrcyln2@gmail.com</a>
+                <br><br>
+                <a href="https://www.linkedin.com/in/sedanur-ceylan-190702/" target="_blank">
+                    <img src="{{ url_for('static', filename='images/linkedin.png') }}" alt="LinkedIn">
+                </a>
+                <a href="https://github.com/SedanurCeylan" target="_blank">
+                    <img src="{{ url_for('static', filename='images/github.png') }}" alt="GitHub">
+                </a>
+            </div>
+            <div class="bottom-box center-content">
+                <h5 class="isim">Büşra YAMAN</h5>
+                <p>Project Partner</p>
+                <a href="mailto:busrayaman70@gmail.com">busrayaman70@gmail.com</a>
+                <br><br>
+                <a href="https://www.linkedin.com/in/bsryaman1/" target="_blank">
+                    <img src="{{ url_for('static', filename='images/linkedin.png') }}" alt="LinkedIn">
+                </a>
+                <a href="https://github.com/bsryaman1" target="_blank">
+                    <img src="{{ url_for('static', filename='images/github.png') }}" alt="GitHub">
+                </a>
+            </div>
+        </div>
+    </div>
+    <footer>&copy; Prepared for TUBITAK 2209-A </footer>
+</div>
+
+
 {% endblock %}

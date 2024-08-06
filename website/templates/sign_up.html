@@ -56,6 +56,12 @@
             background-color: #c21919;
             border-color: #c21919;
         }
+        .logo{
+            border-radius: 50%;
+        }
+        .sitead{
+            color: #fff;
+        }
     </style>
 </head>
 <body>
@@ -71,11 +77,11 @@
                 <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
                 {% else %}
                 <a class="nav-item nav-link" id="login" href="/login">Login</a>
-                <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
                 {% endif %}
             </div>
-            <a class="navbar-brand ml-auto" href="#">
-                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+            <a class="navbar-brand ml-auto" href="#" data-toggle="modal" data-target="#logoutModal">
+                <span class="sitead">Site Adı</span>
+                <img class="logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" style="cursor: pointer;">
             </a>
         </div>
     </nav>

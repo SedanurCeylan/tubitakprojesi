@@ -7,29 +7,54 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
     <title>{% block title %}Home{% endblock %}</title>
     <style>
-        /* Beyaz navbar için ekstra stiller */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            box-sizing: border-box;
+        }
+        
         .navbar-custom {
             background-color: #3868d0;
             color: black;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
         }
+        
         .navbar-custom .navbar-nav .nav-link {
             color: rgb(255, 255, 255);
         }
+        
         .navbar-custom .navbar-nav .nav-link:hover {
             color: #4d80ee;
         }
+        
         .navbar-custom .navbar-brand img {
-            height: 40px; /* Adjust height as necessary */
+            height: 40px;
         }
+        
         .navbar-custom .navbar-collapse {
             justify-content: space-between;
         }
-        .modal-title{
-            color:#4d80ee ;
+        
+        .modal-title {
+            color: #4d80ee;
         }
         
+        .sitead {
+            color: #fff;
+        }
         
-    
+        .content-container {
+            padding-top: 70px; /* Navbar yüksekliği kadar padding ekleyin */
+        }
+
+        .logo{
+            border-radius: 50%;
+        }
+
     </style>
 </head>
 <body>
@@ -41,42 +66,40 @@
             <div class="navbar-nav">
                 {% if user.is_authenticated %}
                 <a class="nav-item nav-link" id="home" href="/">Home</a>
-                <a class="nav-item nav-link" id="hakkimda" href="/hakkimda">Hakkımda</a>
-                <!-- Mevcut çıkış linki burada kalabilir -->
-                <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+                <a class="nav-item nav-link" id="hakkimda" href="/hakkimda">About Us</a>
                 {% else %}
-                <a class="nav-item nav-link" id="login" href="/login">Login</a>
+                <a class="nav-item nav-link" id="login" href="/login">Log in</a>
                 <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
                 {% endif %}
             </div>
-            <!-- Logo resmine tıklanınca açılacak modal için tetikleyici -->
             <a class="navbar-brand ml-auto" href="#" data-toggle="modal" data-target="#logoutModal">
-                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" style="cursor: pointer;">
+                <span class="sitead">Site Adı</span>
+                <img class="logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" style="cursor: pointer;">
             </a>
         </div>
     </nav>
     
-    <!-- Logout Confirmation Modal -->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="logoutModalLabel">Çıkış Yap</h5>
+                    <h5 class="modal-title" id="logoutModalLabel">Log Out</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal</button>
-                    <a href="/logout" class="btn btn-primary">Çıkış Yap</a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <a href="/logout" class="btn btn-primary">Log Out</a>
                 </div>
             </div>
         </div>
     </div>
     
-    <!-- Geri kalan içerikler ve scriptler -->
-    <div class="container">{% block content %}{% endblock %}</div>
+    <div class="container content-container">
+        {% block content %}{% endblock %}
+    </div>
+    
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

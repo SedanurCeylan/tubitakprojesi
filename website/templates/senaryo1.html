@@ -1,282 +1,482 @@
 <!DOCTYPE html>
 <html lang="tr">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Senaryo 1</title>
-    <style>
-      html,
-      body {
-        height: 100%;
-        margin: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: "Roboto", sans-serif;
-        background: rgb(
-          18,
-          27,
-          45
-        ); /* Arka plan temaya uyacak şekilde değiştirildi */
-        color: #ecf0f1;
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Senaryo 1</title>
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Roboto", sans-serif;
+      background: rgb(18, 27, 45);
+      /* Arka plan temaya uyacak şekilde değiştirildi */
+      color: #ecf0f1;
+      overflow: auto;
+      /* Eklendi: Sayfaya kaydırma çubuğu ekler */
+    }
+
+    #question5 {
+      text-align: justify;
+    }
+    #question6 {
+      text-align: justify;
+    }
+    #hydra{
+      text-align: justify;
+    }
+    #shodan{
+      text-align: justify;
+    }
+
+
+    .baslık {
+      text-align: center;
+    }
+
+    .center-content {
+      text-align: center;
+      width: 80%;
+      max-width: 600px;
+      background-color: #151f35;
+      /* Koyu arka plan */
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      /* Uyumluluk için eklenmiş */
+      overflow: auto;
+      /* Eklendi: İçeriğin taşması durumunda kaydırma çubuğu ekler */
+      max-height: 60vh;
+      /* Eklendi: İçeriğin yüksekliği sınırlanır ve dikey kaydırma çubuğu ekler */
+    }
+
+    h1 {
+      margin: 20px 0;
+      font-size: 28px;
+      color: #ecf0f1;
+      font-weight: bold;
+    }
+
+    p {
+      margin: 20px 0;
+      color: #ecf0f1;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .button-container {
+      margin: 30px 0;
+      text-align: center;
+    }
+
+    button {
+      margin: 10px;
+      padding: 15px 30px;
+      font-size: 16px;
+      border: none;
+      border-radius: 25px;
+      background-color: #3868d0;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background: #4d80ee;
+      /* Hover efekti */
+      transform: scale(1.05);
+    }
+
+    .footer {
+      position: fixed;
+      right: 10px;
+      bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    .footer input[type="checkbox"] {
+      margin-right: 5px;
+    }
+
+    .footer label {
+      margin-right: 15px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    table,
+    th,
+    td {
+      border: 1px solid #ecf0f1;
+    }
+
+    th,
+    td {
+      padding: 5px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #3868d0;
+    }
+
+    td {
+      background-color: #2c3e50;
+    }
+    .table-container {
+      overflow-x: auto;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      /* Eklendi: Kelime kaydırma sağlar */
+      word-wrap: break-word;
+      /* Eklendi: Kelime kaydırma sağlar */
+      max-width: 100%;
+      /* Eklendi: Maksimum genişlik ayarı */
+      overflow: auto;
+      /* Eklendi: İçerik taşarsa kaydırma çubuğu ekler */
+      background-color: #2c3e50;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #151f35;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #3868d0;
+      border-radius: 10px;
+      border: 3px solid #151f35;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: #4d80ee;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="center-content">
+    <div id="question1">
+      <h1>SENARYO 1</h1>
+      <p>
+        Önemli bir uyarı almak üzeresiniz! Buzdolabınızdan şüpheli faaliyetler
+        tespit edildi. Cihazlarınızın güvenliği bizim için büyük önem taşıyor.
+        Bu nedenle, hemen kontrol etmeye hazır mısınız?
+      </p>
+      <div class="button-container">
+        <button onclick="showQuestion('question2')">EVET sorunu çözmeye başlayalım</button>
+        <button onclick="showQuestion('question3')">Hayır, daha sonra</button>
+      </div>
+    </div>
+
+    <div id="question2" style="display: none">
+      <p>Hadi başlayalım!</p>
+      <div class="button-container">
+        <button onclick="showQuestion('question4')">Trafik detaylarını inceleyin</button>
+        <button onclick="showQuestion('postpone')">Çok uzun iş, sonra yaparım</button>
+      </div>
+    </div>
+
+    <div id="question3" style="display: none">
+      <p>
+        Güvenlik sorunlarını göz ardı etmek, ağınızda daha büyük risklere yol
+        açabilir. Sorunları hemen çözmek önemli, daha sonra kontrol etmek
+        istediğine emin misin?
+      </p>
+      <div class="button-container">
+        <button onclick="showQuestion('question4')">Vazgeçtim hemen şimdi yapalım</button>
+        <button onclick="showQuestion('endScenario')">Asla, bu konuda endişelenmiyorum</button>
+      </div>
+    </div>
+
+    <div id="endScenario" style="display: none">
+      <p>
+        Ağ güvenliği ciddiye alınması gereken bir konudur ve ihmal edilmesi,
+        kişisel verilerin kötü niyetli kişilerin eline geçmesine neden
+        olabilir. Yine de yardıma hazırız, ne zaman istersen.
+      </p>
+      <div class="button-container">
+        <button onclick="location.href='http://127.0.0.1:5000/quiz'">Senaryoyu Bitir</button>
+      </div>
+    </div>
+
+    <div id="question4" style="display: none">
+      <p>
+        Buzdolabının son trafiğini analiz edeceğiz. Bunu hangi araç yardımıyla
+        yapabiliriz?
+      </p>
+      <div class="button-container">
+        <button onclick="showQuestion('question5')">nmap</button>
+        <button onclick="showQuestion('question6')">wireshark</button>
+        <button onclick="showQuestion('shodan')">shodan</button>
+        <button onclick="showQuestion('hydra')">hydra</button>
+      </div>
+    </div>
+
+    <div id="question5" style="display: none">
+      <h1 class="baslık">Nmap</h1>
+      <ul>
+        <li><strong>Amacı:</strong> Nmap (Network Mapper), ağ keşfi ve güvenlik denetimi için kullanılan güçlü, açık
+          kaynaklı bir araçtır.</li>
+        <li><strong>Kullanımı:</strong> Hedef ağlara belirli paketler gönderir ve alınan yanıtları analiz ederek ağdaki
+          cihazlar ve açık portlar hakkında bilgi toplar.</li>
+        <li><strong>Uygulamalar:</strong>
+          <ul>
+            <li><strong>Ağ Envanteri:</strong> Bir ağdaki cihazları, IP adreslerini, açık portlarını ve çalıştırdıkları
+              servisleri tespit etmek. Örneğin, bir kurumun ağındaki tüm bilgisayarları ve bu bilgisayarların hangi
+              servisleri sunduğunu listelemek.</li>
+            <li><strong>Güvenlik Tarama:</strong> Ağ üzerindeki potansiyel güvenlik açıklarını belirlemek. Örneğin, bir
+              sistemin açık portlarını tarayarak izinsiz girişlere karşı savunmasız olup olmadığını kontrol etmek.</li>
+            <li><strong>Servis Tanımlama ve Versiyon Bilgisi:</strong> Hangi servislerin çalıştığını ve bu servislerin
+              hangi versiyonlarının yüklü olduğunu belirlemek. Örneğin, bir web sunucusunun Apache mi yoksa Nginx mi
+              kullandığını ve versiyonunu öğrenmek.</li>
+          </ul>
+        </li>
+        <br>
+        <li><strong>Örnek:</strong>
+          <pre>nmap -sP 192.168.1.0/24: Belirli bir ağ altındaki tüm cihazları tarar.</pre>
+          <pre>nmap -p 80,443 192.168.1.1: Belirli bir cihazdaki (192.168.1.1) 80 ve 443 numaralı portların açık olup olmadığını kontrol eder.</pre>
+          <pre>nmap -sV -p 22 192.168.1.1: Belirli bir cihazdaki (192.168.1.1) 22 numaralı portta çalışan servisin versiyon bilgisini almak.</pre>
+        </li>
+      </ul>
+      <h2 class="baslık">Random Database Data</h2>
+      {% if data_generated %}
+      <table>
+        <thead>
+          <tr>
+            <th>id.orig_h</th>
+            <th>id.resp_h</th>
+            <th>id.resp_p</th>
+            <th>proto</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in data_generated %}
+          <tr>
+            <td>{{ row[1] }}</td>
+            <td>{{ row[2] }}</td>
+            <td>{{ row[3] }}</td>
+            <td>{{ row[4] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p>No data found.</p>
+      {% endif %}
+      <div class="button-container">
+        <button onclick="showQuestion('question7')">bu bilgiler bana yeterli devam edelim</button>
+        <button onclick="showQuestion('question4')">başka araçların çıktılarını da incelemek istiyorum</button>
+      </div>
+    </div>
+
+    <div id="question6" style="display: none">
+      <h1 class="baslık">Wireshark</h1>
+      <ul>
+        <li><strong>Amacı:</strong> Wireshark, ağ trafiğini izlemek, analiz etmek ve sorunları gidermek için kullanılan gelişmiş bir ağ protokol analizörüdür.</li>
+        <li><strong>Kullanımı:</strong> Bir ağ arayüzünden geçen tüm paketleri yakalar ve detaylı analizler yaparak ağdaki sorunları tespit etmeye yardımcı olur.</li>
+        <li><strong>Uygulamalar:</strong>
+            <ul>
+                <li><strong>Ağ Sorun Giderme:</strong> Ağ bağlantı sorunlarını, yavaşlıkları veya anormal aktiviteleri belirlemek. Örneğin, bir ağdaki paket kayıplarını veya gecikmeleri analiz etmek ve nedenlerini tespit etmek.</li>
+                <li><strong>Güvenlik Analizi:</strong> Şüpheli ağ trafiğini izlemek ve potansiyel güvenlik ihlallerini tespit etmek. Örneğin, zararlı yazılım etkinliğini veya veri sızmalarını tespit etmek için trafiği analiz etmek.</li>
+                <li><strong>Protokol Doğrulama:</strong> Yeni geliştirilen veya uygulanan protokollerin doğru çalışıp çalışmadığını doğrulamak. Örneğin, bir geliştiricinin kendi yazdığı protokolün doğru paket yapısına sahip olduğunu kontrol etmek.</li>
+            </ul>
+        </li>
+        <li><strong>Örnek:</strong>
+            <ul>
+                <li><strong>Canlı Trafik Yakalama:</strong> Wireshark'ı başlatarak belirli bir ağ arayüzünden canlı trafik yakalama ve analiz etme.</li>
+                <li><strong>Filtreleme:</strong> <code>http</code> veya <code>ip.addr == 192.168.1.1</code> gibi filtreler kullanarak belirli trafik türlerini veya cihazlara ait trafiği izleme.</li>
+                <li><strong>Önceden Kaydedilmiş Trafik Dosyası Analizi:</strong> <code>wireshark -r capturefile.pcap</code>: Önceden kaydedilmiş bir trafik dosyasını (capturefile.pcap) analiz etmek.</li>
+            </ul>
+        </li>
+    </ul>
+    <h2>Random Database Data</h2>
+    <div class="table-container">
+    
+      {% if data_malicious %}
+      <table>
+        <thead>
+          <tr>
+            
+            <th>id.orig_h</th>
+            <th>id.resp_h</th>
+            <th>id.resp_p</th>
+            <th>proto</th>
+            <th>duration</th>
+            <th>orig_bytes</th>
+            <th>resp_bytes</th>
+            <th>history</th>
+            <th>orig_pkts</th>
+            <th>orig_ip_bytes</th>
+            <th>resp_pkts</th>
+            <th>malware_status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in data_malicious %}
+          <tr>
+           
+            <td>{{ row[1] }}</td>
+            <td>{{ row[2] }}</td>
+            <td>{{ row[3] }}</td>
+            <td>{{ row[4] }}</td>
+            <td>{{ row[5] }}</td>
+            <td>{{ row[6] }}</td>
+            <td>{{ row[7] }}</td>
+            <td>{{ row[8] }}</td>
+            <td>{{ row[9] }}</td>
+            <td>{{ row[10] }}</td>
+            <td>{{ row[11] }}</td>
+            <td>{{ row[12] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p>No data_malicious found.</p>
+      {% endif %}
+    </div>  
+    <div class="button-container">
+        <button onclick="showQuestion('moreResearch')">İlgili IP adresini daha fazla araştırırım</button>
+        <button onclick="showQuestion('disconnectFridge')">Buzdolabını ağdan çıkarırım</button>
+      </div>
+    </div>
+
+    <div id="question7" style="display: none">
+      <p>
+        Bu bilgiler sana yeterli değil :) Başka araçları kullanmalıydın. Ne
+        yapmak istersin?
+      </p>
+      <div class="button-container">
+        <button onclick="showQuestion('question4')">hadi inceleyelim</button>
+        <button onclick="location.href='http://127.0.0.1:5000/quiz'">burada bitsin, incelemek istemiyorum</button>
+      </div>
+    </div>
+
+    <div id="shodan" style="display: none">
+      <h1 class="baslık">Shodan</h1>
+      <ul>
+        <li><strong>Amacı:</strong> Shodan, internete bağlı cihazları ve bu cihazların sunduğu servisleri arayan bir arama motorudur.</li>
+        <li><strong>Kullanımı:</strong> Dünya çapındaki internete bağlı cihazları tarar ve bu cihazların IP adresleri, portları, servis bilgileri ve daha fazlasını indeksler.</li>
+        <li><strong>Uygulamalar:</strong>
+            <ul>
+                <li><strong>Siber Güvenlik:</strong> İnternete açık olan ve potansiyel olarak savunmasız cihazları tespit etmek. Örneğin, yanlış yapılandırılmış güvenlik kameralarını veya kontrol sistemlerini bulmak ve bunların güvenliğini artırmak.</li>
+                <li><strong>Ağ Araştırması:</strong> İnternete bağlı cihazların dağılımı ve özellikleri hakkında veri toplamak ve analiz yapmak. Örneğin, belirli bir bölgedeki IoT cihazlarının yaygınlığını ve türlerini araştırmak.</li>
+                <li><strong>Zafiyet Yönetimi:</strong> Kendi ağınızdaki cihazların internete nasıl göründüğünü ve hangi servislerin açık olduğunu kontrol etmek. Örneğin, bir şirketin güvenlik politikalarına uygun olmayan açık portları ve servisleri tespit etmek.</li>
+            </ul>
+        </li>
+        <li><strong>Örnek:</strong>
+            <ul>
+                <li><code>webcamxp:</code> İnternete açık ve webcamxp yazılımını kullanan güvenlik kameralarını aramak.</li>
+                <li><code>port:21 country:TR:</code> Türkiye'deki açık 21 numaralı portu (FTP) kullanan cihazları bulmak.</li>
+                <li><code>shodan host 8.8.8.8:</code> Google'ın DNS sunucusunun (8.8.8.8) ayrıntılı bilgilerini almak.</li>
+            </ul>
+        </li>
+    </ul>
+      <div class="button-container">
+        <button onclick="showQuestion('question4')">Soru 4'e Geri Dön</button>
+        <button onclick="location.href='http://127.0.0.1:5000/quiz'">Senaryolara Geri Dön</button>
+      </div>
+    </div>
+    
+    <div id="hydra" style="display: none">
+      <h1 class="baslık">Hydra</h1>
+      <ul>
+        <li><strong>Amacı:</strong> Hydra, hızlı ve esnek bir parola kırma aracıdır.</li>
+        <li><strong>Kullanımı:</strong> Hydra, çeşitli protokoller üzerinde brute-force saldırıları gerçekleştirerek kullanıcı adı ve parola kombinasyonlarını test eder.</li>
+        <li><strong>Uygulamalar:</strong>
+            <ul>
+                <li><strong>Parola Güvenliği Testi:</strong> Kullanıcıların zayıf parolalarını tespit ederek güvenlik politikalarını güçlendirmek. Örneğin, çalışanların kolay tahmin edilebilecek parolalar kullanıp kullanmadığını test etmek.</li>
+                <li><strong>Yetkisiz Erişim Denetimi:</strong> Yetkisiz erişim elde etmeyi deneyerek sistemlerin güvenlik açıklarını bulmak ve güçlendirmek. Örneğin, bir sunucunun SSH servisine karşı brute-force saldırısı yaparak güçlü parolaların gerekliliğini vurgulamak.</li>
+                <li><strong>Eğitim ve Farkındalık:</strong> Parola kırma tekniklerini ve bu tür saldırılardan korunma yollarını öğretmek amacıyla eğitimlerde kullanmak.</li>
+            </ul>
+        </li>
+        <li><strong>Örnek:</strong>
+            <ul>
+                <li><code>hydra -l admin -P passwords.txt ssh://192.168.1.1:</code> Belirli bir IP adresindeki (192.168.1.1) SSH servisine karşı admin kullanıcı adı ve passwords.txt dosyasındaki parolalarla brute-force saldırısı gerçekleştirir.</li>
+                <li><code>hydra -l admin -P passwords.txt http-post-form "/login.php:user=^USER^&pass=^PASS^:F=incorrect":</code> Belirli bir web formuna (login.php) karşı brute-force saldırısı yapar.</li>
+                <li><code>hydra -l admin -P passwords.txt -t 4 ftp://192.168.1.1:</code> FTP servisine karşı aynı anda 4 bağlantı kullanarak brute-force saldırısı yapar.</li>
+            </ul>
+        </li>
+    </ul>
+      <div class="button-container">
+        <button onclick="showQuestion('question4')">Soru 4'e Geri Dön</button>
+        <button onclick="location.href='http://127.0.0.1:5000/quiz'">Senaryolara Geri Dön</button>
+      </div>
+    </div>
+
+    <div id="postpone" style="display: none">
+      <p>
+        Anlıyorum, şu anda başka önceliklerin olabilir. Ancak unutma, ağ
+        güvenliğini ertelemek, beklenmedik sorunlara yol açabilir. Kişisel
+        bilgilerin korunması ve ağının güvenliği için düzenli kontroller ve
+        güncellemeler önemlidir. Güvenlik tehditlerini erken tespit etmek,
+        daha büyük zararları önlemek için kritik olabilir. Ne zaman hazır
+        hissedersen, buradayız ve yardım etmeye hazırız!
+      </p>
+    </div>
+
+    <div id="moreResearch" style="display: none">
+      <p>IP adresi daha detaylı araştırılıyor...</p>
+    </div>
+
+    <div id="disconnectFridge" style="display: none">
+      <p>Buzdolabı ağdan çıkarıldı.</p>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Load the checkbox state from localStorage
+        const checkbox1 = document.getElementById("checkbox1");
+        checkbox1.checked = localStorage.getItem("checkbox1") === "true";
+      });
+
+      function syncCheckboxes(checkboxId, isChecked) {
+        localStorage.setItem(checkboxId, isChecked);
       }
 
-      .center-content {
-        text-align: center;
-        width: 80%;
-        max-width: 600px;
-        background-color: #151f35; /* Koyu arka plan */
-        padding: 30px;
-        border-radius: 15px;
-        box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.7);
-        backdrop-filter: blur(5px); /* Uyumluluk için eklenmiş */
-      }
-
-      h1 {
-        margin: 20px 0;
-        font-size: 28px;
-        color: #ecf0f1;
-        font-weight: bold;
-      }
-
-      p {
-        margin: 20px 0;
-        color: #ecf0f1;
-        font-size: 18px;
-        line-height: 1.6;
-      }
-
-      .button-container {
-        margin: 30px 0;
-      }
-
-      button {
-        margin: 10px;
-        padding: 15px 30px;
-        font-size: 16px;
-        border: none;
-        border-radius: 25px;
-        background-color: #3868d0;
-        color: white;
-        cursor: pointer;
-        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
-        transition: background 0.3s, transform 0.2s;
-      }
-
-      button:hover {
-        background: #4d80ee; /* Hover efekti */
-        transform: scale(1.05);
-  
-      }
-
-      .footer {
-        position: fixed;
-        right: 10px;
-        bottom: 10px;
-        display: flex;
-        align-items: center;
-      }
-
-      .footer input[type="checkbox"] {
-        margin-right: 5px;
-      }
-
-      .footer label {
-        margin-right: 15px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="center-content">
-      <div id="question1">
-        <h1>SENARYO 1</h1>
-        <p>
-          Önemli bir uyarı almak üzeresiniz! Buzdolabınızdan şüpheli faaliyetler
-          tespit edildi. Cihazlarınızın güvenliği bizim için büyük önem taşıyor.
-          Bu nedenle, hemen kontrol etmeye hazır mısınız?
-        </p>
-        <div class="button-container">
-          <button onclick="showQuestion('question2')">
-            EVET sorunu çözmeye başlayalım
-          </button>
-          <button onclick="showQuestion('question3')">Hayır, daha sonra</button>
-        </div>
-      </div>
-
-      <div id="question2" style="display: none">
-        <p>Hadi başlayalım! Trafik detaylarını inceleyin.</p>
-        <div class="button-container">
-          <button onclick="showQuestion('question4')">
-            Trafik detaylarını inceleyin
-          </button>
-          <button onclick="showQuestion('postpone')">
-            Çok uzun iş, sonra yaparım
-          </button>
-        </div>
-      </div>
-
-      <div id="question3" style="display: none">
-        <p>
-          Güvenlik sorunlarını göz ardı etmek, ağınızda daha büyük risklere yol
-          açabilir. Sorunları hemen çözmek önemli, daha sonra kontrol etmek
-          istediğine emin misin?
-        </p>
-        <div class="button-container">
-          <button onclick="showQuestion('question4')">
-            Vazgeçtim hemen şimdi yapalım
-          </button>
-          <button onclick="showQuestion('endScenario')">
-            Asla, bu konuda endişelenmiyorum
-          </button>
-        </div>
-      </div>
-
-      <div id="endScenario" style="display: none">
-        <p>
-          Ağ güvenliği ciddiye alınması gereken bir konudur ve ihmal edilmesi,
-          kişisel verilerin kötü niyetli kişilerin eline geçmesine neden
-          olabilir. Yine de yardıma hazırız, ne zaman istersen.
-        </p>
-        <div class="button-container">
-          <button onclick="location.href='http://127.0.0.1:5000/quiz'">
-            Senaryoyu Bitir
-          </button>
-        </div>
-      </div>
-
-      <div id="question4" style="display: none">
-        <p>
-          Buzdolabının son trafiğini analiz edeceğiz. Bunu hangi araç yardımıyla
-          yapabiliriz?
-        </p>
-        <div class="button-container">
-          <button onclick="showQuestion('question5')">nmap</button>
-          <button onclick="showQuestion('question6')">wireshark</button>
-          <button onclick="showQuestion('incorrectTool', 'shodan')">
-            shodan
-          </button>
-          <button onclick="showQuestion('incorrectTool', 'hydra')">
-            hydra
-          </button>
-        </div>
-      </div>
-
-      <div id="question5" style="display: none">
-        <p>
-          Bu çıktıya göre devam etmek ister misin yoksa başka araçların
-          çıktılarını da denemek ister misin?
-        </p>
-        <div class="button-container">
-          <button onclick="showQuestion('question7')">
-            bu bilgiler bana yeterli devam edelim
-          </button>
-          <button onclick="showQuestion('question4')">
-            başka araçların çıktılarını da incelemek istiyorum
-          </button>
-        </div>
-      </div>
-
-      <div id="question6" style="display: none">
-        <p>
-          Wireshark ile yapılan tarama sonuçlarına göre, buzdolabının belirli
-          bir IP adresi ile büyük miktarda veri gönderdiğini görüyoruz. Şimdi ne
-          yapacaksın?
-        </p>
-        <div class="button-container">
-          <button onclick="showQuestion('moreResearch')">
-            İlgili IP adresini daha fazla araştırırım
-          </button>
-          <button onclick="showQuestion('disconnectFridge')">
-            Buzdolabını ağdan çıkarırım
-          </button>
-        </div>
-      </div>
-
-      <div id="question7" style="display: none">
-        <p>
-          Bu bilgiler sana yeterli değil :) Başka araçları kullanmalıydın. Ne
-          yapmak istersin?
-        </p>
-        <div class="button-container">
-          <button onclick="showQuestion('question4')">hadi inceleyelim</button>
-          <button onclick="location.href='http://127.0.0.1:5000/quiz'">
-            burada bitsin, incelemek istemiyorum
-          </button>
-        </div>
-      </div>
-
-      <div id="incorrectTool" style="display: none">
-        <p>Bu araç bu senaryo için doğru bir kullanım değil tekrar dene.</p>
-        <div class="button-container">
-          <button onclick="showQuestion('question4')">Soru 4'e Geri Dön</button>
-          <button onclick="location.href='http://127.0.0.1:5000/quiz'">
-            Senaryolara Geri Dön
-          </button>
-        </div>
-      </div>
-
-      <div id="postpone" style="display: none">
-        <p>
-          Anlıyorum, şu anda başka önceliklerin olabilir. Ancak unutma, ağ
-          güvenliğini ertelemek, beklenmedik sorunlara yol açabilir. Kişisel
-          bilgilerin korunması ve ağının güvenliği için düzenli kontroller ve
-          güncellemeler önemlidir. Güvenlik tehditlerini erken tespit etmek,
-          daha büyük zararları önlemek için kritik olabilir. Ne zaman hazır
-          hissedersen, buradayız ve yardım etmeye hazırız!
-        </p>
-      </div>
-
-      <div id="moreResearch" style="display: none">
-        <p>IP adresi daha detaylı araştırılıyor...</p>
-      </div>
-
-      <div id="disconnectFridge" style="display: none">
-        <p>Buzdolabı ağdan çıkarıldı.</p>
-      </div>
-
-      
-
-      <script>
-        document.addEventListener("DOMContentLoaded", function () {
-          // Load the checkbox state from localStorage
-          const checkbox1 = document.getElementById("checkbox1");
-          checkbox1.checked = localStorage.getItem("checkbox1") === "true";
+      function showQuestion(questionId, toolName) {
+        if (toolName) {
+          var incorrectMessage = document
+            .getElementById("incorrectTool")
+            .querySelector("p");
+          incorrectMessage.textContent = `${toolName.toUpperCase()} bu senaryo için doğru bir kullanım değil, tekrar dene.`;
+        }
+        var questions = document.querySelectorAll(
+          'div[id^="question"], div[id^="incorrectTool"], div[id^="postpone"], div[id^="moreResearch"], div[id^="disconnectFridge"]'
+        );
+        questions.forEach(function (question) {
+          question.style.display = "none";
         });
+        document.getElementById(questionId).style.display = "block";
+      }
+    </script>
+  </div>
+  <div class="footer">
+    <input type="checkbox" id="checkbox1" name="completed" onclick="syncCheckboxes('checkbox1', this.checked)" />
+    <label for="completed">Tamamlandı</label>
+    <button onclick="location.href='http://127.0.0.1:5000/quiz'">Senaryolara Dön</button>
+    <button onclick="location.href='http://127.0.0.1:5000/'">Anasayfaya Dön</button>
+  </div>
+</body>
 
-        function syncCheckboxes(checkboxId, isChecked) {
-          localStorage.setItem(checkboxId, isChecked);
-        }
-
-        function showQuestion(questionId, toolName) {
-          if (toolName) {
-            var incorrectMessage = document
-              .getElementById("incorrectTool")
-              .querySelector("p");
-            incorrectMessage.textContent = `${toolName.toUpperCase()} bu senaryo için doğru bir kullanım değil, tekrar dene.`;
-          }
-          var questions = document.querySelectorAll(
-            'div[id^="question"], div[id^="incorrectTool"], div[id^="postpone"], div[id^="moreResearch"], div[id^="disconnectFridge"]'
-          );
-          questions.forEach(function (question) {
-            question.style.display = "none";
-          });
-          document.getElementById(questionId).style.display = "block";
-        }
-      </script>
-    </div>
-    <div class="footer">
-      <input
-        type="checkbox"
-        id="checkbox1"
-        name="completed"
-        onclick="syncCheckboxes('checkbox1', this.checked)"
-      />
-      <label for="completed">Tamamlandı</label>
-      <button onclick="location.href='http://127.0.0.1:5000/quiz'">
-        Senaryolara Dön
-      </button>
-      <button onclick="location.href='http://127.0.0.1:5000/'">
-        Anasayfaya Dön
-      </button>
-    </div>
-  </body>
 </html>

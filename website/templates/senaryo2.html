@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8" />
-  <title>Senaryo 2</title>
+  <title>Scenario 2</title>
   <style>
     html,
     body {
@@ -28,7 +28,6 @@
       backdrop-filter: blur(5px);
       overflow-y: auto;
       max-height: 60vh;
-      /* Yüksekliği ekran yüksekliğine göre ayarlayın */
     }
 
     h1 {
@@ -95,18 +94,17 @@
       text-align: justify;
     }
 
-    .açiklama2 ol li ul li a{
+    .açiklama2 ol li ul li a {
       text-decoration: none;
-      color: #4d80ee; /
+      color: #4d80ee;
     }
 
-    .açiklama2 ol li ul li a:hover{
+    .açiklama2 ol li ul li a:hover {
       text-decoration: none;
-      color: #4d80ee; /
+      color: #4d80ee;
     }
 
-
-    .açiklama3{
+    .açiklama3 {
       text-align: justify;
     }
 
@@ -115,7 +113,7 @@
       border-collapse: collapse;
       margin: 20px 0;
     }
-    
+
     table,
     th,
     td {
@@ -136,26 +134,30 @@
       background-color: #2c3e50;
     }
 
-    .açiklama4{
+    .table-container {
+      overflow-x: auto;
+    }
+
+    .açiklama4 {
       text-align: justify;
     }
-    .açiklama4 ul li ul li{
+
+    .açiklama4 ul li ul li {
       text-align: left;
     }
 
-    .açiklama5{
+    .açiklama5 {
       text-align: justify;
-
     }
-    .açiklama5 a {
-    text-decoration: none;
-    color: #4d80ee; /* İstediğiniz renk kodunu buraya ekleyin */
-  }
 
-  .açiklama5 a:hover {
-    color: #ffffff; /* İstediğiniz hover renk kodunu buraya ekleyin */
-  }
-  
+    .açiklama5 a {
+      text-decoration: none;
+      color: #4d80ee;
+    }
+
+    .açiklama5 a:hover {
+      color: #ffffff;
+    }
 
     ::-webkit-scrollbar {
       width: 12px;
@@ -181,302 +183,273 @@
 <body>
   <div class="center-content">
     <div id="question0">
-      <h1>SENARYO 2</h1>
-      <p>Termostatınızda anormal sıcaklık dalgalanmaları tespit edildi. Bunun nedenini araştıracağız.</p>
+      <h1>SMART THERMOSTAT</h1>
+      <p>Abnormal temperature fluctuations have been detected in your thermostat. We will investigate the cause of this.</p>
       <div class="button-container">
-        <button onclick="showQuestion('question1')">Hadi Başlayalım</button>
+        <button onclick="showQuestion('question1')">Let's Start</button>
       </div>
     </div>
 
     <div id="question1" style="display: none">
-      <p>Ağınıza bağlanan diğer IoT cihazları var mı? IoT cihazlarınızı ayrı bir ağda tutarak ana ağınızdaki diğer
-        cihazlardan izole etmeyi düşündünüz mü?</p>
+      <p>Are there other IoT devices connected to your network? Have you considered isolating your IoT devices on a separate network from your main network?</p>
       <div class="button-container">
-        <button onclick="showQuestion('question2')">Evet, ayrı bir ağda tutuyorum</button>
-        <button onclick="showQuestion('question3')">Evet, ama ayrı bir ağda tutmuyorum</button>
-        <button onclick="showQuestion('question4')">Hayır, başka IoT cihazım yok</button>
+        <button onclick="showQuestion('question2')">Yes, I keep them on a separate network</button>
+        <button onclick="showQuestion('question3')">Yes, but I do not keep them on a separate network</button>
+        <button onclick="showQuestion('question4')">No, I don't have other IoT devices</button>
       </div>
     </div>
 
     <div id="question2" style="display: none">
-      <p>Harika! IoT cihazlarınızı ayrı bir ağda tutarak güvenliği artırmış oluyorsunuz. Yine de ağ trafiğinizi
-        izleyerek güvenliğinizi daha da pekiştirebiliriz. Devam etmek ister misiniz?</p>
+      <p>Great! Keeping your IoT devices on a separate network enhances security. However, we can further improve your security by monitoring your network traffic. Would you like to proceed?</p>
       <div class="button-container">
-        <button onclick="showQuestion('question6')">Evet, başka önerin var mı?</button>
-        <button onclick="showQuestion('question10')">Hayır, şimdilik yeterli</button>
+        <button onclick="showQuestion('question6')">Yes, do you have other suggestions?</button>
+        <button onclick="showQuestion('question10')">No, that's enough for now</button>
       </div>
     </div>
 
     <div id="question3" style="display: none">
-      <p> IoT cihazlarınızı ayrı bir ağda tutmak, güvenliği artırmanın önemli bir yoludur. Bu, ana ağınızdaki
-        cihazlarınızın siber saldırılara karşı daha iyi korunmasını sağlar. IoT cihazlarınızı izole bir ağa taşımak ve
-        güvenliği artırmak için yardım almak ister misiniz?</p>
+      <p>Isolating your IoT devices on a separate network is a significant way to enhance security. This helps protect your main network devices from cyber attacks. Would you like help in isolating your IoT devices?</p>
       <div class="button-container">
-        <button onclick="showQuestion('açiklama1')">Evet, IoT cihazlarımı nasıl izole edebileceğimi gösterin.</button>
-        <button onclick="showQuestion('question10')">Hayır, şimdilik yeterli</button>
+        <button onclick="showQuestion('açiklama1')">Yes, show me how to isolate my IoT devices.</button>
+        <button onclick="showQuestion('question10')">No, that's enough for now</button>
       </div>
     </div>
 
     <div id="açiklama1" style="display: none">
-      <h1>IoT Cihazlaını izole etmek</h1>
-      <p class="metin1">IoT cihazlarınızı ayrı bir ağda tutmak, güvenliği artırmanın etkili bir yoludur. Bu işlem, ana
-        ağınızdaki diğer cihazların siber saldırılara karşı daha iyi korunmasını sağlar. İşte IoT cihazlarınızı nasıl
-        izole edebileceğinizle ilgili adımlar:
+      <h1>Isolating IoT Devices</h1>
+      <p class="metin1">Keeping your IoT devices on a separate network is an effective way to enhance security. This process helps protect other devices on your main network from cyber attacks. Here are the steps on how to isolate your IoT devices:
       <ol class="list">
-        <li>İkinci Bir Router veya Access Point Kullanın:
+        <li>Use a Second Router or Access Point:
           <ul>
-            <li><b>Yeni bir router veya access point edinin:</b> İkinci bir router veya access point ile ayrı bir ağ
-              oluşturabilirsiniz. Bu cihaz, ana routerınıza bağlanarak yeni bir alt ağ (subnet) oluşturacaktır.</li>
-            <li><b>Router veya access point ayarlarını yapılandırın:</b> Yeni cihazınızı ana routerınıza bağlayın ve ağ
-              ayarlarını yapılandırın. Genellikle bu ayarlar cihazın yönetim panelinden yapılır (örneğin, 192.168.1.1
-              gibi bir IP adresi üzerinden).</li>
+            <li><b>Obtain a new router or access point:</b> You can create a separate network with a second router or access point. This device will connect to your main router and create a new subnet.</li>
+            <li><b>Configure the router or access point settings:</b> Connect your new device to your main router and configure the network settings. These settings are usually done through the device's management panel (e.g., via an IP address like 192.168.1.1).</li>
           </ul>
         </li>
-        <li>Guest Network (Misafir Ağı) Kullanın:
+        <li>Use a Guest Network:
           <ul>
-            <li><b>Mevcut router ayarlarına erişin:</b> Birçok modern router, misafir ağı (guest network) oluşturma
-              özelliğine sahiptir. Bu ağ, ana ağınızdan izole edilir ve sadece internet erişimi sağlar.</li>
-            <li><b>Guest network oluşturun:</b> Router yönetim paneline gidin ve misafir ağı ayarlarını etkinleştirin.
-              Bu ağı IoT cihazlarınız için kullanabilirsiniz.</li>
+            <li><b>Access your existing router settings:</b> Many modern routers have a feature to create a guest network. This network is isolated from your main network and only provides internet access.</li>
+            <li><b>Create a guest network:</b> Go to your router's management panel and enable the guest network settings. You can use this network for your IoT devices.</li>
           </ul>
         </li>
-        <li>VLAN (Virtual Local Area Network) Kullanarak Ağ Segmentasyonu:
+        <li>Use VLAN (Virtual Local Area Network) for Network Segmentation:
           <ul>
-            <li><b>Router veya switch ayarlarını yapılandırın:</b> VLAN desteği olan bir router veya switch kullanarak
-              ağınızı segmentlere ayırabilirsiniz. Bu işlem, belirli cihazların yalnızca belirli ağ segmentlerinde
-              çalışmasını sağlar.</li>
-            <li><b>VLAN yapılandırması:</b> Router veya switch’in yönetim paneline giderek VLAN ayarlarını yapılandırın.
-              Her VLAN’a belirli bir ID atayın ve IoT cihazlarınızı bu VLAN’a dahil edin.</li>
+            <li><b>Configure router or switch settings:</b> By using a router or switch with VLAN support, you can segment your network. This process ensures that specific devices only operate in certain network segments.</li>
+            <li><b>VLAN configuration:</b> Go to the router or switch management panel and configure the VLAN settings. Assign a specific ID to each VLAN and include your IoT devices in this VLAN.</li>
           </ul>
         </li>
-        <li>IoT Cihazlarını Yeni Ağa Bağlayın:
+        <li>Connect IoT Devices to the New Network:
           <ul>
-            <li><b>Cihaz ayarlarını güncelleyin:</b> IoT cihazlarınızı yeni oluşturduğunuz ağa bağlayın. Bu, cihazların
-              ağ ayarlarından Wi-Fi ağını değiştirerek yapılabilir.</li>
+            <li><b>Update device settings:</b> Connect your IoT devices to the new network you created. This can be done by changing the Wi-Fi network in the device's network settings.</li>
           </ul>
         </li>
-
-        <li>Ağ Güvenliğini Sağlama:
+        <li>Ensure Network Security:
           <ul>
-            <li><b>Güçlü parolalar kullanın:</b> Her iki ağ için de güçlü ve benzersiz parolalar kullanın.</li>
-            <li><b>Düzenli yazılım güncellemeleri:</b> Router ve IoT cihazlarınızın yazılımlarını düzenli olarak
-              güncelleyin.</li>
-            <li><b>Ağ trafiğini izleyin:</b> Wireshark veya benzeri araçlarla ağ trafiğinizi izleyerek olası
-              anormallikleri tespit edin.</li>
+            <li><b>Use strong passwords:</b> Use strong and unique passwords for both networks.</li>
+            <li><b>Regular software updates:</b> Regularly update the software on your router and IoT devices.</li>
+            <li><b>Monitor network traffic:</b> Use tools like Wireshark to monitor your network traffic and detect any anomalies.</li>
           </ul>
         </li>
       </ol>
       </p>
       <div class="button-container">
-        <button onclick="showQuestion('question5', this)">Devam et</button>
+        <button onclick="showQuestion('question5', this)">Continue</button>
       </div>
     </div>
 
     <div id="question4" style="display: none">
-      <p> Bu durumda, yalnızca termostatınızın güvenliğine odaklanmak yeterli olacaktır. Yine de ağ trafiğinizi
-        izleyerek ve güvenlik önlemlerini kontrol ederek cihazınızın güvenliğini sağlayabiliriz. Devam etmek ister
-        misiniz?</p>
+      <p>In this case, focusing solely on the security of your thermostat will suffice. However, we can ensure your device's security by monitoring your network traffic and checking security measures. Would you like to proceed?</p>
       <div class="button-container">
-        <button onclick="showQuestion('question6')">Evet, başka önerin var mı?</button>
-        <button onclick="showQuestion('question10')">Hayır, şimdilik yeterli</button>
+        <button onclick="showQuestion('question6')">Yes, do you have other suggestions?</button>
+        <button onclick="showQuestion('question10')">No, that's enough for now</button>
       </div>
     </div>
 
     <div id="question5" style="display: none">
-      <p>Bu adımları izleyerek IoT cihazlarınızı ana ağınızdan izole edebilir ve genel ağ güvenliğinizi
-        artırabilirsiniz. Yardıma ihtiyacınız olursa, adım adım rehberlik sağlamaya devam edebiliriz. Devam etmek ister
-        misiniz?</p>
+      <p>By following these steps, you can isolate your IoT devices from your main network and enhance your overall network security. If you need assistance, we can continue to provide step-by-step guidance. Would you like to proceed?</p>
       <div class="button-container">
-        <button onclick="showQuestion('question6')">Evet, başka önerin var mı?</button>
-        <button onclick="showQuestion('question10')">Hayır, şimdilik yeterli</button>
+        <button onclick="showQuestion('question6')">Yes, do you have other suggestions?</button>
+        <button onclick="showQuestion('question10')">No, that's enough for now</button>
       </div>
     </div>
 
     <div id="question6" style="display: none">
-      <p>Termostatınızın yazılımı en son ne zaman güncellendi?</p>
+      <p>When was the last time the software of your thermostat was updated?</p>
       <div class="button-container">
-        <button onclick="showQuestion('question7')">Yakın zamanda güncellendi.</button>
-        <button onclick="showQuestion('question8')">Uzun bir süre önce güncellendi.</button>
+        <button onclick="showQuestion('question7')">Recently updated</button>
+        <button onclick="showQuestion('question8')">Updated a long time ago</button>
       </div>
     </div>
 
     <div id="question7" style="display: none">
-      <p>Harika! Güncel yazılım genellikle cihazınızın güvenliğini artırır. Ancak, yine de ağ trafiğinizi kontrol etmek
-        ve olası sorunları analiz etmek faydalı olacaktır. Devam etmek ister misiniz?</p>
+      <p>Great! Updated software usually enhances the security of your device. However, it would still be beneficial to check your network traffic and analyze any potential issues. Would you like to proceed?</p>
       <div class="button-container">
-        <button onclick="showQuestion('question9')">Evet, ağ trafiğini kontrol edelim</button>
-        <button onclick="showQuestion('question10')">Hayır, şimdilik yeterli.</button>
+        <button onclick="showQuestion('question9')">Yes, let's check the network traffic</button>
+        <button onclick="showQuestion('question10')">No, that's enough for now.</button>
       </div>
     </div>
 
     <div id="question8" style="display: none">
-      <p>Yazılım güncellemeleri genellikle güvenlik açıklarını kapatır ve performansı artırır. Termostatınızın
-        yazılımını güncellemek önemlidir. Yazılımı güncellemeyi ve ardından sorunu tekrar kontrol etmeyi öneririm.
-        Yazılımı güncellemek için yardım almak ister misiniz? yazılımı nasıl güncelleyeceğimi gösterin.</p>
+      <p>Software updates usually close security vulnerabilities and improve performance. It is essential to update the software of your thermostat. I suggest updating the software and then checking the issue again. Would you like help in updating the software? show me how to update the software.</p>
       <div class="button-container">
-        <button onclick="showQuestion('question9')">Evet, ağ trafiğini kontrol edelim</button>
-        <button onclick="showQuestion('question10')">Hayır, şimdilik yeterli.</button>
+        <button onclick="showQuestion('question9')">Yes, let's check the network traffic</button>
+        <button onclick="showQuestion('question10')">No, that's enough for now.</button>
       </div>
     </div>
 
     <div id="question9" style="display: none">
-      <p>Akıllı termostatınızın anormal sıcaklık dalgalanmalarının sebebini anlamak için ağ trafiğini analiz etmeliyiz.
-        Bu, cihazınızın güvenliğini sağlamak ve olası siber saldırılara karşı korunmak için kritik öneme sahiptir.</p>
+      <p>To understand the cause of the abnormal temperature fluctuations in your smart thermostat, we need to analyze the network traffic. This is critical to ensure the security of your device and protect against potential cyber attacks.</p>
       <div class="button-container">
-        <button onclick="showQuestion('açiklama2')">Wireshark ile Analiz Yapın</button>
-        <button onclick="showQuestion('açiklama3')">Trafik Detaylarını Kaydedin ve Analiz Edin</button>
+        <button onclick="showQuestion('açiklama2')">Analyze with Wireshark</button>
+        <button onclick="showQuestion('açiklama3')">Record and Analyze Traffic Details</button>
       </div>
     </div>
 
     <div id="açiklama2" class="açiklama2" style="display: none">
-      <h1>Wireshark Kullanımı</h1>
+      <h1>Using Wireshark</h1>
       <ol class="list2">
-        <li>Wireshark’ı İndirin ve Kurun:
+        <li>Download and Install Wireshark:
           <ul>
-            <li>Wireshark'ı <a href="https://www.wireshark.org/" target="_blank">resmi web sitesinden</a> indirin ve
-              bilgisayarınıza kurun.</li>
+            <li>Download Wireshark from the <a href="https://www.wireshark.org/" target="_blank">official website</a> and install it on your computer.</li>
           </ul>
         </li>
-        <li>Wireshark’ı Açın ve Ağ Arayüzünü Seçin:
+        <li>Open Wireshark and Select the Network Interface:
           <ul>
-            <li>Wireshark’ı başlatın ve "Capture" menüsünden ağ arayüzünüzü (örneğin, "eth0" veya "Wi-Fi") seçin.</li>
+            <li>Start Wireshark and select your network interface (e.g., "eth0" or "Wi-Fi") from the "Capture" menu.</li>
           </ul>
         </li>
-        <li>Ağ Trafiğini İzlemeye Başlayın:
+        <li>Start Monitoring Network Traffic:
           <ul>
-            <li>"Start" butonuna tıklayarak ağ trafiğini izlemeye başlayın.</li>
+            <li>Click the "Start" button to begin monitoring network traffic.</li>
           </ul>
         </li>
-        <li>İlgili Paketleri Seçin ve İnceleyin:
+        <li>Select and Examine Relevant Packets:
           <ul>
-            <li>Ağ trafiğini izlerken, özellikle IoT cihazınızın IP adresine dikkat edin. Şüpheli görünen paketleri
-              seçin ve detaylarını inceleyin.</li>
+            <li>While monitoring network traffic, pay attention to the IP address of your IoT device. Select and examine packets that appear suspicious.</li>
           </ul>
         </li>
       </ol>
 
-      <h1>Wireshark Analizinde Dikkat Edilmesi Gerekenler</h1>
+      <h1>Key Points to Consider in Wireshark Analysis</h1>
       <ul class="list2">
-        <li><strong>Protokoller:</strong> HTTP, HTTPS, MQTT gibi yaygın IoT protokollerini izleyin. Örneğin,
-          termostatınızın bir HTTP bağlantısı üzerinden veri gönderip göndermediğini kontrol edin.</li>
-        <li><strong>Şüpheli Trafik:</strong> Normal olmayan portlara yapılan bağlantılar, anormal veri miktarları, sık
-          tekrar eden bağlantılar gibi şüpheli aktiviteleri tespit edin.</li>
-        <li><strong>Cihaz IP Adresi:</strong> IoT cihazınızın IP adresini belirleyin ve bu IP adresine yönelik tüm
-          trafiği izleyin. Örneğin, 192.168.1.100 IP adresine sahip termostatınızın trafiğini filtreleyebilirsiniz.</li>
+        <li><strong>Protocols:</strong> Monitor common IoT protocols such as HTTP, HTTPS, MQTT. For example, check if your thermostat is sending data over an HTTP connection.</li>
+        <li><strong>Suspicious Traffic:</strong> Detect suspicious activities such as connections to unusual ports, abnormal data volumes, and frequent repeated connections.</li>
+        <li><strong>Device IP Address:</strong> Determine the IP address of your IoT device and monitor all traffic related to this IP address. For example, you can filter the traffic for your thermostat with IP address 192.168.1.100.</li>
       </ul>
-      <h2>Örnek Wireshark Filtreleri</h2>
+      <h2>Example Wireshark Filters</h2>
       <ul class="list2">
-        <li><strong>Belirli bir IP adresini izlemek için:</strong><br>
+        <li><strong>To monitor a specific IP address:</strong><br>
           <code>ip.addr == 192.168.1.100</code>
         </li>
         <br>
-        <li><strong>Belirli bir portu izlemek için:</strong><br>
+        <li><strong>To monitor a specific port:</strong><br>
           <code>tcp.port == 80</code>
         </li>
       </ul>
 
-      <h2>Örnek Wireshark Analiz Sonucu</h2>
-      <table>
-        <tr>
-          <th>No.</th>
-          <th>Time</th>
-          <th>Source</th>
-          <th>Destination</th>
-          <th>Protocol</th>
-          <th>Length</th>
-          <th>Info</th>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>0.000000</td>
-          <td>192.168.1.2</td>
-          <td>192.168.1.1</td>
-          <td>TCP</td>
-          <td>66</td>
-          <td>443 → 59366 [SYN, ACK]</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>0.000034</td>
-          <td>192.168.1.1</td>
-          <td>192.168.1.2</td>
-          <td>TCP</td>
-          <td>66</td>
-          <td>59366 → 443 [ACK]</td>
-        </tr>
-      </table>
-      <p class="list2">Bu paket, cihazınızdan gelen ve şüpheli olarak işaretlenen bir TCP bağlantısını göstermektedir.
-        IoT cihazınıza ait trafik verilerini analiz ederken aşağıdaki veri setinde yer alan örnek paketler üzerinden
-        benzer analizler yapabilirsiniz.</p>
+      <h2>Example Wireshark Analysis Result</h2>
+      <div class="table-container">
+        <table>
+          <tr>
+            <th>No.</th>
+            <th>Time</th>
+            <th>Source</th>
+            <th>Destination</th>
+            <th>Protocol</th>
+            <th>Length</th>
+            <th>Info</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>0.000000</td>
+            <td>192.168.1.2</td>
+            <td>192.168.1.1</td>
+            <td>TCP</td>
+            <td>66</td>
+            <td>443 → 59366 [SYN, ACK]</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>0.000034</td>
+            <td>192.168.1.1</td>
+            <td>192.168.1.2</td>
+            <td>TCP</td>
+            <td>66</td>
+            <td>59366 → 443 [ACK]</td>
+          </tr>
+        </table>
+      </div>
+      <p class="list2">This packet shows a suspicious TCP connection from your device. You can perform similar analyses on the sample packets in the dataset below while analyzing the traffic data of your IoT device.</p>
 
-      <!-- Veritabanından Gelen Veriler -->
-      <h2>Rastgele Veritabanı Verileri</h2>
-      {% if data %}
-          <table>
-              <thead>
-                  <tr>
-                      <th>satır no</th>
-                      <th>id.orig_h</th>
-                      <th>id.resp_h</th>
-                      <th>id.resp_p</th>
-                      <th>proto</th>
-                      <th>duration</th>
-                      <th>orig_bytes</th>
-                      <th>resp_bytes</th>
-                      <th>history</th>
-                      <th>orig_pkts</th>
-                      <th>orig_ip_bytes</th>
-                      <th>resp_pkts</th>
-                      <th>malware_status</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  {% for row in data %}
-                  <tr>
-                      <td>{{ row[0] }}</td>
-                      <td>{{ row[1] }}</td>
-                      <td>{{ row[2] }}</td>
-                      <td>{{ row[3] }}</td>
-                      <td>{{ row[4] }}</td>
-                      <td>{{ row[5] }}</td>
-                      <td>{{ row[6] }}</td>
-                      <td>{{ row[7] }}</td>
-                      <td>{{ row[8] }}</td>
-                      <td>{{ row[9] }}</td>
-                      <td>{{ row[10] }}</td>
-                      <td>{{ row[11] }}</td>
-                      <td>{{ row[12] }}</td>
-                  </tr>
-                  {% endfor %}
-              </tbody>
-          </table>
-      {% else %}
-          <p>Veri bulunamadı.</p>
-      {% endif %}
+      <!-- Database Data -->
+      <h2>Random Database Data</h2>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>id.orig_h</th>
+              <th>id.resp_h</th>
+              <th>id.resp_p</th>
+              <th>proto</th>
+              <th>duration</th>
+              <th>orig_bytes</th>
+              <th>resp_bytes</th>
+              <th>history</th>
+              <th>orig_pkts</th>
+              <th>orig_ip_bytes</th>
+              <th>resp_pkts</th>
+              <th>malware_status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if data %}
+            {% for row in data %}
+            <tr>
+              <td>{{ row[1] }}</td>
+              <td>{{ row[2] }}</td>
+              <td>{{ row[3] }}</td>
+              <td>{{ row[4] }}</td>
+              <td>{{ row[5] }}</td>
+              <td>{{ row[6] }}</td>
+              <td>{{ row[7] }}</td>
+              <td>{{ row[8] }}</td>
+              <td>{{ row[9] }}</td>
+              <td>{{ row[10] }}</td>
+              <td>{{ row[11] }}</td>
+              <td>{{ row[12] }}</td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+              <td colspan="12">No data found.</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <div id="açiklama3" class="açiklama3" style="display: none">
-      <h1>Trafik Kaydı ve Analizi İçin Kullanılabilecek Araçlar:</h1>
+      <h1>Tools for Traffic Recording and Analysis:</h1>
       <ul>
-        <li>NPM (Network Performance Monitor): Ağ performansını izlemek ve analiz etmek için kullanılır. Ağdaki tüm cihazların performansını izleyebilir, anormal davranışları ve güvenlik tehditlerini tespit edebilirsiniz.
+        <li>NPM (Network Performance Monitor): Used to monitor and analyze network performance. You can monitor the performance of all devices on your network, detect abnormal behaviors and security threats.
           <ul>
-            <li>NPM Kullanımı:
+            <li>Using NPM:
               <ol>
-                <li>NPM'i İndirin ve Kurun: SolarWinds gibi popüler NPM araçlarını tercih edebilirsiniz. SolarWinds <a href="https://www.npmjs.com/" target="_blank">npm sitesinden</a> indirilebilir.</li>
-                <li>Ağ Cihazlarını Tanımlayın: NPM aracınızı kullanarak ağınızdaki tüm cihazları tanımlayın ve ağ haritasını oluşturun.</li>
-                <li>Performans İzleme: Cihazlarınızın ağ trafiğini, CPU ve bellek kullanımlarını, gecikme sürelerini ve diğer performans metriklerini izleyin.</li>
-                <li>Uyarılar ve Raporlama: Anormal durumlar için uyarılar ayarlayın ve düzenli raporlar oluşturun. Örneğin, termostatınızın ağ trafiğinde ani bir artış olduğunda bildirim alın.</li>
+                <li>Download and Install NPM: You can choose popular NPM tools like SolarWinds. SolarWinds can be downloaded from the <a href="https://www.npmjs.com/" target="_blank">npm site</a>.</li>
+                <li>Identify Network Devices: Use your NPM tool to identify all devices on your network and create a network map.</li>
+                <li>Performance Monitoring: Monitor the network traffic, CPU and memory usage, latency, and other performance metrics of your devices.</li>
+                <li>Alerts and Reporting: Set up alerts for abnormal conditions and create regular reports. For example, get a notification when there is a sudden increase in network traffic to your thermostat.</li>
               </ol>
             </li>
-            <li>Tcpdump: Ağ trafiğini kaydetmek için kullanılan bir komut satırı aracıdır.
+            <li>Tcpdump: A command-line tool used to record network traffic.
               <ul>
-                <li>Tcpdump Kullanımı:
+                <li>Using Tcpdump:
                   <ol>
-                    <li>Tcpdump’ı İndirin ve Kurun: Tcpdump'ı <a href="https://www.tcpdump.org/" target="_blank">resmi web sitesinden</a> indirin ve bilgisayarınıza kurun.</li>
-                    <li>Trafik Kaydını Başlatın: Komut satırında aşağıdaki komutu kullanarak trafik kaydını başlatın:</li>
-                      <code>sudo tcpdump -i eth0 -w trafik.pcap</code>
-                      <p>Bu komut, ağ arayüzünüzden (eth0) gelen tüm trafiği trafik.pcap dosyasına kaydeder.</p>
-                    <li>Kaydedilen Trafik Dosyasını Analiz Edin: Kaydedilen trafik dosyasını analiz etmek için Wireshark veya benzeri bir aracı kullanabilirsiniz. Wireshark’ı açın, trafik.pcap dosyasını yükleyin ve şüpheli paketleri inceleyin.</li>
+                    <li>Download and Install Tcpdump: Download Tcpdump from the <a href="https://www.tcpdump.org/" target="_blank">official website</a> and install it on your computer.</li>
+                    <li>Start Traffic Recording: Use the following command in the command line to start recording traffic:</li>
+                    <code>sudo tcpdump -i eth0 -w traffic.pcap</code>
+                    <p>This command records all traffic from your network interface (eth0) into a file named traffic.pcap.</p>
+                    <li>Analyze the Recorded Traffic File: Use Wireshark or a similar tool to analyze the recorded traffic file. Open Wireshark, load the traffic.pcap file, and examine the suspicious packets.</li>
                   </ol>
                 </li>
               </ul>
@@ -484,47 +457,46 @@
           </ul>
         </li>
       </ul>
-      <h2>Örnek Tcpdump Komutu ve Analiz:</h2>
-      <code>sudo tcpdump -i eth0 'tcp port 80' -w trafik_http.pcap</code>
-      <p>Bu komut, sadece HTTP trafiğini kaydederek daha spesifik bir analiz yapmanıza olanak tanır.</p>
-      <h2>Kaydedilen Trafik Dosyasının Analizi:</h2>
+      <h2>Example Tcpdump Command and Analysis:</h2>
+      <code>sudo tcpdump -i eth0 'tcp port 80' -w traffic_http.pcap</code>
+      <p>This command records only HTTP traffic, allowing you to perform a more specific analysis.</p>
+      <h2>Analyzing the Recorded Traffic File:</h2>
       <ol>
-        <li>Wireshark ile Açın: Wireshark'ı açın ve trafik.pcap dosyasını yükleyin.</li>
-        <li>Filtreleme: İlgili filtreleri kullanarak belirli trafiği analiz edin. Örneğin, belirli bir IP adresine veya porta yönelik trafiği izleyebilirsiniz.</li>
-        <li>Şüpheli Aktiviteleri Tespit Edin: Kaydedilen trafiği analiz ederken, anormal veri gönderimleri, beklenmeyen bağlantılar ve olağandışı veri transferleri gibi şüpheli aktiviteleri tespit edin.</li>
+        <li>Open with Wireshark: Open Wireshark and load the traffic.pcap file.</li>
+        <li>Filtering: Use the relevant filters to analyze specific traffic. For example, you can monitor traffic to a specific IP address or port.</li>
+        <li>Detect Suspicious Activities: While analyzing the recorded traffic, detect suspicious activities such as abnormal data transmissions, unexpected connections, and unusual data transfers.</li>
       </ol>
     </div>
 
     <div id="question10" style="display: none">
-      <p>Ne zaman kontrol etmek istersiniz?</p>
+      <p>When would you like to check it?</p>
       <div class="button-container">
-        <button onclick="showQuestion('açiklama4')">Şimdi değil, daha sonra.</button>
-        <button onclick="showQuestion('açiklama5')">Asla, bu konuda endişelenmiyorum.</button>
+        <button onclick="showQuestion('açiklama4')">Not now, later.</button>
+        <button onclick="showQuestion('açiklama5')">Never, I'm not worried about this.</button>
       </div>
     </div>
 
     <div id="açiklama4" class="açiklama4" style="display: none">
-      <p>Güvenlik önemlidir, bu nedenle cihazınızı kontrol etmek için uygun bir zaman belirlemelisiniz. Bu işlemi daha sonra yapmanız için hatırlatma ayarları oluşturabilirsiniz.</p>
-      <h4>Hatırlatma Oluşturma:</h4>
+      <p>Security is important, so you should set a convenient time to check your device. You can create reminder settings to perform this task later.</p>
+      <h4>Creating a Reminder:</h4>
       <ul>
-        <li>Cihazınızın güvenliğini kontrol etmek için bir hatırlatma ayarlayın. Örneğin, takviminize bir etkinlik ekleyin veya bir alarm kurun.</li>
-        <li>Önerilen Hatırlatma:
+        <li>Set a reminder to check the security of your device. For example, add an event to your calendar or set an alarm.</li>
+        <li>Suggested Reminder:
           <ul>
-            <li><b>Başlık:</b> Akıllı Termostat Güvenlik Kontrolü</li>
-            <li><b>Tarih ve Saat:</b> [Belirlediğiniz tarih ve saat]</li>
-            <li><b>Not:</b> Termostatınızın ağ trafiğini analiz edin ve şüpheli aktiviteleri kontrol edin.</li>
+            <li><b>Title:</b> Smart Thermostat Security Check</li>
+            <li><b>Date and Time:</b> [Your chosen date and time]</li>
+            <li><b>Note:</b> Analyze the network traffic of your thermostat and check for suspicious activities.</li>
           </ul>
         </li>
-      
       </ul>
     </div>
 
-    <div id="açiklama5"  class="açiklama5" style="display: none">
-      <p>Güvenlik, cihazınız ve kişisel bilgileriniz için kritik öneme sahiptir. Bu nedenle, güvenliği ihmal etmemeniz önemlidir.</p>
-      <h3><b>Bilgilendirme:</b></h3>
-      <p>Güvenlik tehditleri hakkında bilgi edinin ve cihazınızı düzenli olarak kontrol edin. Güvenlik rehberleri ve araçları hakkında daha fazla bilgi almak için aşağıdaki kaynakları ziyaret edebilirsiniz:
+    <div id="açiklama5" class="açiklama5" style="display: none">
+      <p>Security is critical for your device and personal information. Therefore, it is important not to neglect security.</p>
+      <h3><b>Information:</b></h3>
+      <p>Learn about security threats and regularly check your device. You can visit the following resources for more information on security guides and tools:
         <ul>
-          <li><a href="https://www.ncsc.gov.uk/" target="_blank">Ulusal Siber Güvenlik Merkezi (NCSC)</a></li>
+          <li><a href="https://www.ncsc.gov.uk/" target="_blank">National Cyber Security Centre (NCSC)</a></li>
           <li><a href="https://isc.sans.edu/" target="_blank">SANS Internet Storm Center</a></li>
           <li><a href="https://owasp.org/www-project-internet-of-things/" target="_blank">OWASP IoT Project</a></li>
         </ul>
@@ -554,16 +526,13 @@
           buttonElement.style.display = "none";
         }
       }
-
-
-
     </script>
   </div>
   <div class="footer">
     <input type="checkbox" id="checkbox2" name="completed" onclick="syncCheckboxes('checkbox2', this.checked)" />
-    <label for="completed">Tamamlandı</label>
-    <button onclick="location.href='http://127.0.0.1:5000/quiz'">Senaryolara Dön</button>
-    <button onclick="location.href='http://127.0.0.1:5000/'">Anasayfaya Dön</button>
+    <label for="completed">Completed</label>
+    <button onclick="location.href='http://127.0.0.1:5000/quiz'">Back to Scenarios</button>
+    <button onclick="location.href='http://127.0.0.1:5000/'">Home</button>
   </div>
 </body>
 

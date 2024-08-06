@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
   <head>
-    <title>Senaryolar</title>
+    <title>Scenarios</title>
     <style>
       body,
       html {
@@ -10,16 +10,30 @@
         width: 100%;
         height: 100%;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         font-family: "Roboto", sans-serif;
         background: rgb(18, 27, 45);
         color: rgb(236, 240, 241);
-      
       }
-    
+
+      .navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        padding: 10px;
+        background: #151f35;
+        box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.7);
+        text-align: right;
+        font-size: 18px;
+        font-weight: bold;
+        color: #fff;
+        padding-right: 40px;
+      }
 
       .container {
+        margin-top: 60px;
         width: 60%;
         max-width: 800px;
         text-align: center;
@@ -27,7 +41,6 @@
         background-color: #151f35;
         border-radius: 15px;
         box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.7);
-        margin-top: 30px;
         backdrop-filter: blur(5px);
       }
 
@@ -52,11 +65,13 @@
         font-weight: bold;
         text-decoration: none;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
         background: linear-gradient(to right, #3868d0, #000d2b);
-        transition: transform 0.3s, box-shadow 0.3s, background 0.3s; /* background-color yerine background kullanıldı */
+        position: relative;
+        transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
       }
 
       .full-width-button:hover {
@@ -80,14 +95,14 @@
         font-size: 36px;
         margin: 15px 0;
         font-weight: bold;
-        text-shadow: 0 0 10px rgb(236, 240, 241,0.8);
+        text-shadow: 0 0 10px rgb(236, 240, 241, 0.8);
       }
 
       p {
         margin: 15px auto;
         width: 90%;
         color: rgb(56, 104, 208);
-        text-shadow: 0 0 10px rgba(56, 104, 208,0.8);
+        text-shadow: 0 0 10px rgba(56, 104, 208, 0.8);
         font-size: 18px;
         line-height: 1.6;
         font-weight: bold;
@@ -115,77 +130,70 @@
         transform: scale(1.05);
         box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.7);
       }
+
+      .text {
+        text-align: justify;
+      }
+
+      .score {
+        margin-top: 10px;
+        background: #fff;
+        color: #151f35;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+      }
     </style>
   </head>
   <body>
+    <div class="navbar">
+      Total Score: <span id="total-score">0</span>
+    </div>
     <div class="container">
-      <div class="scenario-header">Senaryolar</div>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci
-        perspiciatis, explicabo molestiae dolorem aspernatur minus ab error
-        culpa totam assumenda delectus ea officiis exercitationem cumque
-        quisquam doloremque tempora eius? Quasi.
+      <div class="scenario-header">Scenarios</div>
+      <p class="text">
+        In this section, you will find various cybersecurity scenarios to test the security of your IoT devices. Each scenario aims to offer practical solutions by simulating the security threats you may encounter in real life. These AI-supported scenarios are designed to create awareness and provide training for both individual users and organizations. Each scenario will guide you step by step to prepare you for possible cyber-attacks. Discover the scenarios now and gain the knowledge and skills needed to enhance the security of your IoT devices.
       </p>
       <div class="button-container">
         <div class="scenario">
-          <a href="{{ url_for('views.senaryo1') }}" class="full-width-button"
-            >Senaryo 1</a
-          >
-          <input
-            type="checkbox"
-            id="checkbox1"
-            class="completed-checkbox"
-            onclick="toggleButtonActive(this)"
-          />
+          <a href="{{ url_for('views.senaryo1') }}" class="full-width-button">
+            Scenario 1
+            <div class="score">Point: 50</div>
+          </a>
+          <input type="checkbox" id="checkbox1" class="completed-checkbox" onclick="toggleButtonActive(this)" data-score="50"/>
         </div>
         <div class="scenario">
-          <a href="{{ url_for('views.senaryo2') }}" class="full-width-button"
-            >Senaryo 2</a
-          >
-          <input
-            type="checkbox"
-            id="checkbox2"
-            class="completed-checkbox"
-            onclick="toggleButtonActive(this)"
-          />
+          <a href="{{ url_for('views.senaryo2') }}" class="full-width-button">
+            Scenario 2
+            <div class="score">Point: 60</div>
+          </a>
+          <input type="checkbox" id="checkbox2" class="completed-checkbox" onclick="toggleButtonActive(this)" data-score="60"/>
         </div>
         <div class="scenario">
-          <a href="{{ url_for('views.senaryo3') }}" class="full-width-button"
-            >Senaryo 3</a
-          >
-          <input
-            type="checkbox"
-            id="checkbox3"
-            class="completed-checkbox"
-            onclick="toggleButtonActive(this)"
-          />
+          <a href="{{ url_for('views.senaryo3') }}" class="full-width-button">
+            Scenario 3
+            <div class="score">Point: 30</div>
+          </a>
+          <input type="checkbox" id="checkbox3" class="completed-checkbox" onclick="toggleButtonActive(this)" data-score="30"/>
         </div>
         <div class="scenario">
-          <a href="{{ url_for('views.senaryo4') }}" class="full-width-button"
-            >Senaryo 4</a
-          >
-          <input
-            type="checkbox"
-            id="checkbox4"
-            class="completed-checkbox"
-            onclick="toggleButtonActive(this)"
-          />
+          <a href="{{ url_for('views.senaryo4') }}" class="full-width-button">
+            Scenario 4
+            <div class="score">Point: 40</div>
+          </a>
+          <input type="checkbox" id="checkbox4" class="completed-checkbox" onclick="toggleButtonActive(this)" data-score="40"/>
         </div>
         <div class="scenario">
-          <a href="{{ url_for('views.senaryo5') }}" class="full-width-button"
-            >Senaryo 5</a
-          >
-          <input
-            type="checkbox"
-            id="checkbox5"
-            class="completed-checkbox"
-            onclick="toggleButtonActive(this)"
-          />
+          <a href="{{ url_for('views.senaryo5') }}" class="full-width-button">
+            Scenario 5
+            <div class="score">Point: 60</div>
+          </a>
+          <input type="checkbox" id="checkbox5" class="completed-checkbox" onclick="toggleButtonActive(this)" data-score="60"/>
         </div>
       </div>
     </div>
-    <a href="/" class="homepage-button">Ana Sayfaya Dön</a>
-    
+    <a href="/" class="homepage-button">Return to Homepage</a>
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
@@ -195,25 +203,31 @@
           checkbox.checked = localStorage.getItem("checkbox" + i) === "true";
           toggleButtonActive(checkbox);
         }
+        updateTotalScore();
       });
 
       function toggleButtonActive(checkbox) {
         var button = checkbox.previousElementSibling;
         if (checkbox.checked) {
-          button.style.background = " #151f35"; // Açık yeşil renk tamamlandığında
+          button.style.background = "#151f35"; // Light green color when completed
         } else {
-          button.style.background =
-            "linear-gradient(to right, #3868d0, #000d2b)";
+          button.style.background = "linear-gradient(to right, #3868d0, #000d2b)";
         }
         // Save the checkbox state to localStorage
         localStorage.setItem(checkbox.id, checkbox.checked);
-        syncCheckboxes(checkbox.id, checkbox.checked);
+        updateTotalScore();
       }
 
-      function syncCheckboxes(checkboxId, isChecked) {
-        localStorage.setItem(checkboxId, isChecked);
+      function updateTotalScore() {
+        let totalScore = 0;
+        for (let i = 1; i <= 5; i++) {
+          const checkbox = document.getElementById("checkbox" + i);
+          if (checkbox.checked) {
+            totalScore += parseInt(checkbox.getAttribute("data-score"));
+          }
+        }
+        document.getElementById("total-score").innerText = totalScore;
       }
     </script>
-    
   </body>
 </html>

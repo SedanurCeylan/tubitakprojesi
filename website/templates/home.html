@@ -13,6 +13,11 @@
             font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .main-container {
@@ -20,12 +25,13 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            margin: 0 auto;
+            width: 100%;
             max-width: 90%;
-            background: rgba(0, 0, 0, 0.7); /* Semi-transparent black background for readability */
+            background: rgba(0, 0, 0, 0.8); /* Semi-transparent black background for readability */
             padding: 20px;
-            border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            height: calc(100vh - 40px); /* Adjust height to fit the entire viewport */
+            margin: auto;
         }
 
         .header {
@@ -38,10 +44,12 @@
         .text {
             margin: 20px 0;
             color: #e0e0e0;
+            text-align: justify;
         }
 
         .button-container {
-            margin: 20px 0;
+            margin-top: 0px ;
+            margin-bottom: 15px;
         }
 
         .btn {
@@ -75,59 +83,33 @@
             transform: scale(1.1);
         }
 
-        .contact {
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.1);
-            margin: 40px 0;
-            width: 80%;
-            text-align: left;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-        }
-
-        .contact h2 {
-            margin-bottom: 20px;
-            color: #3868d0;
-            text-shadow: 0 0 10px rgba(56, 104, 208,0.8);
-        }
-        footer{
+        footer {
+            color: #fff;
             text-align: center;
+            padding: 10px 0;
+            width: 100%;
+            margin-top: auto;
         }
     </style>
 
     <div class="main-container">
-        <h1 class="header">Hoş Geldiniz!</h1>
+        <h1 class="header">Welcome!</h1>
         <p class="text">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt quia
-            officia, necessitatibus eligendi ea, dignissimos repudiandae asperiores
-            voluptatem, porro odio nisi deleniti excepturi. Animi sint in illum
-            architecto, eaque minima!
+            This platform offers unique IoT penetration testing scenarios using AI-supported deep learning techniques. These datasets, generated with the GAN (Generative Adversarial Networks) model, are specially prepared for cybersecurity training and testing purposes.
         </p>
 
         <div class="button-container">
-            <a href="{{ url_for('views.start_test') }}" class="btn btn-success">Teste Başla</a>
+            <a href="{{ url_for('views.start_test') }}" class="btn btn-success">Start Test</a>
         </div>
 
         <p class="text">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum nostrum
-            voluptatum porro atque error laborum aliquam? Perferendis itaque
-            consequuntur, voluptate alias illum inventore asperiores dolorem facilis
-            totam, velit impedit quia?
+            Click on the link below to explore various cybersecurity scenarios and test the security of your IoT devices. Our platform is designed to contribute to the education and awareness of users with AI-supported scenarios. Each scenario simulates the security threats you may encounter in real life and offers you practical solutions. Thus, it aims to make your IoT devices more secure and prepare you for possible cyber attacks. With our educational scenarios, both individual users and organizations will have the knowledge and skills necessary to increase network security.
         </p>
 
         <div class="button-container">
-            <a href="{{ url_for('views.quiz') }}" class="btn btn-primary">Senaryolara Git</a>
+            <a href="{{ url_for('views.quiz') }}" class="btn btn-primary">Go to Scenarios</a>
         </div>
-        <br>
-        <br>
-        <br>
-        <div class="contact">
-            <h2>İletişim</h2>
-            <p>Ad: John Doe</p>
-            <p>Email: johndoe@example.com</p>
-            <p>Telefon: 123-456-7890</p>
-        </div>
-    
-    <footer>&copy;TUBITAK 2209-A İÇİN HAZIRLANMIŞTIR </footer>
-</div>
+
+        <footer>&copy; Prepared for TUBITAK 2209-A</footer>
+    </div>
 {% endblock %}
