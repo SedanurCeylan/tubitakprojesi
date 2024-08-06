@@ -1,57 +1,242 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <title>Sonraki Adım</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: rgb(18, 27, 45);
+            color: #c9d1d9;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #58a6ff;
+            text-align: center;
+            font-size: 2.5em;
+            margin-top: 50px;
+        }
+
+        p {
+            font-size: 1.2em;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        button, .next-page-proceed-button, .back-button {
+            background: #151f35;
+            border: none;
+            color: #c9d1d9;
+            padding: 15px 30px;
+            margin: 20px;
+            font-size: 1.1em;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background 0.3s ease, transform 0.3s ease;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        button:hover, .next-page-proceed-button:hover, .back-button:hover {
+            background: #58a6ff;
+            color: #151f35;
+            transform: translateY(-2px);
+        }
+
+        .table-container {
+            width: 80%;
+            margin: 0 auto;
+            overflow-x: auto; /* Yatay kaydırma için */
+            overflow-y: auto; /* Dikey kaydırma için */
+            max-height: 400px; /* İsteğe bağlı: Tablo yüksekliği */
+            border: 2px solid #c9d1d9; /* Tabloya kenarlık ekleyin */
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #c9d1d9;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #ffffff; /* Başlık satırını beyaz yapın */
+            color: #000000; /* Başlık metnini siyah yapın */
+            position: sticky;
+            top: 0; /* Üstte sabitle */
+            z-index: 1; /* Üstte kalmasını sağla */
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .logo {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .analyze-button {
+            background: #58a6ff;
+            color: #151f35;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            cursor: pointer;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background 0.3s ease, transform 0.3s ease;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .analyze-button:hover {
+            background: #151f35;
+            color: #58a6ff;
+            transform: translateY(-2px);
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #151f35;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            border: 3px solid #151f35;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #d4d4d4;
+        }
+
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgb(0,0,0); 
+            background-color: rgba(0,0,0,0.4); 
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+            max-width: 600px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+    </style>
 </head>
 <body>
     <h1>Sonraki Adım</h1>
     <p>Bu sayfada bir sonraki adıma geçiş yapabilirsiniz.</p>
 
-    <!-- Analiz Butonu -->
-    <button class="next-page-button" onclick="analyzeData()">Analiz Yap</button>
+    <!-- Logo -->
+    <img src="static/images/logo.png" alt="Logo" class="logo">
 
     <!-- Veri Tablosu -->
-    <table id="data-table" class="next-page-table">
-        <thead>
-            <tr>
-                <th>Seç</th>
-                <th>id.orig_h</th>
-                <th>id.resp_h</th>
-                <th>duration</th>
-                <th>orig_bytes</th>
-                <th>resp_bytes</th>
-                <th>missed_bytes</th>
-                <th>history</th>
-                <th>orig_pkts</th>
-                <th>orig_ip_bytes</th>
-                <th>resp_pkts</th>
-                <th>resp_ip_bytes</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for row in data %}
-            <tr data-source="{{ row['source'] }}">
-                <td><input type="checkbox" class="select-row"></td>
-                <td>{{ row['id.orig_h'] }}</td>
-                <td>{{ row['id.resp_h'] }}</td>
-                <td>{{ row['duration'] }}</td>
-                <td>{{ row['orig_bytes'] }}</td>
-                <td>{{ row['resp_bytes'] }}</td>
-                <td>{{ row['missed_bytes'] }}</td>
-                <td>{{ row['history'] }}</td>
-                <td>{{ row['orig_pkts'] }}</td>
-                <td>{{ row['orig_ip_bytes'] }}</td>
-                <td>{{ row['resp_pkts'] }}</td>
-                <td>{{ row['resp_ip_bytes'] }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="table-container">
+        <table id="data-table" class="next-page-table">
+            <thead>
+                <tr>
+                    <th>Seç</th>
+                    <th>id.orig_h</th>
+                    <th>id.resp_h</th>
+                    <th>duration</th>
+                    <th>orig_bytes</th>
+                    <th>resp_bytes</th>
+                    <th>missed_bytes</th>
+                    <th>history</th>
+                    <th>orig_pkts</th>
+                    <th>orig_ip_bytes</th>
+                    <th>resp_pkts</th>
+                    <th>resp_ip_bytes</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                <tr data-source="{{ row['source'] }}">
+                    <td><input type="checkbox" class="select-row"></td>
+                    <td>{{ row['id.orig_h'] }}</td>
+                    <td>{{ row['id.resp_h'] }}</td>
+                    <td>{{ row['duration'] }}</td>
+                    <td>{{ row['orig_bytes'] }}</td>
+                    <td>{{ row['resp_bytes'] }}</td>
+                    <td>{{ row['missed_bytes'] }}</td>
+                    <td>{{ row['history'] }}</td>
+                    <td>{{ row['orig_pkts'] }}</td>
+                    <td>{{ row['orig_ip_bytes'] }}</td>
+                    <td>{{ row['resp_pkts'] }}</td>
+                    <td>{{ row['resp_ip_bytes'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-    <!-- İkinci İlerle Butonu -->
-    <div class="next-page-button-container">
+    <!-- Analiz Yap, Geri Dön ve İlerle Butonları -->
+    <div class="button-container">
+        <a href="/test_page" class="back-button">Geri Dön</a>
+        <button class="analyze-button" onclick="analyzeData()">Analiz Yap</button>
         <a href="/final-step" class="next-page-proceed-button">Son Adıma Geç</a>
+    </div>
+
+    <!-- Modal -->
+    <div id="resultModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Analiz Sonuçları</h2>
+            <p id="resultContent">Sonuçlar burada görüntülenecek...</p>
+        </div>
     </div>
 
     <script>
@@ -86,8 +271,23 @@
             })
             .then(response => response.json())
             .then(data => {
-                alert(`Analiz Sonucu: ${data.accuracy}% doğru`);
+                document.getElementById('resultContent').innerText = `Analiz Sonucu: ${data.accuracy}% doğru`;
+                showModal();
             });
+        }
+
+        function showModal() {
+            document.getElementById('resultModal').style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById('resultModal').style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('resultModal')) {
+                closeModal();
+            }
         }
     </script>
 </body>

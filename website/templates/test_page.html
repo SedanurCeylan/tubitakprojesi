@@ -1,20 +1,142 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simülasyon Sayfası</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-{% block title %}Simülasyon Sayfası{% endblock %}
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: rgb(18, 27, 45);
+            color: #c9d1d9;
+            margin: 0;
+            padding: 0;
+        }
 
-{% block content %}
-<h1 align="center">Simülasyon Sayfası</h1>
-<p align="center">Bu sayfa, Yapay Zeka Destekli Ağ Güvenliği Simülasyonudur.</p>
+        h1 {
+            color: #58a6ff;
+            margin-top: 50px;
+            text-align: center;
+            font-size: 2.5em;
+        }
 
-<div align="center">
-    <!-- Zararlı Verileri İnceleme Butonu -->
-    <button onclick="window.location.href='/malicious'">Zararlı Verileri İncele</button>
-    <!-- Zararsız Verileri İnceleme Butonu -->
-    <button onclick="window.location.href='/benign'">Zararsız Verileri İncele</button>
-</div>
-<!-- İlerle Butonu -->
-<div class="button-container">
-    <a href="/next-page" class="proceed-button">İlerle</a>
-</div>
+        p {
+            font-size: 1.2em;
+            margin-bottom: 40px;
+            text-align: center;
+        }
 
-{% endblock %}
+        button {
+            background: #151f35;
+            border: none;
+            color: #c9d1d9;
+            padding: 15px 30px;
+            margin: 20px;
+            font-size: 1.1em;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background 0.3s ease, transform 0.3s ease;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        button:hover {
+            background: #58a6ff;
+            color: #151f35;
+            transform: translateY(-2px);
+        }
+
+        .button-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .proceed-button {
+            background: #58a6ff;
+            color: #151f35;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            cursor: pointer;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background 0.3s ease, transform 0.3s ease;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .home-button {
+            background: #151f35;
+            border: none;
+            color: #c9d1d9;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            cursor: pointer;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background 0.3s ease, transform 0.3s ease;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .proceed-button:hover {
+            background: #151f35;
+            color: #58a6ff;
+            transform: translateY(-2px);
+        }
+
+        .home-button:hover {
+            background: #58a6ff;
+            color: #1d1f21;
+            transform: translateY(-2px);
+        }
+
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 80vh;
+            text-align: center;
+        }
+
+        .logo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .metin {
+            margin: 0 auto;
+            max-width: 900px;
+        }
+    </style>
+</head>
+<body>
+    <img src="static/images/logo.png" alt="Logo" class="logo">
+    <div class="content">
+        <h1>Simülasyon Sayfası</h1>
+        <p class="metin">Bu sayfa, Yapay Zeka Destekli Ağ Güvenliği Simülasyonudur. Burada, zararlı ve zararsız veri setlerini inceleyebilir ve ağ güvenliği hakkında pratik yapabilirsiniz. İlk olarak, zararlı ve zararsız verileri inceleyin. Ardından, size rastgele sunulan 15 veri arasından zararlı veya zararsız olanları seçerek tahminlerinizi yapın. Doğru tahminlerinize göre puan alacaksınız. Bu simülasyon, ağ güvenliği bilgilerinizi ve becerilerinizi geliştirmeyi amaçlar.</p>
+
+        <div>
+            <!-- Zararlı Verileri İnceleme Butonu -->
+            <button onclick="window.location.href='/malicious'">Zararlı Verileri İncele</button>
+            <!-- Zararsız Verileri İnceleme Butonu -->
+            <button onclick="window.location.href='/benign'">Zararsız Verileri İncele</button>
+        </div>
+    </div>
+    <!-- İlerle ve Ana Sayfaya Dön Butonları -->
+    <div class="button-container">
+        <a href="/home" class="home-button">Ana Sayfaya Dön</a>
+        <a href="/next-page" class="proceed-button">İlerle</a>
+    </div>
+</body>
+</html>

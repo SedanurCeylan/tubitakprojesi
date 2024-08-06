@@ -71,3 +71,7 @@ def sign_up():
             flash('Failed to create account.', category='error')
 
     return render_template("sign_up.html")
+
+@auth.route('/test_page')
+def test_page():
+    return render_template('test_page.html')
