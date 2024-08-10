@@ -15,8 +15,12 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(150), unique=True, nullable=False)
     username = db.Column(db.String(150), nullable=False)
     password = db.Column(db.String(150), nullable=False)
+    profile_picture = db.Column(db.String(150), default='default.png')
     date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
     notes = db.relationship('Note')
+    total_score = db.Column(db.Integer, default=0)
+
+
 
 from . import db
 

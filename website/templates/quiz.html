@@ -231,15 +231,35 @@
     }
 
     function updateTotalScore() {
-      let totalScore = 0;
-      for (let i = 1; i <= 5; i++) {
+    let totalScore = 0;
+    for (let i = 1; i <= 5; i++) {
         const checkbox = document.getElementById("checkbox" + i);
         if (checkbox.checked) {
-          totalScore += parseInt(checkbox.getAttribute("data-score"));
+            totalScore += parseInt(checkbox.getAttribute("data-score"));
         }
-      }
-      document.getElementById("total-score").innerText = totalScore;
     }
+    document.getElementById("total-score").innerText = totalScore;
+
+    // Puanı sunucuya gönder
+    sendTotalScoreToServer(totalScore);
+}
+
+function sendTotalScoreToServer(score) {
+    fetch('/update_score', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ total_score: score })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
   </script>
 </body>
 

@@ -7,32 +7,40 @@
   <style>
     html,
     body {
+      background-image: url("{{ url_for('static', filename='images/7.jpg') }}");
+      background-size: cover;
+      /* Makes sure the image covers the entire background */
+      background-repeat: no-repeat;
+      /* Prevents the image from repeating */
+      background-attachment: fixed;
+      /* Ensures the background image stays fixed in place */
+      background-position: center;
+      /* Centers the background image */
       height: 100%;
       margin: 0;
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: "Roboto", sans-serif;
-      background: rgb(18, 27, 45);
-      /* Arka plan temaya uyacak şekilde değiştirildi */
+      background-color: rgb(18, 27, 45);
       color: #ecf0f1;
-      overflow: auto;
-      /* Eklendi: Sayfaya kaydırma çubuğu ekler */
     }
 
     #question5 {
       text-align: justify;
     }
+
     #question6 {
       text-align: justify;
     }
-    #hydra{
-      text-align: justify;
-    }
-    #shodan{
+
+    #hydra {
       text-align: justify;
     }
 
+    #shodan {
+      text-align: justify;
+    }
 
     .baslık {
       text-align: center;
@@ -43,16 +51,12 @@
       width: 80%;
       max-width: 600px;
       background-color: #151f35;
-      /* Koyu arka plan */
       padding: 30px;
       border-radius: 15px;
       box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.7);
       backdrop-filter: blur(5px);
-      /* Uyumluluk için eklenmiş */
       overflow: auto;
-      /* Eklendi: İçeriğin taşması durumunda kaydırma çubuğu ekler */
       max-height: 60vh;
-      /* Eklendi: İçeriğin yüksekliği sınırlanır ve dikey kaydırma çubuğu ekler */
     }
 
     h1 {
@@ -89,7 +93,6 @@
 
     button:hover {
       background: #4d80ee;
-      /* Hover efekti */
       transform: scale(1.05);
     }
 
@@ -134,19 +137,16 @@
     td {
       background-color: #2c3e50;
     }
+
     .table-container {
       overflow-x: auto;
     }
 
     pre {
       white-space: pre-wrap;
-      /* Eklendi: Kelime kaydırma sağlar */
       word-wrap: break-word;
-      /* Eklendi: Kelime kaydırma sağlar */
       max-width: 100%;
-      /* Eklendi: Maksimum genişlik ayarı */
       overflow: auto;
-      /* Eklendi: İçerik taşarsa kaydırma çubuğu ekler */
       background-color: #2c3e50;
       padding: 10px;
       border-radius: 5px;
@@ -169,6 +169,53 @@
 
     ::-webkit-scrollbar-thumb:hover {
       background-color: #4d80ee;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .modal-content {
+      background-color: #151f35;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 400px;
+      color: #ecf0f1;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .modal-content p {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .modal-content .button-container {
+      text-align: center;
+    }
+
+    .feedback-message {
+      margin-top: 20px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .feedback-success {
+      color: #4caf50;
+    }
+
+    .feedback-fail {
+      color: #f44336;
     }
   </style>
 </head>
@@ -292,70 +339,78 @@
     <div id="question6" style="display: none">
       <h1 class="baslık">Wireshark</h1>
       <ul>
-        <li><strong>Amacı:</strong> Wireshark, ağ trafiğini izlemek, analiz etmek ve sorunları gidermek için kullanılan gelişmiş bir ağ protokol analizörüdür.</li>
-        <li><strong>Kullanımı:</strong> Bir ağ arayüzünden geçen tüm paketleri yakalar ve detaylı analizler yaparak ağdaki sorunları tespit etmeye yardımcı olur.</li>
+        <li><strong>Amacı:</strong> Wireshark, ağ trafiğini izlemek, analiz etmek ve sorunları gidermek için kullanılan
+          gelişmiş bir ağ protokol analizörüdür.</li>
+        <li><strong>Kullanımı:</strong> Bir ağ arayüzünden geçen tüm paketleri yakalar ve detaylı analizler yaparak
+          ağdaki sorunları tespit etmeye yardımcı olur.</li>
         <li><strong>Uygulamalar:</strong>
-            <ul>
-                <li><strong>Ağ Sorun Giderme:</strong> Ağ bağlantı sorunlarını, yavaşlıkları veya anormal aktiviteleri belirlemek. Örneğin, bir ağdaki paket kayıplarını veya gecikmeleri analiz etmek ve nedenlerini tespit etmek.</li>
-                <li><strong>Güvenlik Analizi:</strong> Şüpheli ağ trafiğini izlemek ve potansiyel güvenlik ihlallerini tespit etmek. Örneğin, zararlı yazılım etkinliğini veya veri sızmalarını tespit etmek için trafiği analiz etmek.</li>
-                <li><strong>Protokol Doğrulama:</strong> Yeni geliştirilen veya uygulanan protokollerin doğru çalışıp çalışmadığını doğrulamak. Örneğin, bir geliştiricinin kendi yazdığı protokolün doğru paket yapısına sahip olduğunu kontrol etmek.</li>
-            </ul>
+          <ul>
+            <li><strong>Ağ Sorun Giderme:</strong> Ağ bağlantı sorunlarını, yavaşlıkları veya anormal aktiviteleri
+              belirlemek. Örneğin, bir ağdaki paket kayıplarını veya gecikmeleri analiz etmek ve nedenlerini tespit
+              etmek.</li>
+            <li><strong>Güvenlik Analizi:</strong> Şüpheli ağ trafiğini izlemek ve potansiyel güvenlik ihlallerini
+              tespit etmek. Örneğin, zararlı yazılım etkinliğini veya veri sızmalarını tespit etmek için trafiği analiz
+              etmek.</li>
+            <li><strong>Protokol Doğrulama:</strong> Yeni geliştirilen veya uygulanan protokollerin doğru çalışıp
+              çalışmadığını doğrulamak. Örneğin, bir geliştiricinin kendi yazdığı protokolün doğru paket yapısına sahip
+              olduğunu kontrol etmek.</li>
+          </ul>
         </li>
         <li><strong>Örnek:</strong>
-            <ul>
-                <li><strong>Canlı Trafik Yakalama:</strong> Wireshark'ı başlatarak belirli bir ağ arayüzünden canlı trafik yakalama ve analiz etme.</li>
-                <li><strong>Filtreleme:</strong> <code>http</code> veya <code>ip.addr == 192.168.1.1</code> gibi filtreler kullanarak belirli trafik türlerini veya cihazlara ait trafiği izleme.</li>
-                <li><strong>Önceden Kaydedilmiş Trafik Dosyası Analizi:</strong> <code>wireshark -r capturefile.pcap</code>: Önceden kaydedilmiş bir trafik dosyasını (capturefile.pcap) analiz etmek.</li>
-            </ul>
+          <ul>
+            <li><strong>Canlı Trafik Yakalama:</strong> Wireshark'ı başlatarak belirli bir ağ arayüzünden canlı trafik
+              yakalama ve analiz etme.</li>
+            <li><strong>Filtreleme:</strong> <code>http</code> veya <code>ip.addr == 192.168.1.1</code> gibi filtreler
+              kullanarak belirli trafik türlerini veya cihazlara ait trafiği izleme.</li>
+            <li><strong>Önceden Kaydedilmiş Trafik Dosyası Analizi:</strong> <code>wireshark -r capturefile.pcap</code>:
+              Önceden kaydedilmiş bir trafik dosyasını (capturefile.pcap) analiz etmek.</li>
+          </ul>
         </li>
-    </ul>
-    <h2>Random Database Data</h2>
-    <div class="table-container">
-    
-      {% if data_malicious %}
-      <table>
-        <thead>
-          <tr>
-            
-            <th>id.orig_h</th>
-            <th>id.resp_h</th>
-            <th>id.resp_p</th>
-            <th>proto</th>
-            <th>duration</th>
-            <th>orig_bytes</th>
-            <th>resp_bytes</th>
-            <th>history</th>
-            <th>orig_pkts</th>
-            <th>orig_ip_bytes</th>
-            <th>resp_pkts</th>
-            <th>malware_status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for row in data_malicious %}
-          <tr>
-           
-            <td>{{ row[1] }}</td>
-            <td>{{ row[2] }}</td>
-            <td>{{ row[3] }}</td>
-            <td>{{ row[4] }}</td>
-            <td>{{ row[5] }}</td>
-            <td>{{ row[6] }}</td>
-            <td>{{ row[7] }}</td>
-            <td>{{ row[8] }}</td>
-            <td>{{ row[9] }}</td>
-            <td>{{ row[10] }}</td>
-            <td>{{ row[11] }}</td>
-            <td>{{ row[12] }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-      {% else %}
-      <p>No data_malicious found.</p>
-      {% endif %}
-    </div>  
-    <div class="button-container">
+      </ul>
+      <h2>Random Database Data</h2>
+      <div class="table-container">
+        {% if data_malicious %}
+        <table>
+          <thead>
+            <tr>
+              <th>id.orig_h</th>
+              <th>id.resp_h</th>
+              <th>id.resp_p</th>
+              <th>proto</th>
+              <th>duration</th>
+              <th>orig_bytes</th>
+              <th>resp_bytes</th>
+              <th>history</th>
+              <th>orig_pkts</th>
+              <th>orig_ip_bytes</th>
+              <th>resp_pkts</th>
+              <th>malware_status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in data_malicious %}
+            <tr>
+              <td>{{ row[1] }}</td>
+              <td>{{ row[2] }}</td>
+              <td>{{ row[3] }}</td>
+              <td>{{ row[4] }}</td>
+              <td>{{ row[5] }}</td>
+              <td>{{ row[6] }}</td>
+              <td>{{ row[7] }}</td>
+              <td>{{ row[8] }}</td>
+              <td>{{ row[9] }}</td>
+              <td>{{ row[10] }}</td>
+              <td>{{ row[11] }}</td>
+              <td>{{ row[12] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <p>No data_malicious found.</p>
+        {% endif %}
+      </div>
+      <div class="button-container">
         <button onclick="showQuestion('moreResearch')">İlgili IP adresini daha fazla araştırırım</button>
         <button onclick="showQuestion('disconnectFridge')">Buzdolabını ağdan çıkarırım</button>
       </div>
@@ -375,49 +430,70 @@
     <div id="shodan" style="display: none">
       <h1 class="baslık">Shodan</h1>
       <ul>
-        <li><strong>Amacı:</strong> Shodan, internete bağlı cihazları ve bu cihazların sunduğu servisleri arayan bir arama motorudur.</li>
-        <li><strong>Kullanımı:</strong> Dünya çapındaki internete bağlı cihazları tarar ve bu cihazların IP adresleri, portları, servis bilgileri ve daha fazlasını indeksler.</li>
+        <li><strong>Amacı:</strong> Shodan, internete bağlı cihazları ve bu cihazların sunduğu servisleri arayan bir
+          arama motorudur.</li>
+        <li><strong>Kullanımı:</strong> Dünya çapındaki internete bağlı cihazları tarar ve bu cihazların IP adresleri,
+          portları, servis bilgileri ve daha fazlasını indeksler.</li>
         <li><strong>Uygulamalar:</strong>
-            <ul>
-                <li><strong>Siber Güvenlik:</strong> İnternete açık olan ve potansiyel olarak savunmasız cihazları tespit etmek. Örneğin, yanlış yapılandırılmış güvenlik kameralarını veya kontrol sistemlerini bulmak ve bunların güvenliğini artırmak.</li>
-                <li><strong>Ağ Araştırması:</strong> İnternete bağlı cihazların dağılımı ve özellikleri hakkında veri toplamak ve analiz yapmak. Örneğin, belirli bir bölgedeki IoT cihazlarının yaygınlığını ve türlerini araştırmak.</li>
-                <li><strong>Zafiyet Yönetimi:</strong> Kendi ağınızdaki cihazların internete nasıl göründüğünü ve hangi servislerin açık olduğunu kontrol etmek. Örneğin, bir şirketin güvenlik politikalarına uygun olmayan açık portları ve servisleri tespit etmek.</li>
-            </ul>
+          <ul>
+            <li><strong>Siber Güvenlik:</strong> İnternete açık olan ve potansiyel olarak savunmasız cihazları tespit
+              etmek. Örneğin, yanlış yapılandırılmış güvenlik kameralarını veya kontrol sistemlerini bulmak ve bunların
+              güvenliğini artırmak.</li>
+            <li><strong>Ağ Araştırması:</strong> İnternete bağlı cihazların dağılımı ve özellikleri hakkında veri
+              toplamak ve analiz yapmak. Örneğin, belirli bir bölgedeki IoT cihazlarının yaygınlığını ve türlerini
+              araştırmak.</li>
+            <li><strong>Zafiyet Yönetimi:</strong> Kendi ağınızdaki cihazların internete nasıl göründüğünü ve hangi
+              servislerin açık olduğunu kontrol etmek. Örneğin, bir şirketin güvenlik politikalarına uygun olmayan açık
+              portları ve servisleri tespit etmek.</li>
+          </ul>
         </li>
         <li><strong>Örnek:</strong>
-            <ul>
-                <li><code>webcamxp:</code> İnternete açık ve webcamxp yazılımını kullanan güvenlik kameralarını aramak.</li>
-                <li><code>port:21 country:TR:</code> Türkiye'deki açık 21 numaralı portu (FTP) kullanan cihazları bulmak.</li>
-                <li><code>shodan host 8.8.8.8:</code> Google'ın DNS sunucusunun (8.8.8.8) ayrıntılı bilgilerini almak.</li>
-            </ul>
+          <ul>
+            <li><code>webcamxp:</code> İnternete açık ve webcamxp yazılımını kullanan güvenlik kameralarını aramak.
+            </li>
+            <li><code>port:21 country:TR:</code> Türkiye'deki açık 21 numaralı portu (FTP) kullanan cihazları bulmak.
+            </li>
+            <li><code>shodan host 8.8.8.8:</code> Google'ın DNS sunucusunun (8.8.8.8) ayrıntılı bilgilerini almak.</li>
+          </ul>
         </li>
-    </ul>
+      </ul>
       <div class="button-container">
         <button onclick="showQuestion('question4')">Soru 4'e Geri Dön</button>
         <button onclick="location.href='http://127.0.0.1:5000/quiz'">Senaryolara Geri Dön</button>
       </div>
     </div>
-    
+
     <div id="hydra" style="display: none">
       <h1 class="baslık">Hydra</h1>
       <ul>
         <li><strong>Amacı:</strong> Hydra, hızlı ve esnek bir parola kırma aracıdır.</li>
-        <li><strong>Kullanımı:</strong> Hydra, çeşitli protokoller üzerinde brute-force saldırıları gerçekleştirerek kullanıcı adı ve parola kombinasyonlarını test eder.</li>
+        <li><strong>Kullanımı:</strong> Hydra, çeşitli protokoller üzerinde brute-force saldırıları gerçekleştirerek
+          kullanıcı adı ve parola kombinasyonlarını test eder.</li>
         <li><strong>Uygulamalar:</strong>
-            <ul>
-                <li><strong>Parola Güvenliği Testi:</strong> Kullanıcıların zayıf parolalarını tespit ederek güvenlik politikalarını güçlendirmek. Örneğin, çalışanların kolay tahmin edilebilecek parolalar kullanıp kullanmadığını test etmek.</li>
-                <li><strong>Yetkisiz Erişim Denetimi:</strong> Yetkisiz erişim elde etmeyi deneyerek sistemlerin güvenlik açıklarını bulmak ve güçlendirmek. Örneğin, bir sunucunun SSH servisine karşı brute-force saldırısı yaparak güçlü parolaların gerekliliğini vurgulamak.</li>
-                <li><strong>Eğitim ve Farkındalık:</strong> Parola kırma tekniklerini ve bu tür saldırılardan korunma yollarını öğretmek amacıyla eğitimlerde kullanmak.</li>
-            </ul>
+          <ul>
+            <li><strong>Parola Güvenliği Testi:</strong> Kullanıcıların zayıf parolalarını tespit ederek güvenlik
+              politikalarını güçlendirmek. Örneğin, çalışanların kolay tahmin edilebilecek parolalar kullanıp
+              kullanmadığını test etmek.</li>
+            <li><strong>Yetkisiz Erişim Denetimi:</strong> Yetkisiz erişim elde etmeyi deneyerek sistemlerin güvenlik
+              açıklarını bulmak ve güçlendirmek. Örneğin, bir sunucunun SSH servisine karşı brute-force saldırısı
+              yaparak güçlü parolaların gerekliliğini vurgulamak.</li>
+            <li><strong>Eğitim ve Farkındalık:</strong> Parola kırma tekniklerini ve bu tür saldırılardan korunma
+              yollarını öğretmek amacıyla eğitimlerde kullanmak.</li>
+          </ul>
         </li>
         <li><strong>Örnek:</strong>
-            <ul>
-                <li><code>hydra -l admin -P passwords.txt ssh://192.168.1.1:</code> Belirli bir IP adresindeki (192.168.1.1) SSH servisine karşı admin kullanıcı adı ve passwords.txt dosyasındaki parolalarla brute-force saldırısı gerçekleştirir.</li>
-                <li><code>hydra -l admin -P passwords.txt http-post-form "/login.php:user=^USER^&pass=^PASS^:F=incorrect":</code> Belirli bir web formuna (login.php) karşı brute-force saldırısı yapar.</li>
-                <li><code>hydra -l admin -P passwords.txt -t 4 ftp://192.168.1.1:</code> FTP servisine karşı aynı anda 4 bağlantı kullanarak brute-force saldırısı yapar.</li>
-            </ul>
+          <ul>
+            <li><code>hydra -l admin -P passwords.txt ssh://192.168.1.1:</code> Belirli bir IP adresindeki (192.168.1.1)
+              SSH servisine karşı admin kullanıcı adı ve passwords.txt dosyasındaki parolalarla brute-force saldırısı
+              gerçekleştirir.</li>
+            <li><code>hydra -l admin -P passwords.txt http-post-form
+                "/login.php:user=^USER^&pass=^PASS^:F=incorrect":</code> Belirli bir web formuna (login.php) karşı
+              brute-force saldırısı yapar.</li>
+            <li><code>hydra -l admin -P passwords.txt -t 4 ftp://192.168.1.1:</code> FTP servisine karşı aynı anda 4
+              bağlantı kullanarak brute-force saldırısı yapar.</li>
+          </ul>
         </li>
-    </ul>
+      </ul>
       <div class="button-container">
         <button onclick="showQuestion('question4')">Soru 4'e Geri Dön</button>
         <button onclick="location.href='http://127.0.0.1:5000/quiz'">Senaryolara Geri Dön</button>
@@ -452,6 +528,52 @@
 
       function syncCheckboxes(checkboxId, isChecked) {
         localStorage.setItem(checkboxId, isChecked);
+        if (isChecked) {
+          showModal();
+        }
+      }
+
+      function showModal() {
+        var modal = document.getElementById("myModal");
+        modal.style.display = "block";
+      }
+
+      function closeModal() {
+        var modal = document.getElementById("myModal");
+        modal.style.display = "none";
+      }
+
+      function handleLearned() {
+        closeModal();
+        showFeedback("Tebrikler! Öğrendiğiniz için quiz sayfasına yönlendiriliyorsunuz.", "success");
+        setTimeout(function () {
+          location.href = 'http://127.0.0.1:5000/quiz';
+        }, 2000);
+      }
+
+      function handleNotLearned() {
+        closeModal();
+        var checkbox1 = document.getElementById("checkbox1");
+        checkbox1.checked = false;
+        localStorage.setItem("checkbox1", "false");
+        showFeedback("Tekrar deneyin. Quiz sayfasına yönlendiriliyorsunuz.", "fail");
+        setTimeout(function () {
+          location.href = 'http://127.0.0.1:5000/quiz';
+        }, 2000);
+      }
+
+      function showFeedback(message, type) {
+        var feedbackModal = document.getElementById("feedbackModal");
+        var feedbackMessage = document.getElementById("feedbackMessage");
+        feedbackMessage.textContent = message;
+        if (type === "success") {
+          feedbackMessage.classList.add("feedback-success");
+          feedbackMessage.classList.remove("feedback-fail");
+        } else {
+          feedbackMessage.classList.add("feedback-fail");
+          feedbackMessage.classList.remove("feedback-success");
+        }
+        feedbackModal.style.display = "block";
       }
 
       function showQuestion(questionId, toolName) {
@@ -476,6 +598,27 @@
     <label for="completed">Tamamlandı</label>
     <button onclick="location.href='http://127.0.0.1:5000/quiz'">Senaryolara Dön</button>
     <button onclick="location.href='http://127.0.0.1:5000/'">Anasayfaya Dön</button>
+  </div>
+
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <p>Bu senaryonun kazanımları:</p>
+      <ul>
+        <li>Ağ güvenliğinin önemi ve temel ilkeleri.</li>
+        <li>Güvenlik araçlarının kullanımı ve sağladığı veriler.</li>
+        <li>Ağ trafiği analizi ve şüpheli aktivitelerin tespiti.</li>
+      </ul>
+      <div class="button-container">
+        <button onclick="handleLearned()">Öğrendim</button>
+        <button onclick="handleNotLearned()">Öğrenmedim</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="feedbackModal" class="modal">
+    <div class="modal-content">
+      <p id="feedbackMessage" class="feedback-message"></p>
+    </div>
   </div>
 </body>
 

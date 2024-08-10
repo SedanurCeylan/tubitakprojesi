@@ -1,14 +1,18 @@
 from flask import Flask
+from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user
 
 db = SQLAlchemy()
+migrate = Migrate()
 
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'hjshjhdjah_k_jshkjdhjs'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:12345@localhost:3306/tubitak2'
     db.init_app(app)
+    migrate.init_app(app, db) 
+    
 
     from .views import views
     from .auth import auth

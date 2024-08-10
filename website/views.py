@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, jsonify, flash
 from flask_login import login_required, current_user
-from .models import BeignDataset, GeneratedDataDataset, MaliciousDataset
+from .models import BeignDataset, GeneratedDataDataset, MaliciousDataset, User
 from . import db
 import random
 from sqlalchemy.orm import sessionmaker
@@ -8,8 +8,11 @@ from sqlalchemy import text
 import pandas as pd
 import json
 import mysql.connector
-
-
+from flask import redirect, url_for
+from flask import Flask, request, jsonify
+from flask_login import current_user
+from website import db
+from website.models import User
 
 views = Blueprint('views', __name__)
 
@@ -159,4 +162,60 @@ def senaryo4():
 @login_required
 def senaryo5():
     return render_template('senaryo5.html')
+
+@views.route('/profil')
+@login_required
+def profil():
+    users = User.query.order_by(User.total_score.desc()).all()  # Tüm kullanıcıları puana göre sırala
+    return render_template('profil.html', user=current_user, users=users)
+
+@views.route('/edit_profile', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    user = User.query.get(current_user.id)  # Mevcut kullanıcıyı al
+    
+    if request.method == 'POST':
+        new_username = request.form.get('username')
+        new_photo = request.form.get('profile_picture')
+
+        # Kullanıcı adı ve profil fotoğrafını güncelle
+        user.username = new_username
+        user.profile_picture = new_photo
+
+        try:
+            # Veritabanında güncellemeleri kaydet
+            db.session.commit()
+            flash('Profil başarıyla güncellendi!', category='success')
+        except Exception as e:
+            db.session.rollback()  # Hata durumunda değişiklikleri geri al
+            flash('Bir hata oluştu. Lütfen tekrar deneyin.', category='error')
+
+        return redirect(url_for('views.profil'))
+
+    # Fotoğraf seçenekleri
+    photos = ["default.png", "photo1.png", "photo2.png", "photo3.png", "photo4.png", "photo5.png", "photo6.png"]
+
+    return render_template('edit_profile.html', user=user, photos=photos)
+
+
+
+
+app = Flask(__name__)
+
+@views.route('/update_score', methods=['POST'])
+def update_score():
+    if request.method == 'POST':
+        data = request.get_json()
+        total_score = data.get('total_score')
+        
+        # Kullanıcının total_score değerini güncelle
+        user = User.query.get(current_user.id)
+        if user:
+            user.total_score = total_score
+            db.session.commit()
+            return jsonify({"status": "success", "total_score": total_score})
+        else:
+            return jsonify({"status": "error", "message": "User not found"}), 404
+
+
 

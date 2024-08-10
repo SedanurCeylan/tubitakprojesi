@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block title %}Profil Düzenle{% endblock %}
+
+{% block content %}
+
+    <form method="POST" action="{{ url_for('views.edit_profile') }}">
+        <div class="form-group">
+            <label for="username">Kullanıcı Adı</label>
+            <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="profile_picture">Profil Fotoğrafı</label>
+            <div class="d-flex flex-wrap">
+                {% for photo in photos %}
+                <div class="photo-option text-center m-2">
+                    <input type="radio" id="{{ photo }}" name="profile_picture" value="{{ photo }}" 
+                           {% if user.profile_picture == photo %}checked{% endif %}>
+                    <label for="{{ photo }}">
+                        <img src="{{ url_for('static', filename='profil/' + photo) }}" class="img-thumbnail" alt="Profile Picture">
+                    </label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-4">Kaydet ve Çık</button>
+    </form>
+
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            margin: 0;
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            height: 100vh; /* Full viewport height */
+        }
+    
+        .container {
+            max-width: 900px;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            margin: 0 auto; /* Center horizontally */
+            text-align: center;
+        }
+    
+        .form-group label {
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 10px;
+            display: inline-block;
+            font-size: 1.1rem;
+        }
+    
+        .form-control {
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+            padding: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+    
+        .form-control:focus {
+            border-color: #80bdff;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.25);
+        }
+    
+        .photo-option {
+            width: 100px;
+            margin: 0 15px 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+    
+        .photo-option img {
+            width: 100%;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+    
+        .photo-option input[type="radio"]:checked + label img {
+            border: 4px solid #007bff;
+            transform: scale(1.15);
+            box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
+        }
+    
+        .photo-option:hover img {
+            transform: scale(1.08);
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+        }
+    
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            border-radius: 8px;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            display: block;
+            margin: 20px auto 0;
+            text-align: center;
+        }
+    
+        .btn-primary:hover {
+            background-color: #0056b3;
+            box-shadow: 0 0 15px rgba(0, 123, 255, 0.3);
+        }
+    
+        .mt-5 {
+            margin-top: 3rem !important;
+        }
+    
+        .mt-4 {
+            margin-top: 1.5rem !important;
+        }
+    
+        /* Fotoğraf seçeneklerinin tek satıra sığması için yeni stil */
+        .d-flex.flex-wrap {
+            justify-content: center; /* Center the profile pictures horizontally */
+            flex-wrap: nowrap; /* Prevent line wrapping */
+        }
+    </style>
+    
+{% endblock %}

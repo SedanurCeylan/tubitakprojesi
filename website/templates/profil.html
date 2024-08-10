@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+
+{% block title %}Profil{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f0f4f8;
+        color: #333;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 50px auto auto auto;
+        padding: 20px;
+    }
+
+    .profile-container {
+        display: flex;
+        align-items: center;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+       
+    }
+
+    .profile-picture {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 4px solid #007bff;
+    }
+
+    .profile-details {
+        margin-left: 20px;
+    }
+
+    .username {
+        font-size: 32px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #007bff;
+    }
+
+    .email {
+        font-size: 18px;
+        color: #555;
+        margin-bottom: 20px;
+    }
+
+    .edit-profile-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .edit-profile-btn:hover {
+        background-color: #0056b3;
+        text-decoration: none;
+        color: #fff;
+        
+    }
+
+    .other-users-title {
+        font-size: 28px;
+        margin-top: 40px;
+        margin-bottom: 20px;
+        color: #333;
+        border-bottom: 2px solid #007bff;
+        display: inline-block;
+        padding-bottom: 5px;
+    }
+
+    .user-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: #fff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .user-table th, .user-table td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+    }
+
+    .user-table th {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    .user-thumbnail {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid #007bff;
+    }
+
+    .user-name {
+        font-size: 18px;
+        font-weight: 600;
+        color: #007bff;
+    }
+
+    .user-score {
+        font-size: 16px;
+        color: #333;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .profile-container {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .profile-details {
+            margin-left: 0;
+            margin-top: 20px;
+        }
+
+        .user-table th, .user-table td {
+            padding: 10px;
+        }
+    }
+
+</style>
+
+<div class="container">
+    <div class="profile-container">
+        <img src="{{ url_for('static', filename='profil/' + (user.profile_picture if user.profile_picture else 'default.png')) }}" class="profile-picture" alt="Profil Fotoğrafı">
+        <div class="profile-details">
+            <h2 class="username">{{ user.username }}</h2>
+            <p class="email">{{ user.email }}</p>
+            <a href="{{ url_for('views.edit_profile') }}" class="edit-profile-btn">Profili Düzenle</a>
+        </div>
+    </div>
+
+    <h3 class="other-users-title">Diğer Kullanıcılar</h3>
+    <table class="user-table">
+        <thead>
+            <tr>
+                <th class="ranking-column">rank</th>
+                <th>Profil Fotoğrafı</th>
+                <th>Kullanıcı Adı</th>
+                <th>Toplam Puan</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in users %}
+            <tr>
+                <td class="ranking-column">{{ loop.index }}</td>
+                <td><img src="{{ url_for('static', filename='profil/' + u.profile_picture) }}" class="user-thumbnail" alt="Profil Fotoğrafı"></td>
+                <td class="user-name">{{ u.username }}</td>
+                <td class="user-score">{{ u.total_score }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
