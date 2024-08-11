@@ -4,29 +4,39 @@
 
 {% block content %}
 
-    <form method="POST" action="{{ url_for('views.edit_profile') }}">
-        <div class="form-group">
-            <label for="username">Kullanıcı Adı</label>
-            <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}" required>
-        </div>
-        
-        <div class="form-group">
-            <label for="profile_picture">Profil Fotoğrafı</label>
-            <div class="d-flex flex-wrap">
-                {% for photo in photos %}
-                <div class="photo-option text-center m-2">
-                    <input type="radio" id="{{ photo }}" name="profile_picture" value="{{ photo }}" 
-                           {% if user.profile_picture == photo %}checked{% endif %}>
-                    <label for="{{ photo }}">
-                        <img src="{{ url_for('static', filename='profil/' + photo) }}" class="img-thumbnail" alt="Profile Picture">
-                    </label>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
+<form method="POST" action="{{ url_for('views.edit_profile') }}">
+    <div class="form-group">
+        <label for="username">Kullanıcı Adı</label>
+        <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}" required>
+        {% if errors and errors.get('username') %}
+        <small class="form-text text-danger">{{ errors.get('username') }}</small>
+        {% else %}
+        <small class="form-text text-danger"></small>
+        {% endif %}
+    </div>
 
-        <button type="submit" class="btn btn-primary mt-4">Kaydet ve Çık</button>
-    </form>
+    <div class="form-group">
+        <label for="profile_picture">Profil Fotoğrafı</label>
+        <div class="d-flex flex-wrap">
+            {% for photo in photos %}
+            <div class="photo-option text-center m-2">
+                <input type="radio" id="{{ photo }}" name="profile_picture" value="{{ photo }}" 
+                       {% if user.profile_picture == photo %}checked{% endif %}>
+                <label for="{{ photo }}">
+                    <img src="{{ url_for('static', filename='profil/' + photo) }}" class="img-thumbnail" alt="Profile Picture">
+                </label>
+                {% if errors and errors.get('profile_picture') %}
+                <small class="form-text text-danger">{{ errors.get('profile_picture') }}</small>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-4">Kaydet ve Çık</button>
+</form>
+
+
 
 
     <style>
@@ -129,6 +139,33 @@
             justify-content: center; /* Center the profile pictures horizontally */
             flex-wrap: nowrap; /* Prevent line wrapping */
         }
+        .text-danger {
+            color: #e74c3c;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
     </style>
     
+    <script>
+        document.getElementById('username').addEventListener('input', function(e) {
+            var invalidChars = /[^a-zA-Z0-9ğüşıçö.]/g;
+            var usernameErrorElement = document.querySelector('#username + .form-text');
+        
+            // Eğer usernameErrorElement yoksa oluştur
+            if (!usernameErrorElement) {
+                usernameErrorElement = document.createElement('small');
+                usernameErrorElement.classList.add('form-text', 'text-danger');
+                e.target.parentNode.appendChild(usernameErrorElement);
+            }
+        
+            // Hatalı karakter varsa uyarı mesajı göster
+            if (invalidChars.test(e.target.value)) {
+                usernameErrorElement.textContent = 'Kullanıcı adı yalnızca harf, rakam, noktalı harfler ve "." içerebilir.';
+                e.target.value = e.target.value.replace(invalidChars, '');
+            } else {
+                usernameErrorElement.textContent = '';  // Hatalı karakter yoksa uyarı mesajını temizle
+            }
+        });
+        </script>
+        
 {% endblock %}

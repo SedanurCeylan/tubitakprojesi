@@ -1,6 +1,8 @@
+from mailbox import Message
 from flask import Blueprint, render_template, request, jsonify, flash
 from flask_login import login_required, current_user
-from .models import BeignDataset, GeneratedDataDataset, MaliciousDataset, User
+import pytz
+from .models import BeignDataset, GeneratedDataDataset, MaliciousDataset, User, AnalysisResult
 from . import db
 import random
 from sqlalchemy.orm import sessionmaker
@@ -65,6 +67,10 @@ def submit_analysis():
 def start_test():
     return render_template('test_page.html')
 
+@views.route('/test_page')
+def test_page():
+    return render_template('test_page.html')
+
 @views.route('/malicious')
 def malicious():
     malicious_data = MaliciousDataset.query.all()
@@ -92,9 +98,24 @@ def next_page():
 
     return render_template('next_page.html', data=mixed_samples)
 
-@views.route('/final-step')
-def final_step():
-    return render_template('final_step.html')
+
+
+@views.route('/sonuclar', methods=['GET', 'POST'])
+def sonuclar():
+    if request.method == 'POST':
+        data = request.get_json()
+        accuracy = data.get('accuracy')
+        
+        # Yeni bir analiz sonucu oluştur ve veritabanına ekle
+        new_result = AnalysisResult(accuracy=accuracy)
+        db.session.add(new_result)
+        db.session.commit()
+        return jsonify({"status": "success"})
+    
+    # Tüm analiz sonuçlarını al ve sonuclar.html sayfasına gönder
+    results = AnalysisResult.query.order_by(AnalysisResult.timestamp.desc()).all()
+    return render_template('sonuclar.html', results=results)
+
 
 @views.route('/quiz')
 @login_required
@@ -173,10 +194,24 @@ def profil():
 @login_required
 def edit_profile():
     user = User.query.get(current_user.id)  # Mevcut kullanıcıyı al
-    
+    errors = {}
+
     if request.method == 'POST':
         new_username = request.form.get('username')
         new_photo = request.form.get('profile_picture')
+
+        # Özel karakter kontrolü (noktali harfler hariç)
+        special_characters = ['<', '>', '#', '\'', '!', '@', '$', '%', '^', '&', '*', '(', ')', '+', '=', '{', '}', '[', ']', '|', '\\', ':', ';', '"', ',', '<', '>', '?', '/', '`', '~']
+        if any(char in special_characters for char in new_username):
+            errors['username'] = 'Kullanıcı adı özel karakterler içeremez, yalnızca harfler, rakamlar ve "." kullanılabilir.'
+
+        # Kullanıcı adının zaten kullanımda olup olmadığını kontrol et
+        existing_user = User.query.filter_by(username=new_username).first()
+        if existing_user and existing_user.id != current_user.id:
+            errors['username'] = 'Bu kullanıcı adı zaten kullanımda.'
+
+        if errors:
+            return render_template('edit_profile.html', user=user, photos=["default.png", "photo1.png", "photo2.png", "photo3.png", "photo4.png", "photo5.png", "photo6.png"], errors=errors)
 
         # Kullanıcı adı ve profil fotoğrafını güncelle
         user.username = new_username
@@ -216,6 +251,9 @@ def update_score():
             return jsonify({"status": "success", "total_score": total_score})
         else:
             return jsonify({"status": "error", "message": "User not found"}), 404
+
+
+
 
 
 

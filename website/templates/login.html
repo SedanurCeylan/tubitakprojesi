@@ -1,21 +1,17 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-    crossorigin="anonymous" />
-  <title>{% block title %}Home{% endblock %}</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous" />
+  <title>{% block title %}Login{% endblock %}</title>
   <style>
     html,
     body {
       height: 100%;
       margin: 0;
       overflow: hidden;
-      /* Prevents scrolling */
     }
 
     .navbar-custom {
@@ -44,7 +40,6 @@
       align-items: center;
       justify-content: center;
       height: calc(100% - 56px);
-      /* Adjusted for navbar height */
       background-image: url("{{ url_for('static', filename='images/login.png') }}");
       background-size: cover;
       background-position: center;
@@ -54,17 +49,10 @@
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       padding: 30px;
-      background-color: rgba(0,
-          0,
-          0,
-          0.8);
-      /* Changed to semi-transparent black */
+      background-color: rgba(0, 0, 0, 0.8);
       width: 100%;
-      /* Full width */
       max-width: 500px;
-      /* Max width */
       color: white;
-      /* Set text color to white */
     }
 
     .form-container .form-card .form-group label {
@@ -95,7 +83,6 @@
       text-align: center;
       padding: 20px 0;
       color: #ea60b6;
-      /* White text color */
       position: absolute;
       bottom: 0;
       width: 100%;
@@ -104,14 +91,11 @@
     .footer-text {
       text-align: justify;
       display: inline-block;
-      /* Makes the background only as wide as the content */
       padding: 15px 12px 0px 12px;
-      /* Padding around the text */
       font-weight: bold;
       font-size: 18px;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
       background-color: rgba(0, 0, 0, 0.8);
     }
 
@@ -124,7 +108,6 @@
     }
   </style>
 </head>
-
 <body>
   <nav class="navbar navbar-expand-lg navbar-custom">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
@@ -136,7 +119,6 @@
         <a class="nav-item nav-link" id="home" href="/">Home</a>
         <a class="nav-item nav-link" id="hakkimda" href="/hakkimda">Hakkımda</a>
         <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-        {% else %}
         {% endif %}
       </div>
       <a class="navbar-brand ml-auto" href="#" data-toggle="modal" data-target="#logoutModal">
@@ -149,36 +131,66 @@
   <div class="form-container">
     <div class="form-card">
       <h3 class="text-center">Login</h3>
-      <form method="post" action="/login">
+      <form method="post" action="/login" id="login-form">
         <div class="form-group">
-          <label for="email">Email address</label>
-          <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" />
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" id="password" name="password" placeholder="Password" />
-        </div>
-        <button type="submit" class="btn btn-primary btn-block">Login</button>
-        <a href="/sign-up" class="btn btn-secondary btn-block mt-2">Sign Up</a>
-      </form>
-    </div>
-  </div>
-  
+          <label for="email">Email adresi</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="Email adresinizi girin" required>
+          <small id="email-error" class="form-text text-danger">
+              {% if errors and errors.email %}{{ errors.email }}{% endif %}
+          </small>
+      </div>
+      <div class="form-group">
+          <label for="password">Şifre</label>
+          <input type="password" class="form-control" id="password" name="password" placeholder="Şifrenizi girin" required>
+          <small id="password-error" class="form-text text-danger">
+              {% if errors and errors.password %}{{ errors.password }}{% endif %}
+          </small>
+      </div>
+      
+      <!-- Giriş hatasını göster -->
+      {% if errors and errors.login %}
+          <div class="form-group">
+              <small class="form-text text-danger">{{ errors.login }}</small>
+          </div>
+      {% endif %}
+      
+      <button type="submit" class="btn btn-primary btn-block">Giriş Yap</button>
+      <a href="{{ url_for('auth.sign_up') }}" class="btn btn-secondary btn-block mt-2">Kayıt Ol</a>
+      
+  <script>
+  document.getElementById('email').addEventListener('input', function(e) {
+      var invalidChars = /[^a-zA-Z0-9@._]/g;
+      var emailErrorElement = document.querySelector('#email-error');
 
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
+      if (invalidChars.test(e.target.value)) {
+          emailErrorElement.textContent = 'E-posta adresi geçersiz karakterler içeriyor.';
+          e.target.value = e.target.value.replace(invalidChars, '');
+      } else {
+          emailErrorElement.textContent = '';
+      }
+  });
+
+  document.getElementById('password').addEventListener('input', function(e) {
+      var invalidChars = /[^a-zA-Z0-9ğüşıçö._]/g;
+      var passwordErrorElement = document.querySelector('#password-error');
+
+      if (invalidChars.test(e.target.value)) {
+          passwordErrorElement.textContent = 'Şifre yalnızca harf, rakam, noktalı harfler, "_" ve "." içerebilir.';
+          e.target.value = e.target.value.replace(invalidChars, '');
+      } else {
+          passwordErrorElement.textContent = '';
+      }
+  });
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7HUIbX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <footer class="footer">
     <div class="footer-text">
       <p>&copy; Prepared for TUBITAK 2209-A </p>
     </div>
   </footer>
 </body>
-
 </html>
+

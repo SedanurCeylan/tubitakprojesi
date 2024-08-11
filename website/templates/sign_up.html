@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
-    <title>{% block title %}Home{% endblock %}</title>
+    <title>{% block title %}Sign Up{% endblock %}</title>
     <style>
         body {
             background: url("{{ url_for('static', filename='images/sign-in.png') }}") no-repeat center center fixed;
@@ -36,17 +36,17 @@
         }
         .form-container {
             margin-top: 50px;
-            z-index: 1; /* Ensures form is above the background image */
+            z-index: 1;
         }
         .form-container .form-card {
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             padding: 30px;
-            background-color: rgba(0, 0, 0, 0.8); /* Black with some transparency */
+            background-color: rgba(0, 0, 0, 0.8);
         }
         .form-container .form-card .form-group label {
             font-weight: bold;
-            color: white; /* Label text color */
+            color: white;
         }
         .form-container .form-card .btn-primary {
             background-color: #a00b0d;
@@ -56,10 +56,10 @@
             background-color: #c21919;
             border-color: #c21919;
         }
-        .logo{
+        .logo {
             border-radius: 50%;
         }
-        .sitead{
+        .sitead {
             color: #fff;
         }
     </style>
@@ -94,19 +94,39 @@
                     <form method="post" action="/sign-up">
                         <div class="form-group">
                             <label for="username">Username</label>
-                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" value="{{ username }}">
+                            {% if errors and errors.username %}
+                            <small class="form-text text-danger">{{ errors.username }}</small>
+                            {% else %}
+                            <small class="form-text text-danger"></small>
+                            {% endif %}
                         </div>
                         <div class="form-group">
                             <label for="email">Email address</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" value="{{ email }}">
+                            {% if errors and errors.email %}
+                            <small class="form-text text-danger">{{ errors.email }}</small>
+                            {% else %}
+                            <small class="form-text text-danger"></small>
+                            {% endif %}
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
                             <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                            {% if errors and errors.password %}
+                            <small class="form-text text-danger">{{ errors.password }}</small>
+                            {% else %}
+                            <small class="form-text text-danger"></small>
+                            {% endif %}
                         </div>
                         <div class="form-group">
                             <label for="confirm-password">Confirm Password</label>
                             <input type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="Confirm Password">
+                            {% if errors and errors.confirm_password %}
+                            <small class="form-text text-danger">{{ errors.confirm_password }}</small>
+                            {% else %}
+                            <small class="form-text text-danger"></small>
+                            {% endif %}
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
                     </form>
@@ -115,8 +135,52 @@
         </div>
     </div>
 
+    <script>
+    document.getElementById('username').addEventListener('input', function(e) {
+        var invalidChars = /[^a-zA-Z0-9ğüşıçö._]/g;
+        var usernameErrorElement = document.querySelector('#username + .form-text');
+
+        if (!usernameErrorElement) {
+            usernameErrorElement = document.createElement('small');
+            usernameErrorElement.classList.add('form-text', 'text-danger');
+            e.target.parentNode.appendChild(usernameErrorElement);
+        }
+
+        if (invalidChars.test(e.target.value)) {
+            usernameErrorElement.textContent = 'Kullanıcı adı yalnızca harf, rakam, noktalı harfler, "_" ve "." içerebilir.';
+            e.target.value = e.target.value.replace(invalidChars, '');
+        } else {
+            usernameErrorElement.textContent = '';
+        }
+    });
+
+    document.getElementById('email').addEventListener('input', function(e) {
+        var invalidChars = /[^a-zA-Z0-9@._]/g;
+        var emailErrorElement = document.querySelector('#email + .form-text');
+
+        if (invalidChars.test(e.target.value)) {
+            emailErrorElement.textContent = 'E-posta adresi geçersiz karakterler içeriyor.';
+            e.target.value = e.target.value.replace(invalidChars, '');
+        } else {
+            emailErrorElement.textContent = '';
+        }
+    });
+
+    document.getElementById('password').addEventListener('input', function(e) {
+        var invalidChars = /[^a-zA-Z0-9ğüşıçö._]/g;
+        var passwordErrorElement = document.querySelector('#password + .form-text');
+
+        if (invalidChars.test(e.target.value)) {
+            passwordErrorElement.textContent = 'Şifre yalnızca harf, rakam, noktalı harfler, "_" ve "." içerebilir.';
+            e.target.value = e.target.value.replace(invalidChars, '');
+        } else {
+            passwordErrorElement.textContent = '';
+        }
+    });
+    </script>
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7HUIbX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>

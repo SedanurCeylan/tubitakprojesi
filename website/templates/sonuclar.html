@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Sonuçlar</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: rgb(18, 27, 45);
+            color: #c9d1d9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #58a6ff;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #c9d1d9;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #58a6ff;
+            color: #151f35;
+        }
+
+        td {
+            background-color: #151f35;
+            color: #c9d1d9;
+        }
+
+        .back-button {
+            background: #151f35;
+            border: none;
+            color: #c9d1d9;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            cursor: pointer;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .back-button:hover {
+            background: #58a6ff;
+            color: #151f35;
+        }
+    </style>
+</head>
+<body>
+    <h1>Analiz Sonuçları</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Tarih ve Saat</th>
+                <th>Doğruluk Oranı (%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+            <tr>
+                <td>{{ result.timestamp | datetimeformat }}</td>
+                <td>{{ result.accuracy }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="/next-page" class="back-button">Geri</a>
+
+</body>
+</html>

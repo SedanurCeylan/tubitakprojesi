@@ -1,3 +1,4 @@
+from datetime import datetime
 from . import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
@@ -68,6 +69,11 @@ class MaliciousDataset(db.Model):
     orig_ip_bytes = db.Column(db.Float)
     resp_pkts = db.Column(db.Float)
     malware_status = db.Column(db.String(50))
+
+class AnalysisResult(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    accuracy = db.Column(db.Float, nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
         return f'<Dataset {self.id}>'
