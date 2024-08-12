@@ -28,7 +28,7 @@ def login():
 
         user = User.query.filter_by(email=email).first()
         if not user or not check_password_hash(user.password, password):
-            errors['login'] = 'Kullanıcı adı veya şifre yanlış.'
+            errors['login'] = 'Username or password is incorrect.'
 
         if errors:
             

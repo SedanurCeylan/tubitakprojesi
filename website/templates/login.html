@@ -86,17 +86,21 @@
       position: absolute;
       bottom: 0;
       width: 100%;
+      display: flex;
+      justify-content: center;
     }
 
     .footer-text {
-      text-align: justify;
+      text-align: center;
       display: inline-block;
       padding: 15px 12px 0px 12px;
-      font-weight: bold;
+    
       font-size: 18px;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       background-color: rgba(0, 0, 0, 0.8);
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .logo {
@@ -117,12 +121,12 @@
       <div class="navbar-nav">
         {% if user.is_authenticated %}
         <a class="nav-item nav-link" id="home" href="/">Home</a>
-        <a class="nav-item nav-link" id="hakkimda" href="/hakkimda">Hakkımda</a>
+        <a class="nav-item nav-link" id="hakkimda" href="/hakkimda">About Me</a>
         <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
         {% endif %}
       </div>
       <a class="navbar-brand ml-auto" href="#" data-toggle="modal" data-target="#logoutModal">
-        <span class="sitead">Site Adı</span>
+        <span class="sitead">Site Name</span>
         <img class="logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" style="cursor: pointer;">
       </a>
     </div>
@@ -133,29 +137,34 @@
       <h3 class="text-center">Login</h3>
       <form method="post" action="/login" id="login-form">
         <div class="form-group">
-          <label for="email">Email adresi</label>
-          <input type="email" class="form-control" id="email" name="email" placeholder="Email adresinizi girin" required>
+          <label for="email">Email address</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email address" required>
           <small id="email-error" class="form-text text-danger">
               {% if errors and errors.email %}{{ errors.email }}{% endif %}
           </small>
       </div>
       <div class="form-group">
-          <label for="password">Şifre</label>
-          <input type="password" class="form-control" id="password" name="password" placeholder="Şifrenizi girin" required>
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
           <small id="password-error" class="form-text text-danger">
               {% if errors and errors.password %}{{ errors.password }}{% endif %}
           </small>
       </div>
       
-      <!-- Giriş hatasını göster -->
+      <!-- Display login error -->
       {% if errors and errors.login %}
           <div class="form-group">
               <small class="form-text text-danger">{{ errors.login }}</small>
           </div>
       {% endif %}
       
-      <button type="submit" class="btn btn-primary btn-block">Giriş Yap</button>
-      <a href="{{ url_for('auth.sign_up') }}" class="btn btn-secondary btn-block mt-2">Kayıt Ol</a>
+      <button type="submit" class="btn btn-primary btn-block">Login</button>
+      <a href="{{ url_for('auth.sign_up') }}" class="btn btn-secondary btn-block mt-2">Sign Up</a>
+      <footer class="footer">
+        <div class="footer-text">
+          <p>&copy; Prepared for TUBITAK 2209-A </p>
+        </div>
+      </footer>
       
   <script>
   document.getElementById('email').addEventListener('input', function(e) {
@@ -163,7 +172,7 @@
       var emailErrorElement = document.querySelector('#email-error');
 
       if (invalidChars.test(e.target.value)) {
-          emailErrorElement.textContent = 'E-posta adresi geçersiz karakterler içeriyor.';
+          emailErrorElement.textContent = 'The email address contains invalid characters.';
           e.target.value = e.target.value.replace(invalidChars, '');
       } else {
           emailErrorElement.textContent = '';
@@ -175,7 +184,7 @@
       var passwordErrorElement = document.querySelector('#password-error');
 
       if (invalidChars.test(e.target.value)) {
-          passwordErrorElement.textContent = 'Şifre yalnızca harf, rakam, noktalı harfler, "_" ve "." içerebilir.';
+          passwordErrorElement.textContent = 'Password can only contain letters, numbers, dotted letters, "_" and ".".';
           e.target.value = e.target.value.replace(invalidChars, '');
       } else {
           passwordErrorElement.textContent = '';
@@ -186,11 +195,6 @@
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7HUIbX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  <footer class="footer">
-    <div class="footer-text">
-      <p>&copy; Prepared for TUBITAK 2209-A </p>
-    </div>
-  </footer>
+  
 </body>
 </html>
-

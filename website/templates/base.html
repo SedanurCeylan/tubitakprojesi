@@ -54,6 +54,8 @@
         .logo{
             border-radius: 50%;
         }
+        
+        
 
     </style>
 </head>
@@ -74,28 +76,33 @@
                 {% endif %}
             </div>
             <a class="navbar-brand ml-auto" href="#" data-toggle="modal" data-target="#logoutModal">
-                <span class="sitead">Site Adı</span>
-                <img class="logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" style="cursor: pointer;">
+                <span class="sitead">[Site Name]</span>
+                <img class="logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="Click here to log out" style="cursor: pointer;">
             </a>
         </div>
     </nav>
     
+    <!-- Logout Modal -->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="logoutModalLabel">Log Out</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <a href="/logout" class="btn btn-primary">Log Out</a>
-                </div>
+          <div class="modal-content" style="background-color: #121b2d; border: none;">
+            <div class="modal-header" style="border-bottom: none; padding-bottom: 0;">
+              <h5 class="modal-title" id="logoutModalLabel" style="color: #f0f0f0; margin-bottom: 15px;">Log Out</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" style="color: #f0f0f0;">&times;</span>
+              </button>
             </div>
+            <div class="modal-body" style="color: #f0f0f0; line-height: 1.4; padding-top: 0;">
+              Are you sure you want to log out?
+            </div>
+            <div class="modal-footer" style="border-top: none; padding-top: 0;">
+              
+              <a href="/logout" class="btn btn-primary" style="background-color: #007bff; border-color: #007bff; padding: 6px 12px; font-size: 14px;">Log Out</a>
+            </div>
+          </div>
         </div>
-    </div>
+      </div>
+  
     
     <div class="container content-container">
         {% block content %}{% endblock %}

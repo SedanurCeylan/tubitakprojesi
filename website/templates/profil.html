@@ -6,8 +6,8 @@
 <style>
     body {
         font-family: 'Arial', sans-serif;
-        background-color: #f0f4f8;
-        color: #333;
+        background-color: #121b2d;
+        color: #f0f0f0;
         margin: 0;
         padding: 0;
         overflow-x: hidden;
@@ -21,7 +21,7 @@
         z-index: -1;
         top: 0;
         left: 0;
-        background-color: #f0f4f8; /* Mevcut arka plan renginizi koruyun */
+        background-color: #121b2d; /* Mevcut arka plan renginizi koruyun */
     }
 
     .container {
@@ -33,10 +33,10 @@
     .profile-container {
         display: flex;
         align-items: center;
-        background-color: #fff;
+        background-color: #151f35e6;
         padding: 20px;
         border-radius: 12px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.7);
         position: relative;
         z-index: 1;
     }
@@ -58,11 +58,12 @@
         font-weight: bold;
         margin-bottom: 10px;
         color: #007bff;
+        text-shadow: 0 0 10px rgba(56, 104, 208, 0.4);
     }
 
     .email {
         font-size: 18px;
-        color: #555;
+        color: #f0f0f0;
         margin-bottom: 20px;
     }
 
@@ -70,7 +71,7 @@
         display: inline-block;
         padding: 10px 20px;
         background-color: #007bff;
-        color: #fff;
+        color: #151f35e6;
         text-decoration: none;
         border-radius: 5px;
         transition: background-color 0.3s ease;
@@ -86,8 +87,10 @@
         font-size: 28px;
         margin-top: 40px;
         margin-bottom: 20px;
-        color: #333;
+        font-weight: bold;
+        color: #007bff;
         border-bottom: 2px solid #007bff;
+        text-shadow: 0 0 10px rgba(56, 104, 208, 0.6);
         display: inline-block;
         padding-bottom: 5px;
         position: relative;
@@ -98,8 +101,8 @@
         width: 100%;
         border-collapse: collapse;
         margin-top: 20px;
-        background-color: #fff;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        background-color: #151f35e6;
+        box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.7);
         border-radius: 12px;
         overflow: hidden;
         position: relative;
@@ -108,19 +111,22 @@
 
     .user-table th, .user-table td {
         padding: 15px;
-        text-align: left;
-        border-bottom: 1px solid #eee;
+        text-align: center;
+        border-bottom: 1px solid #f0f0f0;
     }
 
     .user-table th {
         background-color: #007bff;
-        color: #fff;
+        color: #f0f0f0;
+        
     }
 
     .ranking-column {
         text-align: center;
         width: 50px;
         font-weight: bold;
+        color: #f0f0f0;
+        
     }
 
     .user-thumbnail {
@@ -139,7 +145,7 @@
 
     .user-score {
         font-size: 16px;
-        color: #333;
+        color: #f0f0f0;
     }
 
     /* Responsive Design */
@@ -179,7 +185,7 @@
     <table class="user-table">
         <thead>
             <tr>
-                <th class="ranking-column">#</th>
+                <th class="ranking-column"></th>
                 <th>Profil Fotoğrafı</th>
                 <th>Kullanıcı Adı</th>
                 <th>Toplam Puan</th>
@@ -221,7 +227,7 @@
                 },
             },
             "opacity": {
-                "value": 0.5,
+                "value": 0.8,
                 "random": false,
                 "anim": {
                     "enable": false,
@@ -244,7 +250,7 @@
                 "enable": true,
                 "distance": 150,
                 "color": "#007bff",
-                "opacity": 0.4,
+                "opacity": 0.6,
                 "width": 1
             },
             "move": {

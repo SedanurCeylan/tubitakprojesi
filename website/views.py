@@ -6,7 +6,7 @@ from .models import BeignDataset, GeneratedDataDataset, MaliciousDataset, User, 
 from . import db
 import random
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy import text
+from sqlalchemy import func, text
 import pandas as pd
 import json
 import mysql.connector
@@ -134,15 +134,9 @@ def senaryo1():
     session = Session()
     
     # generated_data_dataset tablosundan rastgele beş satır çek
-    query1 = text("SELECT * FROM generated_data_dataset ORDER BY RAND() LIMIT 5")
-    result1 = session.execute(query1)
-    data_generated = result1.fetchall()
-    
-    # malicious_dataset tablosundan rastgele beş satır çek
-    query2 = text("SELECT * FROM malicious_dataset ORDER BY RAND() LIMIT 5")
-    result2 = session.execute(query2)
-    data_malicious = result2.fetchall()
-    
+    data_generated = session.query(GeneratedDataDataset).order_by(func.random()).limit(5).all()
+    data_malicious = session.query(MaliciousDataset).order_by(func.random()).limit(5).all()
+
     # Verileri konsola yazdır
     print("Generated Data:", data_generated)
     print("Malicious Data:", data_malicious)
