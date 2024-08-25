@@ -66,6 +66,26 @@
         color: #f0f0f0;
         margin-bottom: 20px;
     }
+    .istatistik {
+    color: #151f35e6;
+    background-color: #007bff;
+    border-radius: 5px;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+    border: #007bff;
+    width: 100px; /* Make it square */
+    height: 100px; /* Make it square */
+    margin-left: auto; /* Push it to the end of the flex container */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.istatistik:hover {
+    background-color: #0056b3;
+    text-decoration: none;
+    color: #fff;
+}
 
     .edit-profile-btn {
         display: inline-block;
@@ -178,7 +198,9 @@
             <h2 class="username">{{ user.username }}</h2>
             <p class="email">{{ user.email }}</p>
             <a href="{{ url_for('views.edit_profile') }}" class="edit-profile-btn">Profili Düzenle</a>
+           
         </div>
+        <button class="istatistik" id="istatistik">istatistik</button>
     </div>
 
     <h3 class="other-users-title">Diğer Kullanıcılar</h3>
@@ -190,6 +212,7 @@
                 <th>Kullanıcı Adı</th>
                 <th>Toplam Puan</th>
             </tr>
+           
         </thead>
         <tbody>
             {% for u in users %}
