@@ -50,18 +50,6 @@ def data_display():
 
     return render_template('data_display.html', random_data1=random_data1, random_data2=random_data2, random_data3=random_data3)
 
-@views.route('/submit-analysis', methods=['POST'])
-def submit_analysis():
-    selected_rows = request.json.get('selected_rows')
-    total_samples = len(selected_rows)
-    malicious_samples = len([row for row in selected_rows if row['source'] == 'malicious'])
-    
-    if total_samples > 0:
-        accuracy = (malicious_samples / total_samples) * 100
-    else:
-        accuracy = 0
-
-    return jsonify({'accuracy': accuracy})
 
 @views.route('/start-test')
 def start_test():
@@ -75,14 +63,14 @@ def test_page():
 def malicious():
     malicious_data = MaliciousDataset.query.all()
     sample_data = random.sample(malicious_data, min(20, len(malicious_data)))
-    title = "Zararlı Verilerin Detayları"
+    title = "Details of Malicious Data"
     return render_template('data_display.html', data=sample_data, title=title)
 
 @views.route('/benign')
 def benign():
     benign_data = BeignDataset.query.all()
     sample_data = random.sample(benign_data, min(20, len(benign_data)))
-    title = "Zararsız Verilerin Detayları"
+    title = "Details of Benign Data"
     return render_template('data_display.html', data=sample_data, title=title)
 
 @views.route('/next-page')
@@ -101,20 +89,30 @@ def next_page():
 
 
 @views.route('/sonuclar', methods=['GET', 'POST'])
+@login_required
 def sonuclar():
     if request.method == 'POST':
         data = request.get_json()
-        accuracy = data.get('accuracy')
-        
-        # Yeni bir analiz sonucu oluştur ve veritabanına ekle
-        new_result = AnalysisResult(accuracy=accuracy)
+        score = data.get('score')
+
+        # Kullanıcının mevcut test skorunu al ve yeni skoru ekle
+        user = User.query.get(current_user.id)
+        if user:
+            user.test_score += score
+            db.session.commit()
+
+        # Yeni test sonucunu AnalysisResult tablosuna ekle
+        new_result = AnalysisResult(score=score)
         db.session.add(new_result)
         db.session.commit()
+
         return jsonify({"status": "success"})
-    
-    # Tüm analiz sonuçlarını al ve sonuclar.html sayfasına gönder
+
+    # Tüm sonuçları veritabanından çek
     results = AnalysisResult.query.order_by(AnalysisResult.timestamp.desc()).all()
-    return render_template('sonuclar.html', results=results)
+    test_score = current_user.test_score  # Mevcut kullanıcının toplam puanını al
+
+    return render_template('sonuclar.html', results=results, test_score=test_score)
 
 
 @views.route('/quiz')
@@ -164,9 +162,23 @@ def senaryo2():
     return render_template('senaryo2.html', data=data)
 
 @views.route('/senaryo3')
-@login_required
 def senaryo3():
-    return render_template('senaryo3.html')
+    # Veritabanı oturumu oluştur
+    Session = sessionmaker(bind=db.engine)
+    session = Session()
+    
+    # Veritabanından rastgele üç satır çek
+    query = text("SELECT * FROM generated_data_dataset ORDER BY RAND() LIMIT 5")
+    result = session.execute(query)
+    data = result.fetchall()
+    
+    # Verileri konsola yazdır
+    print(data)
+    
+    session.close()
+    
+    return render_template('senaryo3.html', data=data)
+
 
 @views.route('/senaryo4')
 @login_required

@@ -80,12 +80,13 @@
         }
 
         th {
-            background-color: #ffffff;
-            color: #000000;
+            background-color: #1f2a3e;
+            color: #ffffff;
             position: sticky;
             top: 0;
             z-index: 1;
-            
+            padding: 10px;
+            text-align: center;
         }
 
         h1 {
@@ -141,26 +142,35 @@
 
         .explanation {
             display: none;
-            background-color: #ffffff;
-            color: #151f35;
-            padding: 20px;
-            border: 1px solid #151f35;
-            border-radius: 5px;
-            margin: 20px 100px;
+            background-color: #1f2a3e;
+            color: #c9d1d9;
+            padding: 20px 40px;
+            border: 1px solid #c9d1d9;
+            border-radius: 10px;
+            margin: 20px auto;
+            width: 80%;
+            max-width: 800px;
             position: relative;
-            text-align: center;
+            text-align: left;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+            font-size: 1.1em;
         }
 
         .close-btn {
             background: #3868d0;
             color: #f0f0f0;
             border: none;
-            padding: 5px 10px;
+            padding: 5px 15px;
             border-radius: 5px;
             cursor: pointer;
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 15px;
+            right: 15px;
             transition: background 0.3s ease;
         }
 
@@ -175,7 +185,7 @@
     <div class="logo-container" onclick="toggleDropdown()">
         <img src="/static/images/logo.png" alt="Logo" class="logo">
         <div class="dropdown" id="dropdown">
-            <a href="/home">Ana Sayfaya Dön</a>
+            <a href="/home">Return to Home Page</a>
         </div>
     </div>
 
@@ -184,9 +194,6 @@
     <div class="table-container" id="table-container">
         <table align="center" border="1">
             <tr>
-                <th>ID</th>
-                <th>Orig_H</th>
-                <th>Resp_H</th>
                 <th>Resp_P</th>
                 <th>Proto</th>
                 <th>Duration</th>
@@ -200,9 +207,6 @@
             </tr>
             {% for item in data %}
             <tr>
-                <td>{{ item.id }}</td>
-                <td>{{ item.id_orig_h }}</td>
-                <td>{{ item.id_resp_h }}</td>
                 <td>{{ item.id_resp_p }}</td>
                 <td>{{ item.proto }}</td>
                 <td>{{ item.duration }}</td>
@@ -219,24 +223,22 @@
     </div>
 
     <div class="explanation" id="explanation">
-        <button class="close-btn" onclick="toggleExplanation()">Kapat</button>
-        <p>id.orig_h: Orijinal ana bilgisayar kimliği veya IP adresi.<br>
-            id.resp_h: Yanıt veren ana bilgisayar kimliği veya IP adresi.<br>
-            id.resp_p: Yanıt veren port numarası.<br>
-            proto: İletişim için kullanılan protokol (örneğin, UDP, DNS, DHCP).<br>
-            duration: Bağlantının süresi.<br>
-            orig_bytes: Orijinal ana bilgisayar tarafından gönderilen bayt sayısı.<br>
-            resp_bytes: Yanıt veren ana bilgisayar tarafından gönderilen bayt sayısı.<br>
-            history: Bağlantının durum geçmişini belirtir.<br>
-            orig_pkts: Orijinal ana bilgisayar tarafından gönderilen paket sayısı.<br>
-            orig_ip_bytes: Orijinal ana bilgisayar tarafından gönderilen IP bayt sayısı.<br>
-            resp_pkts: Yanıt veren ana bilgisayar tarafından gönderilen paket sayısı.<br>
-            malware: Bağlantının kötü amaçlı yazılım ile ilişkili olup olmadığını belirtir.</p>
+        <button class="close-btn" onclick="toggleExplanation()">Close</button>
+        <p><b>id.resp_p:</b> Response port number.<br>
+            <b>proto:</b> Protocol used for communication (e.g., UDP, DNS, DHCP).<br>
+            <b>duration:</b> Duration of the connection.<br>
+            <b>orig_bytes:</b> Number of bytes sent by the original host.<br>
+            <b>resp_bytes:</b> Number of bytes sent by the responding host.<br>
+            <b>history:</b> Indicates the state history of the connection.<br>
+            <b>orig_pkts:</b> Number of packets sent by the original host.<br>
+            <b>orig_ip_bytes:</b> Number of IP bytes sent by the original host.<br>
+            <b>resp_pkts:</b> Number of packets sent by the responding host.<br>
+            <b>malware:</b> Indicates whether the connection is associated with malware.</p>
     </div>
 
     <div class="button-container">
-        <a href="/test_page" class="button">Geri Dön</a>
-        <a href="javascript:void(0);" class="button" onclick="toggleExplanation()">Açıklamaya Bak</a>
+        <a href="/test_page" class="button">Go Back</a>
+        <a href="javascript:void(0);" class="button" onclick="toggleExplanation()">View Explanation</a>
     </div>
 
     <script>
@@ -262,7 +264,7 @@
         }
 
         // Close the dropdown if clicked outside
-        window.onclick = function (event) {
+        window.onclick = function(event) {
             if (!event.target.matches('.logo')) {
                 var dropdown = document.getElementById('dropdown');
                 if (dropdown.style.display === 'block') {

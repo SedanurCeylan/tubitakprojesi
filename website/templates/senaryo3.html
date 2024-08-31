@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Scenario 3: Fire Situation in Smart Home</title>
+  <style>
+    html,
+    body {
+      background-image: url("{{ url_for('static', filename='images/fire_background.jpg') }}");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center;
+      height: 100%;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Roboto", sans-serif;
+      background-color: #121b2d;
+      color: #ecf0f1;
+    }
+
+    .center-content {
+      text-align: center;
+      width: 80%;
+      max-width: 600px;
+      background-color: #151f35;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      overflow-y: auto;
+      max-height: 60vh;
+    }
+
+    h1 {
+      margin: 20px 0;
+      font-size: 28px;
+      color: #ecf0f1;
+      font-weight: bold;
+    }
+
+    p {
+      margin: 20px 0;
+      color: #ecf0f1;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    ul {
+      text-align: left;
+    }
+
+    .button-container {
+      margin: 30px 0;
+    }
+
+    button {
+      margin: 10px;
+      padding: 15px 30px;
+      font-size: 16px;
+      border: none;
+      border-radius: 25px;
+      background-color: #3868d0;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background: #4d80ee;
+      transform: scale(1.05);
+    }
+
+    .footer {
+      position: fixed;
+      right: 10px;
+      bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    .footer input[type="checkbox"] {
+      margin-right: 5px;
+    }
+
+    .footer label {
+      margin-right: 15px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    table,
+    th,
+    td {
+      border: 1px solid #ecf0f1;
+    }
+
+    th,
+    td {
+      padding: 5px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #3868d0;
+    }
+
+    td {
+      background-color: #2c3e50;
+    }
+
+    .table-container {
+      overflow-x: auto;
+    }
+
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #151f35;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #3868d0;
+      border-radius: 10px;
+      border: 3px solid #151f35;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: #4d80ee;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.8);
+      overflow: hidden;
+    }
+
+    .modal-content {
+      background-color: #151f35;
+      margin: 8% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 700px;
+      color: #ecf0f1;
+      border-radius: 10px;
+      text-align: left;
+    }
+
+    .modal-content p {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .modal-content .button-container {
+      text-align: center;
+    }
+
+    .feedback-message {
+      margin-top: 20px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .feedback-success {
+      color: #4caf50;
+    }
+
+    .feedback-fail {
+      color: #f44336;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="center-content">
+    <div id="question1">
+      <h1>Fire Situation in Smart Home</h1>
+      <p>
+        A fire alarm has gone off in your smart home! The fire detectors have detected a fire in the living room.
+        Are you ready to use the security measures provided by your IoT devices to control the fire?
+      </p>
+      <div class="button-container">
+        <button onclick="showQuestion('question2')">Yes, let's intervene immediately</button>
+        <button onclick="showQuestion('question3')">No, I'm not ready right now</button>
+      </div>
+    </div>
+
+    <div id="question2" style="display: none">
+      <p>Before the fire spreads uncontrollably, which IoT device would you like to use?</p>
+      <div class="button-container">
+        <button onclick="showQuestion('question4')">Smart Smoke Detectors</button>
+        <button onclick="showQuestion('question5')">Smart Fire Extinguisher System</button>
+        <button onclick="showQuestion('question6')">Smart Security Cameras</button>
+        <button onclick="showQuestion('question7')">Use All Systems Together</button>
+      </div>
+    </div>
+
+    <div id="question3" style="display: none">
+      <p>
+        Not knowing what to do during a fire can be dangerous. Would you like to learn how IoT devices work in a fire situation?
+      </p>
+      <div class="button-container">
+        <button onclick="showQuestion('question2')">Yes, I want to learn</button>
+        <button onclick="showQuestion('endScenarioUnsuccessful')">No, I am willing to take the risk</button>
+      </div>
+    </div>
+
+    <!-- Data Example for Smart Smoke Detectors -->
+    <div id="question4" style="display: none">
+      <h1>Smart Smoke Detectors</h1>
+      <ul>
+        <li><strong>Purpose:</strong> Smart smoke detectors detect the origin of the fire and send you instant alerts.</li>
+        <li><strong>Usage:</strong> These detectors continuously monitor the smoke level in the room and trigger an alarm when a certain threshold is exceeded.</li>
+        <li><strong>Applications:</strong>
+          <ul>
+            <li><strong>Early Warning:</strong> The warnings provided by the detectors allow you to intervene quickly before the fire grows.</li>
+            <li><strong>Remote Monitoring:</strong> You can receive instant notifications about the fire situation through mobile apps and manage the intervention process.</li>
+          </ul>
+        </li>
+      </ul>
+      <h2>Data Example: Smart Smoke Detectors</h2>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>proto</th>
+              <th>duration</th>
+              <th>orig_bytes</th>
+              <th>resp_bytes</th>
+              <th>history</th>
+              <th>orig_pkts</th>
+              <th>orig_ip_bytes</th>
+              <th>resp_pkts</th>
+              <th>resp_ip_bytes</th>
+              <th>malware_status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if data %}
+            {% for row in data %}
+            <tr>
+              <td>{{ row[0] }}</td>
+              <td>{{ row[1] }}</td>
+              <td>{{ row[2] }}</td>
+              <td>{{ row[3] }}</td>
+              <td>{{ row[4] }}</td>
+              <td>{{ row[5] }}</td>
+              <td>{{ row[6] }}</td>
+              <td>{{ row[7] }}</td>
+              <td>{{ row[8] }}</td>
+              <td>{{ row[9] }}</td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+              <td colspan="10">No data available.</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+      <div class="button-container">
+        <button onclick="showQuestion('question8')">This information is enough for me, let's continue</button>
+        <button onclick="showQuestion('question5')">I want to see how other IoT devices work too</button>
+      </div>
+    </div>
+
+    <!-- Data Example for Smart Fire Extinguisher System -->
+    <div id="question5" style="display: none">
+      <h1>Smart Fire Extinguisher System</h1>
+      <ul>
+        <li><strong>Purpose:</strong> This system automatically activates and tries to extinguish the fire when it detects a fire.</li>
+        <li><strong>Usage:</strong> When a fire is detected, the system automatically sprays fire extinguishing gas or water into the affected area.</li>
+        <li><strong>Applications:</strong>
+          <ul>
+            <li><strong>Automatic Intervention:</strong> Extinguishes the fire automatically without the need for human intervention to prevent the fire from spreading.</li>
+            <li><strong>Status Reporting:</strong> Sends you a status report once the extinguishing process is complete, ensuring the fire is under control.</li>
+          </ul>
+        </li>
+      </ul>
+      <h2>Data Example: Smart Fire Extinguisher System</h2>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>proto</th>
+              <th>duration</th>
+              <th>orig_bytes</th>
+              <th>resp_bytes</th>
+              <th>history</th>
+              <th>orig_pkts</th>
+              <th>orig_ip_bytes</th>
+              <th>resp_pkts</th>
+              <th>resp_ip_bytes</th>
+              <th>malware_status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if data %}
+            {% for row in data %}
+            <tr>
+              <td>{{ row[0] }}</td>
+              <td>{{ row[1] }}</td>
+              <td>{{ row[2] }}</td>
+              <td>{{ row[3] }}</td>
+              <td>{{ row[4] }}</td>
+              <td>{{ row[5] }}</td>
+              <td>{{ row[6] }}</td>
+              <td>{{ row[7] }}</td>
+              <td>{{ row[8] }}</td>
+              <td>{{ row[9] }}</td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+              <td colspan="10">No data available.</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+      <div class="button-container">
+        <button onclick="showQuestion('question8')">This information is enough for me, let's continue</button>
+        <button onclick="showQuestion('question6')">I want to see how other IoT devices work too</button>
+      </div>
+    </div>
+
+    <!-- Data Example for Smart Security Cameras -->
+    <div id="question6" style="display: none">
+      <h1>Smart Security Cameras</h1>
+      <ul>
+        <li><strong>Purpose:</strong> Smart security cameras monitor and record the situation during the fire, allowing you to analyze how the fire started and spread.</li>
+        <li><strong>Usage:</strong> Cameras automatically start recording during a fire and send the footage to cloud-based storage.</li>
+        <li><strong>Applications:</strong>
+          <ul>
+            <li><strong>Image Analysis:</strong> Provides data to identify the source of the fire and prevent similar incidents in the future.</li>
+            <li><strong>Remote Monitoring:</strong> Even if you are not home during the fire, you can watch live streams from your mobile devices and control the situation.</li>
+          </ul>
+        </li>
+      </ul>
+      <h2>Data Example: Smart Security Cameras</h2>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>proto</th>
+              <th>duration</th>
+              <th>orig_bytes</th>
+              <th>resp_bytes</th>
+              <th>history</th>
+              <th>orig_pkts</th>
+              <th>orig_ip_bytes</th>
+              <th>resp_pkts</th>
+              <th>resp_ip_bytes</th>
+              <th>malware_status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if data %}
+            {% for row in data %}
+            <tr>
+              <td>{{ row[0] }}</td>
+              <td>{{ row[1] }}</td>
+              <td>{{ row[2] }}</td>
+              <td>{{ row[3] }}</td>
+              <td>{{ row[4] }}</td>
+              <td>{{ row[5] }}</td>
+              <td>{{ row[6] }}</td>
+              <td>{{ row[7] }}</td>
+              <td>{{ row[8] }}</td>
+              <td>{{ row[9] }}</td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+              <td colspan="10">No data available.</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+      <div class="button-container">
+        <button onclick="showQuestion('question8')">This information is enough for me, let's continue</button>
+        <button onclick="showQuestion('question4')">I want to see how other IoT devices work too</button>
+      </div>
+    </div>
+
+    <div id="question7" style="display: none">
+      <h1>All IoT Systems Activated</h1>
+      <p>
+        During the fire, all IoT systems were activated. Smart smoke detectors, fire extinguisher systems, and security cameras work in coordination to control and record the situation. Which system would you like to examine in detail?
+      </p>
+      <div class="button-container">
+        <button onclick="showQuestion('question4')">Smart Smoke Detectors</button>
+        <button onclick="showQuestion('question5')">Smart Fire Extinguisher System</button>
+        <button onclick="showQuestion('question6')">Smart Security Cameras</button>
+        <button onclick="showQuestion('endScenario')">I have learned the necessary information.</button>
+      </div>
+    </div>
+
+    <div id="question8" style="display: none">
+      <h1>Fire Extinguished and Inspections in Progress</h1>
+      <p>
+        The fire has been successfully extinguished. Now, you need to check if all the systems in the house are functioning properly. Which tools would you like to use for these checks?
+      </p>
+      <div class="button-container">
+        <button onclick="showQuestion('question9')">Wireshark</button>
+        <button onclick="showQuestion('question10')">Nmap</button>
+        <button onclick="showQuestion('endScenario')">End the scenario without doing anything</button>
+      </div>
+    </div>
+
+    <!-- Data Example for Wireshark -->
+    <div id="question9" style="display: none">
+      <h1>Wireshark Network Traffic</h1>
+      <ul>
+        <li><strong>Purpose:</strong> Wireshark is an advanced network protocol analyzer used to monitor, analyze, and troubleshoot network traffic.</li>
+        <li><strong>Usage:</strong> It captures all packets passing through a network interface and performs detailed analyses to help identify issues in the network.</li>
+        <li><strong>Applications:</strong>
+          <ul>
+            <li><strong>Network Troubleshooting:</strong> Identifies network connection issues, slowdowns, or abnormal activities.</li>
+            <li><strong>Security Analysis:</strong> Monitors suspicious network traffic and detects potential security breaches.</li>
+            <li><strong>Protocol Verification:</strong> Verifies whether newly developed or implemented protocols are functioning correctly.</li>
+          </ul>
+        </li>
+      </ul>
+      <h2>Data Example: Wireshark Network Traffic</h2>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>proto</th>
+              <th>duration</th>
+              <th>orig_bytes</th>
+              <th>resp_bytes</th>
+              <th>history</th>
+              <th>orig_pkts</th>
+              <th>orig_ip_bytes</th>
+              <th>resp_pkts</th>
+              <th>resp_ip_bytes</th>
+              <th>malware_status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if data %}
+            {% for row in data %}
+            <tr>
+              <td>{{ row[0] }}</td>
+              <td>{{ row[1] }}</td>
+              <td>{{ row[2] }}</td>
+              <td>{{ row[3] }}</td>
+              <td>{{ row[4] }}</td>
+              <td>{{ row[5] }}</td>
+              <td>{{ row[6] }}</td>
+              <td>{{ row[7] }}</td>
+              <td>{{ row[8] }}</td>
+              <td>{{ row[9] }}</td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+              <td colspan="10">No data available.</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+      <div class="button-container">
+        <button onclick="showQuestion('endScenario')">This information is enough for me, let's continue</button>
+        <button onclick="showQuestion('question10')">I want to use another tool</button>
+      </div>
+    </div>
+
+    <!-- Data Example for Nmap -->
+    <div id="question10" style="display: none">
+      <h1>Nmap Port Scan</h1>
+      <ul>
+        <li><strong>Purpose:</strong> Nmap (Network Mapper) is a powerful, open-source tool used for network discovery and security auditing.</li>
+        <li><strong>Usage:</strong> Sends specific packets to target networks and analyzes the responses to gather information about devices and open ports on the network.</li>
+        <li><strong>Applications:</strong>
+          <ul>
+            <li><strong>Network Inventory:</strong> Identifies devices, IP addresses, open ports, and running services on a network.</li>
+            <li><strong>Security Scanning:</strong> Identifies potential vulnerabilities on the network.</li>
+            <li><strong>Service Identification and Version Information:</strong> Determines which services are running and the versions installed.</li>
+          </ul>
+        </li>
+      </ul>
+      <h2>Data Example: Nmap Port Scan</h2>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>proto</th>
+              <th>duration</th>
+              <th>orig_bytes</th>
+              <th>resp_bytes</th>
+              <th>history</th>
+              <th>orig_pkts</th>
+              <th>orig_ip_bytes</th>
+              <th>resp_pkts</th>
+              <th>resp_ip_bytes</th>
+              <th>malware_status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if data %}
+            {% for row in data %}
+            <tr>
+              <td>{{ row[0] }}</td>
+              <td>{{ row[1] }}</td>
+              <td>{{ row[2] }}</td>
+              <td>{{ row[3] }}</td>
+              <td>{{ row[4] }}</td>
+              <td>{{ row[5] }}</td>
+              <td>{{ row[6] }}</td>
+              <td>{{ row[7] }}</td>
+              <td>{{ row[8] }}</td>
+              <td>{{ row[9] }}</td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+              <td colspan="10">No data available.</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+      <div class="button-container">
+        <button onclick="showQuestion('endScenario')">This information is enough for me, let's continue</button>
+        <button onclick="showQuestion('question9')">I want to use another tool</button>
+      </div>
+    </div>
+
+    <!-- Completing the Scenario -->
+    <div id="endScenario" style="display: none">
+      <h1>Scenario Completed</h1>
+      <p>
+        Congratulations! You have successfully completed this scenario. You have learned how to effectively use IoT devices in a fire situation in a smart home.
+        Now, click the "Completed" button below to finish the scenario.
+      </p>
+    </div>
+
+    <div id="endScenarioUnsuccessful" style="display: none">
+      <h1>Scenario Failed</h1>
+      <p>
+        Unfortunately, you were unable to successfully complete the scenario. Try solving the scenario again to effectively use IoT systems to ensure your home's safety.
+      </p>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <input type="checkbox" id="checkbox3" name="completed" onclick="syncCheckboxes('checkbox3', this.checked)" />
+    <label for="completed">Completed</label>
+    <button onclick="location.href='http://127.0.0.1:5000/quiz'">Return to Scenarios</button>
+    <button onclick="location.href='http://127.0.0.1:5000/'">Return to Homepage</button>
+  </div>
+
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <h3>What have you learned from this scenario?</h3>
+      <ol>
+        <li><b>Using IoT Systems in Emergencies:</b> You will learn how to use IoT devices in emergencies such as fires in smart homes. You will discover how IoT devices like smart smoke detectors, fire extinguisher systems, and security cameras work in coordination to control the fire.</li>
+        <li><b>Early Warning and Intervention Systems:</b> You will learn how to detect a fire early with smart smoke detectors and quickly intervene by receiving instant warnings. You will explore the capabilities of smart fire extinguisher systems, which automatically extinguish the fire and report the situation.</li>
+        <li><b>Data Analysis and Security:</b> You will learn how smart security cameras analyze footage recorded during a fire and how this data can be used to prevent future risks. You will discover how the obtained data can be evaluated for more effective measures in similar situations.</li>
+        <li><b>Remote Monitoring and Management:</b> You will learn how to monitor the fire situation through mobile devices and manage your IoT devices during this process. Even if you are not home during the fire, you will understand the importance of controlling the situation at home through IoT devices. These gains will help you enhance the security level of your home and be better prepared for possible fire situations.</li>
+      </ol>
+      <div class="button-container">
+        <button onclick="handleLearned()">I Learned</button>
+        <button onclick="handleNotLearned()">I Did Not Learn</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="feedbackModal" class="modal">
+    <div class="modal-content">
+      <p id="feedbackMessage" class="feedback-message"></p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Load the checkbox state from localStorage
+      const checkbox3 = document.getElementById("checkbox3");
+      checkbox3.checked = localStorage.getItem("checkbox3") === "true";
+    });
+
+    function syncCheckboxes(checkboxId, isChecked) {
+      localStorage.setItem(checkboxId, isChecked);
+      if (isChecked) {
+        showModal();
+      }
+    }
+
+    function showModal() {
+      var modal = document.getElementById("myModal");
+      modal.style.display = "block";
+    }
+
+    function closeModal() {
+      var modal = document.getElementById("myModal");
+      modal.style.display = "none";
+    }
+
+    function handleLearned() {
+      closeModal();
+      showFeedback("Congratulations! You are being redirected to the quiz page.", "success");
+      setTimeout(function () {
+        location.href = 'http://127.0.0.1:5000/quiz';
+      }, 2000);
+    }
+
+    function handleNotLearned() {
+      closeModal();
+      var checkbox3 = document.getElementById("checkbox3");
+      checkbox3.checked = false;
+      localStorage.setItem("checkbox3", "false");
+      showFeedback("Please try again. You are being redirected to the quiz page.", "fail");
+      setTimeout(function () {
+        location.href = 'http://127.0.0.1:5000/quiz';
+      }, 2000);
+    }
+
+    function showFeedback(message, type) {
+      var feedbackModal = document.getElementById("feedbackModal");
+      var feedbackMessage = document.getElementById("feedbackMessage");
+      feedbackMessage.textContent = message;
+      if (type === "success") {
+        feedbackMessage.classList.add("feedback-success");
+        feedbackMessage.classList.remove("feedback-fail");
+      } else {
+        feedbackMessage.classList.add("feedback-fail");
+        feedbackMessage.classList.remove("feedback-success");
+      }
+      feedbackModal.style.display = "block";
+    }
+
+    function showQuestion(questionId) {
+      var questions = document.querySelectorAll('div[id^="question"], div[id^="endScenario"]');
+      questions.forEach(function (question) {
+        question.style.display = "none";
+      });
+      document.getElementById(questionId).style.display = "block";
+    }
+  </script>
+</body>
+
+</html>

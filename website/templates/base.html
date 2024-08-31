@@ -7,11 +7,14 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
     <title>{% block title %}Home{% endblock %}</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
             box-sizing: border-box;
+            font-size: 18px;
         }
         
         .navbar-custom {
@@ -44,18 +47,47 @@
         }
         
         .sitead {
-            color: #fff;
-        }
-        
-        .content-container {
-            padding-top: 70px; /* Navbar yüksekliği kadar padding ekleyin */
-        }
+    font-family: 'Orbitron', sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+    color: #ffffff; /* Bright white color for clear visibility */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Subtle shadow for depth */
+    letter-spacing: 2px;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    z-index: 10; /* Brings the text to the front layer */
+}
 
-        .logo{
-            border-radius: 50%;
-        }
-        
-        
+.sitead::after {
+    content: 'VYROWEB';
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: rgba(255, 255, 255, 0.1); /* Light background effect for thickening the text */
+    z-index: -1;
+    filter: blur(4px); /* Adds depth with a slight blur effect */
+}
+
+.sitead:hover {
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.9); /* Enhances the shadow on hover */
+    transform: scale(1.08); /* Slightly larger scale on hover */
+}
+
+.content-container {
+    padding-top: 70px; /* Adds padding to match the navbar height */
+}
+
+.logo {
+    border-radius: 50%;
+    height: 60px; /* Adjust the logo height for a balanced appearance */
+    vertical-align: middle; /* Aligns the logo vertically with the text */
+    transition: transform 0.3s ease-in-out; /* Smooth transition effect for logo */
+    margin: 0;
+}
+
+.logo:hover {
+    transform: scale(1.1); /* Scales the logo slightly on hover for a dynamic look */
+}
 
     </style>
 </head>
@@ -76,9 +108,9 @@
                 {% endif %}
             </div>
             <a class="navbar-brand ml-auto" href="#" data-toggle="modal" data-target="#logoutModal">
-                <span class="sitead">[Site Name]</span>
-                <img class="logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="Click here to log out" style="cursor: pointer;">
-            </a>
+    <span class="sitead">VyroWeb</span>
+    <img class="logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="Click here to log out" style="cursor: pointer;">
+</a>
         </div>
     </nav>
     

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simülasyon Sayfası</title>
+    <title>Simulation Page</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
@@ -56,7 +56,7 @@
             gap: 10px;
         }
 
-        .proceed-button {
+        .continue-button {
             background: #58a6ff;
             color: #151f35;
             padding: 15px 30px;
@@ -83,7 +83,7 @@
             backdrop-filter: blur(5px);
         }
 
-        .proceed-button:hover {
+        .continue-button:hover {
             background: #151f35;
             color: #58a6ff;
             transform: translateY(-2px);
@@ -114,7 +114,7 @@
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
         }
 
-        .metin {
+        .text {
             margin: 0 auto;
             max-width: 900px;
         }
@@ -123,20 +123,20 @@
 <body>
     <img src="static/images/logo.png" alt="Logo" class="logo">
     <div class="content">
-        <h1>Simülasyon Sayfası</h1>
-        <p class="metin">Bu sayfa, Yapay Zeka Destekli Ağ Güvenliği Simülasyonudur. Burada, zararlı ve zararsız veri setlerini inceleyebilir ve ağ güvenliği hakkında pratik yapabilirsiniz. İlk olarak, zararlı ve zararsız verileri inceleyin. Ardından, size rastgele sunulan 20 veri arasından zararlı veya zararsız olanları seçerek tahminlerinizi yapın. Doğru tahminlerinize göre puan alacaksınız. Bu simülasyon, ağ güvenliği bilgilerinizi ve becerilerinizi geliştirmeyi amaçlar.</p>
+        <h1>Simulation Page</h1>
+        <p class="text">This page is an AI-Powered Network Security Simulation. Here, you can review benign and malicious datasets and practice network security. First, review the benign and malware data. Then, among 20 randomly presented data points, make your predictions by selecting which are benign or Mmlicious. You will earn points based on your correct predictions. This simulation aims to improve your network security knowledge and skills.</p>
 
         <div>
-            <!-- Zararlı Verileri İnceleme Butonu -->
-            <button onclick="window.location.href='/malicious'">Zararlı Verileri İncele</button>
-            <!-- Zararsız Verileri İnceleme Butonu -->
-            <button onclick="window.location.href='/benign'">Zararsız Verileri İncele</button>
+            <!-- Button to Review Malware Data -->
+            <button onclick="window.location.href='/malicious'">Review Malicious Data</button>
+            <!-- Button to Review Benign Data -->
+            <button onclick="window.location.href='/benign'">Review Benign Data</button>
         </div>
     </div>
-    <!-- İlerle ve Ana Sayfaya Dön Butonları -->
+    <!-- Continue and Return to Home Page Buttons -->
     <div class="button-container">
-        <a href="/home" class="home-button">Ana Sayfaya Dön</a>
-        <a href="/next-page" class="proceed-button">İlerle</a>
+        <a href="/home" class="home-button">Return to Home Page</a>
+        <a href="/next-page" class="continue-button">Continue</a>
     </div>
 </body>
 </html>

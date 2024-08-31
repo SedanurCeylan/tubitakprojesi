@@ -20,6 +20,10 @@ class User(db.Model, UserMixin):
     date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
     notes = db.relationship('Note')
     total_score = db.Column(db.Integer, default=0)
+    test_score = db.Column(db.Integer, default=0)
+    @property
+    def combined_score(self):
+        return self.test_score + self.total_score 
 
 
 
@@ -70,10 +74,13 @@ class MaliciousDataset(db.Model):
     resp_pkts = db.Column(db.Float)
     malware_status = db.Column(db.String(50))
 
+
+
 class AnalysisResult(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    accuracy = db.Column(db.Float, nullable=False)
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    score = db.Column(db.Integer, nullable=False)  # Puanı kaydetmek için sütun
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)  # Otomatik olarak zamanı kaydeder
+
 
     def __repr__(self):
         return f'<Dataset {self.id}>'

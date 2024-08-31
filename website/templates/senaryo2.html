@@ -7,15 +7,10 @@
   <style>
     html,
     body {
-      background-image: url("{{ url_for('static', filename='images/9.jpg') }}");
       background-size: cover;
-      /* Makes sure the image covers the entire background */
       background-repeat: no-repeat;
-      /* Prevents the image from repeating */
       background-attachment: fixed;
-      /* Ensures the background image stays fixed in place */
       background-position: center;
-      /* Centers the background image */
       height: 100%;
       margin: 0;
       display: flex;
@@ -197,18 +192,19 @@
       height: 100%;
       overflow: auto;
       background-color: rgba(0, 0, 0, 0.8);
+      overflow: hidden;
     }
 
     .modal-content {
       background-color: #151f35;
-      margin: 15% auto;
+      margin: 7% auto;
       padding: 20px;
       border: 1px solid #888;
       width: 80%;
-      max-width: 400px;
+      max-width: 700px;
       color: #ecf0f1;
       border-radius: 10px;
-      text-align: center;
+      text-align: left;
     }
 
     .modal-content p {
@@ -219,6 +215,8 @@
     .modal-content .button-container {
       text-align: center;
     }
+
+    
 
     .feedback-message {
       margin-top: 20px;
@@ -475,8 +473,6 @@
         <table>
           <thead>
             <tr>
-              <th>id.orig_h</th>
-              <th>id.resp_h</th>
               <th>id.resp_p</th>
               <th>proto</th>
               <th>duration</th>
@@ -493,8 +489,6 @@
             {% if data %}
             {% for row in data %}
             <tr>
-              <td>{{ row[1] }}</td>
-              <td>{{ row[2] }}</td>
               <td>{{ row[3] }}</td>
               <td>{{ row[4] }}</td>
               <td>{{ row[5] }}</td>
@@ -687,12 +681,15 @@
 
   <div id="myModal" class="modal">
     <div class="modal-content">
-      <p>What have you learned from this scenario?</p>
-      <ul>
-        <li>Importance of isolating IoT devices.</li>
-        <li>Using Wireshark for traffic analysis.</li>
-        <li>Security measures for IoT devices.</li>
-      </ul>
+      <h3>What have you learned from this scenario?</h3>
+      <ol>
+        <li><b>Keeping IoT Devices on a Separate Network:</b>Learn the importance of using a separate network for IoT devices to enhance security</li> 
+        <li><b>Using Wireshark:</b>Understand how to use Wireshark to monitor and analyze network traffic of devices.</li> 
+        <li><b>Importance of Updates:</b>Recognize the need to keep device software updated to fix security vulnerabilities.</li> 
+        <li><b>Using Strong Passwords:</b>Set strong and unique passwords for your network and devices.</li> 
+        <li><b>Monitoring Network Traffic:</b>Use monitoring tools to detect suspicious activities in your network.</li> 
+        <li><b>Early Detection of Issues:</b> Identify and respond to abnormalities in devices early to prevent security risks.</li> 
+      </ol>
       <div class="button-container">
         <button onclick="handleLearned()">Learned</button>
         <button onclick="handleNotLearned()">Not Learned</button>

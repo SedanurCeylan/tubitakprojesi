@@ -1,31 +1,41 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Sonraki Adım</title>
+    <title>Next Step</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: rgb(18, 27, 45);
+            background-color: #121b2d;
             color: #c9d1d9;
             margin: 0;
             padding: 0;
+            padding-top: 5rem;
         }
 
         h1 {
             color: #58a6ff;
             text-align: center;
             font-size: 2.5em;
-            margin-top: 50px;
+            margin: 0;
+            padding: 20px 0;
+            background-color: #121b2d;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 2px solid #58a6ff;
         }
 
-        p {
+        p.description {
             font-size: 1.2em;
             text-align: center;
-            margin-bottom: 40px;
+            margin: 20px auto;
+            width: 80%;
+            line-height: 1.5;
         }
 
         button,
@@ -66,19 +76,22 @@
         }
 
         .table-container {
-            width: 80%;
-            margin: 0 auto;
+            width: 90%;
+            margin: 20px auto;
             overflow-x: auto;
             overflow-y: auto;
-            max-height: 400px;
+            max-height: 300px;
             border: 2px solid #c9d1d9;
             border-radius: 8px;
+            background-color: #1f2a3e;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
+            font-size: 1em;
+            color: #c9d1d9;
         }
 
         th,
@@ -89,11 +102,19 @@
         }
 
         th {
-            background-color: #ffffff;
-            color: #000000;
+            background-color: #1f2a3e;
+            color: #ffffff;
             position: sticky;
             top: 0;
             z-index: 1;
+        }
+
+        tr:nth-child(even) {
+            background-color: #2d3748;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #243144;
         }
 
         .malware-status {
@@ -202,26 +223,30 @@
 </head>
 
 <body>
-    <h1>Sonraki Adım</h1>
-    <p>Bu sayfada bir sonraki adıma geçiş yapabilirsiniz.</p>
+    <h1>Threat Hunt: Detect Malware and Collect Points!</h1>
+
+    <p class="description">
+        This test page contains a total of 20 questions. Each test includes 10 rows of malicious and 10 rows of benign data. You will earn 10 points for each correctly marked malicious column, while mistakenly marked benign columns will deduct 5 points. Your goal is to detect the malware.
+    </p>
+    <p class="description">
+        Your earned points will be added to the overall leaderboard. Climb to the top of the leaderboard by scoring the highest points!
+    </p>
 
     <!-- Logo -->
     <img src="static/images/logo.png" alt="Logo" class="logo">
 
-    <!-- Sonuç Paneli -->
+    <!-- Result Panel -->
     <div id="resultPanel" class="result-panel">
         <!-- Results will be dynamically inserted here -->
-        <button class="close-button" onclick="closePanel()">Kapat</button>
+        <button class="close-button" onclick="closePanel()">Close</button>
     </div>
 
-    <!-- Veri Tablosu -->
+    <!-- Data Table -->
     <div class="table-container">
         <table id="data-table" class="next-page-table">
             <thead>
                 <tr>
-                    <th>Seç</th>
-                    <th>id.orig_h</th>
-                    <th>id.resp_h</th>
+                    <th>Select</th>
                     <th>id.resp_p</th>
                     <th>proto</th>
                     <th>duration</th>
@@ -238,8 +263,6 @@
                 {% for row in data %}
                 <tr data-source="{{ row.id }}">
                     <td><input type="checkbox" class="select-row"></td>
-                    <td>{{ row.id_orig_h }}</td>
-                    <td>{{ row.id_resp_h }}</td>
                     <td>{{ row.id_resp_p }}</td>
                     <td>{{ row.proto }}</td>
                     <td>{{ row.duration }}</td>
@@ -256,12 +279,12 @@
         </table>
     </div>
 
-    <!-- Analiz Yap, Geri Dön, Yeni ve Sonuçlar Butonları -->
+    <!-- Analyze, Back, New, and Results Buttons -->
     <div class="button-container">
-        <a href="/test_page" class="back-button">Geri Dön</a>
-        <button class="analyze-button" id="analyzeBtn" onclick="analyzeData()">Analiz Yap</button>
-        <button class="new-button" id="newBtn" onclick="location.reload();" disabled>Yeni</button>
-        <a href="sonuclar" class="results-button">Sonuçlar</a>
+        <a href="/test_page" class="back-button">Go Back</a>
+        <button class="analyze-button" id="analyzeBtn" onclick="analyzeData()">Analyze</button>
+        <button class="new-button" id="newBtn" onclick="location.reload();" disabled>New</button>
+        <a href="sonuclar" class="results-button">Results</a>
     </div>
 
     <script>
@@ -269,72 +292,72 @@
             document.querySelectorAll('.malware-status').forEach(function (element) {
                 element.style.display = 'table-cell';
             });
-    
+
             let selectedRows = [];
             let correctCount = 0;
             let incorrectCount = 0;
             let totalMalicious = 0;
-    
+            let score = 0;
+
             document.querySelectorAll('#data-table tbody tr').forEach(row => {
                 let checkbox = row.querySelector('.select-row');
                 if (checkbox.checked) {
                     let malwareStatus = row.querySelector('.malware-status').innerText;
                     if (malwareStatus === 'Malicious') {
                         correctCount++;
+                        score += 10; // Add 10 points for correct selection
                     } else {
                         incorrectCount++;
+                        score -= 5; // Deduct 5 points for incorrect selection
                     }
                     selectedRows.push(row);
-                    checkbox.disabled = true; // Seçimleri kilitle
+                    checkbox.disabled = true; // Lock selections
                 }
-    
+
                 if (row.querySelector('.malware-status').innerText === 'Malicious') {
                     totalMalicious++;
                 }
             });
-    
-            let accuracy = (correctCount / totalMalicious) * 100;
-    
-            // Send the accuracy to the server to be saved in the database
+
+            // Send only the score to the server to be saved in the database
             fetch('/sonuclar', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({accuracy: accuracy.toFixed(2)})
+                body: JSON.stringify({ score: score })  // Send score value
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    console.log("Analysis result saved successfully");
-                } else {
-                    console.error("Failed to save analysis result");
-                }
-            })
-            .catch(error => console.error('Error:', error));
-    
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        console.log("Analysis result saved successfully");
+                    } else {
+                        console.error("Failed to save analysis result");
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+
             // Display the result in the panel
-            displayResult(selectedRows, accuracy.toFixed(2), correctCount, incorrectCount, totalMalicious);
-    
-            // "Analiz Yap" butonunu devre dışı bırak
+            displayResult(selectedRows, correctCount, incorrectCount, totalMalicious, score);
+
+            // Disable the "Analyze" button
             document.getElementById('analyzeBtn').disabled = true;
-            document.getElementById('newBtn').disabled = false; // Yeni butonunu aktif et
+            document.querySelectorAll('.select-row').forEach(function (checkbox) {
+                checkbox.disabled = true;  // Lock the checkboxes
+            });
+            document.getElementById('newBtn').disabled = false; // Enable the New button
         }
-    
-        function displayResult(selectedRows, accuracy, correctCount, incorrectCount, totalMalicious) {
+
+        function displayResult(selectedRows, correctCount, incorrectCount, totalMalicious, score) {
             const resultPanel = document.getElementById('resultPanel');
-            resultPanel.innerHTML = `<h2>Analiz Sonucu: ${accuracy}% Doğruluk</h2>`;
-            resultPanel.innerHTML += `<p>Doğru Seçimler: ${correctCount}</p>`;
-            resultPanel.innerHTML += `<p>Yanlış Seçimler: ${incorrectCount}</p>`;
-            resultPanel.innerHTML += `<p>Toplam Malware: ${totalMalicious}</p>`;
-    
-            // Sonuç panelini göster
+            resultPanel.innerHTML = `<h2>Analysis Result</h2>`; // The header will only display "Analysis Result"
+            resultPanel.innerHTML += `<p>Correct Selections: ${correctCount}</p>`;
+            resultPanel.innerHTML += `<p>Incorrect Selections: ${incorrectCount}</p>`;
+            resultPanel.innerHTML += `<p>Total Malware: ${totalMalicious}</p>`;
+            resultPanel.innerHTML += `<p>Total Score: ${score}</p>`; // Show the total score
+
+            // Display the result panel
             resultPanel.style.display = 'block';
-        }
-    
-        function closePanel() {
-            const resultPanel = document.getElementById('resultPanel');
-            resultPanel.style.display = 'none';
         }
     </script>
 </body>

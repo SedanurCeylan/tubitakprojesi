@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sonuçlar</title>
+    <title>Results</title>
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -16,23 +16,30 @@
             color: #58a6ff;
             text-align: center;
             margin-bottom: 40px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         th, td {
             border: 1px solid #c9d1d9;
             padding: 10px;
             text-align: center;
+            font-size: 1.1em;
         }
 
         th {
             background-color: #58a6ff;
             color: #151f35;
+            font-weight: bold;
         }
 
         td {
@@ -40,7 +47,7 @@
             color: #c9d1d9;
         }
 
-        .back-button {
+        .back-button, .home-button {
             background: #151f35;
             border: none;
             color: #c9d1d9;
@@ -52,33 +59,58 @@
             display: inline-block;
             margin-top: 20px;
             text-align: center;
+            transition: background 0.3s ease, transform 0.3s ease;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
         }
 
-        .back-button:hover {
+        .back-button:hover, .home-button:hover {
             background: #58a6ff;
             color: #151f35;
+            transform: translateY(-2px);
+        }
+
+        .total-score {
+            font-size: 1.5em;
+            margin-top: 30px;
+            text-align: center;
+            color: #58a6ff;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <h1>Analiz Sonuçları</h1>
+    <h1>Analysis Results</h1>
     <table>
         <thead>
             <tr>
-                <th>Tarih ve Saat</th>
-                <th>Doğruluk Oranı (%)</th>
+                <th>Date and Time</th>
+                <th>Score</th>
             </tr>
         </thead>
         <tbody>
             {% for result in results %}
             <tr>
-                <td>{{ result.timestamp | datetimeformat }}</td>
-                <td>{{ result.accuracy }}</td>
+                <td>{{ result.timestamp }}</td>
+                <td>{{ result.score }}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-    <a href="/next-page" class="back-button">Geri</a>
 
+    <div class="total-score">
+        <p>Total Score: {{ test_score }}</p> <!-- Display the test_score from the User table -->
+    </div>
+
+    <div class="button-container">
+        <a href="/next-page" class="back-button">Back</a>
+        <a href="/home" class="home-button">Return to Home Page</a>
+    </div>
 </body>
 </html>

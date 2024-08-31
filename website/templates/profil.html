@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Profil{% endblock %}
+{% block title %}Profile{% endblock %}
 
 {% block content %}
 <style>
@@ -13,7 +13,6 @@
         overflow-x: hidden;
     }
 
-    /* Particles.js arka planı */
     #particles-js {
         position: fixed;
         width: 100%;
@@ -21,7 +20,7 @@
         z-index: -1;
         top: 0;
         left: 0;
-        background-color: #121b2d; /* Mevcut arka plan renginizi koruyun */
+        background-color: #121b2d;
     }
 
     .container {
@@ -66,26 +65,27 @@
         color: #f0f0f0;
         margin-bottom: 20px;
     }
-    .istatistik {
-    color: #151f35e6;
-    background-color: #007bff;
-    border-radius: 5px;
-    padding: 10px;
-    transition: background-color 0.3s ease;
-    border: #007bff;
-    width: 100px; /* Make it square */
-    height: 100px; /* Make it square */
-    margin-left: auto; /* Push it to the end of the flex container */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
-.istatistik:hover {
-    background-color: #0056b3;
-    text-decoration: none;
-    color: #fff;
-}
+    .statistics {
+        color: #151f35e6;
+        background-color: #007bff;
+        border-radius: 5px;
+        padding: 10px;
+        transition: background-color 0.3s ease;
+        border: #007bff;
+        width: 100px;
+        height: 100px;
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+    .statistics:hover {
+        background-color: #0056b3;
+        color: #fff;
+    }
 
     .edit-profile-btn {
         display: inline-block;
@@ -99,7 +99,6 @@
 
     .edit-profile-btn:hover {
         background-color: #0056b3;
-        text-decoration: none;
         color: #fff;
     }
 
@@ -138,7 +137,6 @@
     .user-table th {
         background-color: #007bff;
         color: #f0f0f0;
-        
     }
 
     .ranking-column {
@@ -146,7 +144,6 @@
         width: 50px;
         font-weight: bold;
         color: #f0f0f0;
-        
     }
 
     .user-thumbnail {
@@ -168,7 +165,6 @@
         color: #f0f0f0;
     }
 
-    /* Responsive Design */
     @media (max-width: 768px) {
         .profile-container {
             flex-direction: column;
@@ -186,48 +182,96 @@
         }
     }
 
+    /* Large Panel Styles */
+    .stats-panel {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        color: #fff;
+        display: none;
+        z-index: 1000;
+        padding: 50px;
+        overflow-y: auto;
+    }
+
+    .stats-panel-content {
+        max-width: 900px;
+        margin: auto;
+        background-color: #121b2d;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    }
+
+    .stats-panel h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 36px;
+        color: #007bff;
+    }
+
+    .close-panel {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 30px;
+        cursor: pointer;
+    }
+
+    .close-panel:hover {
+        color: #ff0000;
+    }
 </style>
 
-<!-- Particles.js arka planı için div -->
 <div id="particles-js"></div>
 
 <div class="container">
     <div class="profile-container">
-        <img src="{{ url_for('static', filename='profil/' + (user.profile_picture if user.profile_picture else 'default.png')) }}" class="profile-picture" alt="Profil Fotoğrafı">
+        <img src="{{ url_for('static', filename='profil/' + (user.profile_picture if user.profile_picture else 'default.png')) }}" class="profile-picture" alt="Profile Picture">
         <div class="profile-details">
             <h2 class="username">{{ user.username }}</h2>
             <p class="email">{{ user.email }}</p>
-            <a href="{{ url_for('views.edit_profile') }}" class="edit-profile-btn">Profili Düzenle</a>
-           
+            <a href="{{ url_for('views.edit_profile') }}" class="edit-profile-btn">Edit Profile</a>
         </div>
-        <button class="istatistik" id="istatistik">istatistik</button>
+        <div class="statistics" id="istatistikButton">Statistics</div>
     </div>
 
-    <h3 class="other-users-title">Diğer Kullanıcılar</h3>
+    <h3 class="other-users-title">Other Users</h3>
     <table class="user-table">
         <thead>
             <tr>
                 <th class="ranking-column"></th>
-                <th>Profil Fotoğrafı</th>
-                <th>Kullanıcı Adı</th>
-                <th>Toplam Puan</th>
+                <th>Profile Picture</th>
+                <th>Username</th>
+                <th>Total Score</th>
             </tr>
-           
         </thead>
         <tbody>
             {% for u in users %}
             <tr>
                 <td class="ranking-column">{{ loop.index }}</td>
-                <td><img src="{{ url_for('static', filename='profil/' + u.profile_picture) }}" class="user-thumbnail" alt="Profil Fotoğrafı"></td>
+                <td><img src="{{ url_for('static', filename='profil/' + u.profile_picture) }}" class="user-thumbnail" alt="Profile Picture"></td>
                 <td class="user-name">{{ u.username }}</td>
-                <td class="user-score">{{ u.total_score }}</td>
+                <td class="user-score">{{ u.combined_score }}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
 
-<!-- Particles.js ayarları -->
+<!-- Large Panel -->
+<div id="statsPanel" class="stats-panel">
+    <div class="stats-panel-content">
+        <span class="close-panel" id="closePanel">&times;</span>
+        <h2>User Achievements</h2>
+        <p>This section will display the user’s earned rewards and statistics.</p>
+        <!-- Achievements and statistics will be added here -->
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script>
     particlesJS("particles-js", {
@@ -331,6 +375,15 @@
             }
         },
         "retina_detect": true
+    });
+
+    // Open and close the statistics panel
+    document.getElementById("istatistikButton").addEventListener("click", function() {
+        document.getElementById("statsPanel").style.display = "block";
+    });
+
+    document.getElementById("closePanel").addEventListener("click", function() {
+        document.getElementById("statsPanel").style.display = "none";
     });
 </script>
 {% endblock %}
