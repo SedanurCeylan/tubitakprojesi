@@ -9,6 +9,7 @@
   <style>
     html,
     body {
+      font-family: "Roboto", sans-serif;
       height: 100%;
       margin: 0;
       padding: 0;
@@ -109,8 +110,21 @@
     }
 
     .sitead {
-      color: #fff;
-    }
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+    letter-spacing: 1px;
+    transition: transform 0.3s ease;
+    position: relative;
+    text-shadow: 0 0 1px rgb(255, 255, 255);
+}
+
+
+.sitead:hover {
+    transform: scale(1.1);
+}
+
   </style>
 </head>
 <body>
@@ -127,7 +141,7 @@
         {% endif %}
       </div>
       <a class="navbar-brand ml-auto" href="#" data-toggle="modal" data-target="#logoutModal">
-        <span class="sitead">Site Name</span>
+        <span class="sitead">VyroWeb</span>
         <img class="logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" style="cursor: pointer;">
       </a>
     </div>

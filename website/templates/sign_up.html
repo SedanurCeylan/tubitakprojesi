@@ -8,6 +8,7 @@
     <title>{% block title %}Sign Up{% endblock %}</title>
     <style>
         body {
+            font-family: "Roboto", sans-serif;
             background: url("{{ url_for('static', filename='images/sign-in.png') }}") no-repeat center center fixed;
             background-size: cover;
             margin: 0;
@@ -60,8 +61,21 @@
             border-radius: 50%;
         }
         .sitead {
-            color: #fff;
-        }
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+    letter-spacing: 1px;
+    transition: transform 0.3s ease;
+    position: relative;
+    text-shadow: 0 0 1px rgb(255, 255, 255);
+}
+
+
+.sitead:hover {
+    transform: scale(1.1);
+}
+
         
         .footer {
   text-align: right;
@@ -104,7 +118,7 @@
                 {% endif %}
             </div>
             <a class="navbar-brand ml-auto" href="#" data-toggle="modal" data-target="#logoutModal">
-                <span class="sitead">Site Adı</span>
+                <span class="sitead">VyroWeb</span>
                 <img class="logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" style="cursor: pointer;">
             </a>
         </div>

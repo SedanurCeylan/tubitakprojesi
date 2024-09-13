@@ -15,6 +15,7 @@
             height: 100%;
             box-sizing: border-box;
             font-size: 18px;
+            font-family: "Roboto", sans-serif;
         }
         
         .navbar-custom {
@@ -48,30 +49,20 @@
         
         .sitead {
     font-family: 'Orbitron', sans-serif;
-    font-size: 28px;
+    font-size: 18px;
     font-weight: bold;
-    color: #ffffff; /* Bright white color for clear visibility */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Subtle shadow for depth */
-    letter-spacing: 2px;
-    transition: all 0.3s ease-in-out;
+    color: #ffffff;
+    letter-spacing: 1px;
+    transition: transform 0.3s ease;
     position: relative;
-    z-index: 10; /* Brings the text to the front layer */
+    text-shadow: 0 0 1px rgb(255, 255, 255);
 }
 
-.sitead::after {
-    content: 'VYROWEB';
-    position: absolute;
-    top: 0;
-    left: 0;
-    color: rgba(255, 255, 255, 0.1); /* Light background effect for thickening the text */
-    z-index: -1;
-    filter: blur(4px); /* Adds depth with a slight blur effect */
-}
 
 .sitead:hover {
-    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.9); /* Enhances the shadow on hover */
-    transform: scale(1.08); /* Slightly larger scale on hover */
+    transform: scale(1.1);
 }
+
 
 .content-container {
     padding-top: 70px; /* Adds padding to match the navbar height */
