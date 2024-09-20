@@ -80,7 +80,18 @@ class AnalysisResult(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     score = db.Column(db.Integer, nullable=False)  # Puanı kaydetmek için sütun
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)  # Otomatik olarak zamanı kaydeder
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 
     def __repr__(self):
         return f'<Dataset {self.id}>'
+
+class LearnedInfo(db.Model):
+    __tablename__ = 'learned_info'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # Kullanıcı ile ilişkilendirmek için user_id alanı
+    senaryo1_learned_text = db.Column(db.Text, nullable=True)  # Senaryo 1 için metin
+    senaryo2_learned_text = db.Column(db.Text, nullable=True)  # Senaryo 2 için metin
+    senaryo3_learned_text = db.Column(db.Text, nullable=True)
+    senaryo4_learned_text = db.Column(db.Text, nullable=True)
+    senaryo5_learned_text = db.Column(db.Text, nullable=True)

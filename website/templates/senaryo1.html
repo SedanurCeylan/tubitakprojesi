@@ -164,6 +164,41 @@
     ::-webkit-scrollbar-thumb:hover {
       background-color: #4d80ee;
     }
+
+    .footer {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.footer input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.footer label {
+  margin-right: 15px;
+}
+
+button {
+  margin: 10px;
+  padding: 12px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 25px;
+  background-color: #3868d0;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+  transition: background 0.3s, transform 0.2s;
+}
+
+button:hover {
+  background: #4d80ee;
+  transform: scale(1.05);
+}
+
   </style>
 </head>
 
@@ -336,11 +371,18 @@
           <li>Ağ trafiği analizi ve şüpheli aktivitelerin tespiti.</li>
         </ul>
         <div class="button-container">
-          <button onclick="handleLearned()">Öğrendim</button>
+          <button onclick="handleLearnedForScenario1()">Öğrendim</button>
           <button onclick="handleNotLearned()">Öğrenmedim</button>
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="footer">
+    <input type="checkbox" id="checkbox1" name="completed" onclick="syncCheckboxes('checkbox1', this.checked)" />
+    <label for="completed">Completed</label>
+    <button onclick="location.href='http://127.0.0.1:5000/quiz'">Back to Scenarios</button>
+    <button onclick="location.href='http://127.0.0.1:5000/'">Home</button>
   </div>
 
   <script>
@@ -366,13 +408,31 @@
       modal.style.display = "none";
     }
 
-    function handleLearned() {
-      closeModal();
-      showFeedback("Tebrikler! Öğrendiğiniz için quiz sayfasına yönlendiriliyorsunuz.", "success");
-      setTimeout(function () {
-        location.href = 'http://127.0.0.1:5000/quiz';
-      }, 2000);
+    function handleLearnedForScenario1() {
+      fetch('/save-learned-info', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          scenario: 'senaryo1',
+          learnedText: "senaryo kazanımları"})
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert("Başarıyla kaydedildi!");
+          window.location.href = '/quiz';
+        } else {
+          alert("Kaydedilemedi, lütfen tekrar deneyin.");
+        }
+      })
+      .catch(error => {
+        console.error("Hata:", error);
+        alert("Bir hata oluştu, lütfen tekrar deneyin.");
+      });
     }
+
 
     function handleNotLearned() {
       closeModal();

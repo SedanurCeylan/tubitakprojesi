@@ -666,13 +666,30 @@
         modal.style.display = "none";
       }
 
-      function handleLearned() {
-        closeModal();
-        showFeedback("Congratulations! Redirecting you to the quiz page.", "success");
-        setTimeout(function () {
-          location.href = 'http://127.0.0.1:5000/quiz';
-        }, 2000);
-      }
+      function handleLearnedForScenario2() {
+      fetch('/save-learned-info', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          scenario: 'senaryo2',
+          learnedText: "Using Wireshark, Importance of Updates, Using Strong Passwords, Monitoring Network Traffic, Early Detection of Issues"})
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert("Başarıyla kaydedildi!");
+          window.location.href = '/quiz';
+        } else {
+          alert("Kaydedilemedi, lütfen tekrar deneyin.");
+        }
+      })
+      .catch(error => {
+        console.error("Hata:", error);
+        alert("Bir hata oluştu, lütfen tekrar deneyin.");
+      });
+    }
 
       function handleNotLearned() {
         closeModal();
@@ -732,7 +749,7 @@
         <li><b>Early Detection of Issues:</b> Identify and respond to abnormalities in devices early to prevent security risks.</li> 
       </ol>
       <div class="button-container">
-        <button onclick="handleLearned()">Learned</button>
+        <button onclick="handleLearnedForScenario2()">Learned</button>
         <button onclick="handleNotLearned()">Not Learned</button>
       </div>
     </div>

@@ -128,7 +128,8 @@
         z-index: 1;
     }
 
-    .user-table th, .user-table td {
+    .user-table th,
+    .user-table td {
         padding: 15px;
         text-align: center;
         border-bottom: 1px solid #f0f0f0;
@@ -177,7 +178,8 @@
             margin-top: 20px;
         }
 
-        .user-table th, .user-table td {
+        .user-table th,
+        .user-table td {
             padding: 10px;
         }
     }
@@ -230,7 +232,8 @@
 
 <div class="container">
     <div class="profile-container">
-        <img src="{{ url_for('static', filename='profil/' + (user.profile_picture if user.profile_picture else 'default.png')) }}" class="profile-picture" alt="Profile Picture">
+        <img src="{{ url_for('static', filename='profil/' + (user.profile_picture if user.profile_picture else 'default.png')) }}"
+            class="profile-picture" alt="Profile Picture">
         <div class="profile-details">
             <h2 class="username">{{ user.username }}</h2>
             <p class="email">{{ user.email }}</p>
@@ -253,7 +256,8 @@
             {% for u in users %}
             <tr>
                 <td class="ranking-column">{{ loop.index }}</td>
-                <td><img src="{{ url_for('static', filename='profil/' + u.profile_picture) }}" class="user-thumbnail" alt="Profile Picture"></td>
+                <td><img src="{{ url_for('static', filename='profil/' + u.profile_picture) }}" class="user-thumbnail"
+                        alt="Profile Picture"></td>
                 <td class="user-name">{{ u.username }}</td>
                 <td class="user-score">{{ u.combined_score }}</td>
             </tr>
@@ -267,10 +271,20 @@
     <div class="stats-panel-content">
         <span class="close-panel" id="closePanel">&times;</span>
         <h2>User Achievements</h2>
-        <p>This section will display the user’s earned rewards and statistics.</p>
-        <!-- Achievements and statistics will be added here -->
+        <ul>
+            {% if learned_info %}
+            <li>Scenario 1 Learned Text: {{ learned_info.senaryo1_learned_text }}</li>
+            <li>Scenario 2 Learned Text: {{ learned_info.senaryo2_learned_text }}</li>
+            <li>Scenario 3 Learned Text: {{ learned_info.senaryo3_learned_text }}</li>
+            <li>Scenario 4 Learned Text: {{ learned_info.senaryo4_learned_text }}</li>
+            <li>Scenario 5 Learned Text: {{ learned_info.senaryo5_learned_text }}</li>
+            {% else %}
+            <li>No achievements found.</li>
+            {% endif %}
+        </ul>
     </div>
 </div>
+
 
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script>
@@ -378,11 +392,11 @@
     });
 
     // Open and close the statistics panel
-    document.getElementById("istatistikButton").addEventListener("click", function() {
+    document.getElementById("istatistikButton").addEventListener("click", function () {
         document.getElementById("statsPanel").style.display = "block";
     });
 
-    document.getElementById("closePanel").addEventListener("click", function() {
+    document.getElementById("closePanel").addEventListener("click", function () {
         document.getElementById("statsPanel").style.display = "none";
     });
 </script>

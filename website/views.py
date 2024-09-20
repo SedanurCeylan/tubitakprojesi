@@ -2,11 +2,11 @@ from mailbox import Message
 from flask import Blueprint, render_template, request, jsonify, flash
 from flask_login import login_required, current_user
 import pytz
-from .models import BeignDataset, GeneratedDataDataset, MaliciousDataset, User, AnalysisResult
+from .models import BeignDataset, GeneratedDataDataset, LearnedInfo, MaliciousDataset, User, AnalysisResult
 from . import db
 import random
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy import func, text
+from sqlalchemy import Result, func, text
 import pandas as pd
 import json
 import mysql.connector
@@ -101,15 +101,15 @@ def sonuclar():
             user.test_score += score
             db.session.commit()
 
-        # Yeni test sonucunu AnalysisResult tablosuna ekle
-        new_result = AnalysisResult(score=score)
+        # Yeni test sonucunu AnalysisResult tablosuna ekle, user_id ile ilişkilendir
+        new_result = AnalysisResult(score=score, user_id=current_user.id)
         db.session.add(new_result)
         db.session.commit()
 
         return jsonify({"status": "success"})
 
-    # Tüm sonuçları veritabanından çek
-    results = AnalysisResult.query.order_by(AnalysisResult.timestamp.desc()).all()
+    # Sadece giriş yapan kullanıcının sonuçlarını çek
+    results = AnalysisResult.query.filter_by(user_id=current_user.id).order_by(AnalysisResult.timestamp.desc()).all()
     test_score = current_user.test_score  # Mevcut kullanıcının toplam puanını al
 
     return render_template('sonuclar.html', results=results, test_score=test_score)
@@ -190,12 +190,15 @@ def senaryo4():
 def senaryo5():
     return render_template('senaryo5.html')
 
+
 @views.route('/profil')
 @login_required
 def profil():
     users = User.query.order_by(User.total_score.desc()).all()  # Tüm kullanıcıları puana göre sırala
-    return render_template('profil.html', user=current_user, users=users)
+    learned_info = LearnedInfo.query.filter_by(user_id=current_user.id).first()  # Mevcut kullanıcıya ait learned_info verilerini al
+    return render_template('profil.html', user=current_user, users=users, learned_info=learned_info)
 
+    
 @views.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
@@ -262,4 +265,50 @@ def update_score():
 
 
 
+from flask_login import current_user
 
+@views.route('/save-learned-info', methods=['POST'])
+@login_required
+def save_learned_info():
+    data = request.get_json()
+    if not data or 'learnedText' not in data or 'scenario' not in data:
+        return jsonify({'success': False, 'message': 'Geçersiz veri'}), 400
+
+    learned_text = data['learnedText']
+    scenario = data['scenario']
+
+    # Oturum açmış kullanıcıyı kontrol et
+    user_id = current_user.id  # Oturum açmış kullanıcının ID'sini al
+
+    # Veritabanına senaryoya göre kaydet
+    existing_info = LearnedInfo.query.filter_by(user_id=user_id).first()  # Mevcut kayıt olup olmadığını kontrol edin
+    if not existing_info:
+        existing_info = LearnedInfo(user_id=user_id)  # Yeni kayıt oluştur
+
+    if scenario == 'senaryo1':
+        existing_info.senaryo1_learned_text = learned_text
+    elif scenario == 'senaryo2':
+        existing_info.senaryo2_learned_text = learned_text
+    elif scenario == 'senaryo3':
+        existing_info.senaryo3_learned_text = learned_text
+    elif scenario == 'senaryo4':
+        existing_info.senaryo4_learned_text = learned_text  
+    elif scenario == 'senaryo5':
+        existing_info.senaryo5_learned_text = learned_text
+
+
+    try:
+        db.session.add(existing_info)
+        db.session.commit()
+        return jsonify({'success': True}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+
+
+@views.route('/results')
+@login_required
+def results():
+    results = AnalysisResult.query.filter_by(user_id=current_user.id).all()  # Giriş yapan kullanıcının sonuçlarını al
+    return render_template('sonuclar.html', results=results)

@@ -622,7 +622,7 @@
         <li><b>Remote Monitoring and Management:</b> You will learn how to monitor the fire situation through mobile devices and manage your IoT devices during this process. Even if you are not home during the fire, you will understand the importance of controlling the situation at home through IoT devices. These gains will help you enhance the security level of your home and be better prepared for possible fire situations.</li>
       </ol>
       <div class="button-container">
-        <button onclick="handleLearned()">I Learned</button>
+        <button onclick="handleLearnedForScenario3()">I Learned</button>
         <button onclick="handleNotLearned()">I Did Not Learn</button>
       </div>
     </div>
@@ -658,12 +658,29 @@
       modal.style.display = "none";
     }
 
-    function handleLearned() {
-      closeModal();
-      showFeedback("Congratulations! You are being redirected to the quiz page.", "success");
-      setTimeout(function () {
-        location.href = 'http://127.0.0.1:5000/quiz';
-      }, 2000);
+    function handleLearnedForScenario3() {
+      fetch('/save-learned-info', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          scenario: 'senaryo3',
+          learnedText: "Using IoT Systems in Emergencies, Early Warning and Intervention Systems, Data Analysis and Security, Remote Monitoring and Management"})
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert("Başarıyla kaydedildi!");
+          window.location.href = '/quiz';
+        } else {
+          alert("Kaydedilemedi, lütfen tekrar deneyin.");
+        }
+      })
+      .catch(error => {
+        console.error("Hata:", error);
+        alert("Bir hata oluştu, lütfen tekrar deneyin.");
+      });
     }
 
     function handleNotLearned() {
