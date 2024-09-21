@@ -271,17 +271,17 @@
     <div class="stats-panel-content">
         <span class="close-panel" id="closePanel">&times;</span>
         <h2>User Achievements</h2>
-        <ul>
+        <ol>
             {% if learned_info %}
-            <li>Scenario 1 Learned Text: {{ learned_info.senaryo1_learned_text }}</li>
-            <li>Scenario 2 Learned Text: {{ learned_info.senaryo2_learned_text }}</li>
-            <li>Scenario 3 Learned Text: {{ learned_info.senaryo3_learned_text }}</li>
-            <li>Scenario 4 Learned Text: {{ learned_info.senaryo4_learned_text }}</li>
-            <li>Scenario 5 Learned Text: {{ learned_info.senaryo5_learned_text }}</li>
+            <li><b>REFRİGATOR SECURİTY: </b><br>{{ learned_info.senaryo1_learned_text }}</li>
+            <li><b>SMART THERMOSTAT: </b><br>{{ learned_info.senaryo2_learned_text }}</li>
+            <li><b>FİRE SİTUATİON İN SMART HOME: </b><br>{{ learned_info.senaryo3_learned_text }}</li>
+            <li><b>PREPARİNG: </b><br>{{ learned_info.senaryo4_learned_text }}</li>
+            <li><b>PREPARİNG: </b><br>{{ learned_info.senaryo5_learned_text }}</li>
             {% else %}
             <li>No achievements found.</li>
             {% endif %}
-        </ul>
+        </ol>
     </div>
 </div>
 

@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8" />
-  <title>Senaryo 1</title>
+  <title>Refrigerator Security</title>
   <style>
-     html,
+   html,
     body {
+      background-image: url("{{ url_for('static', filename='images/fire_background.jpg') }}");
       background-size: cover;
       background-repeat: no-repeat;
       background-attachment: fixed;
@@ -23,16 +24,15 @@
 
     .center-content {
       text-align: center;
-      width: 85%;
-      max-width: 700px;
-      background-color: rgba(21, 31, 53, 0.95);
-      padding: 40px;
+      width: 80%;
+      max-width: 600px;
+      background-color: #151f35;
+      padding: 30px;
       border-radius: 15px;
-      box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(6px);
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
       overflow-y: auto;
-      max-height: 80vh;
-      animation: fadeIn 0.5s ease-in-out;
+      max-height: 60vh;
     }
 
     @keyframes fadeIn {
@@ -74,18 +74,28 @@
       line-height: 1.6;
       text-align: justify;
     }
+    ul {
+      text-align: left;
+    }
 
     .button-container {
       margin: 30px 0;
-      text-align: center;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
+    }
+    @keyframes fadeInModal {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     button {
-      padding: 12px 24px;
+      margin: 10px;
+      padding: 15px 30px;
       font-size: 16px;
       border: none;
       border-radius: 25px;
@@ -101,6 +111,71 @@
       transform: scale(1.05);
     }
 
+    .footer {
+      position: fixed;
+      right: 10px;
+      bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    .footer input[type="checkbox"] {
+      margin-right: 5px;
+    }
+
+    .footer label {
+      margin-right: 15px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    table,
+    th,
+    td {
+      border: 1px solid #ecf0f1;
+    }
+
+    th,
+    td {
+      padding: 5px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #3868d0;
+    }
+
+    td {
+      background-color: #2c3e50;
+    }
+
+    .table-container {
+      overflow-x: auto;
+    }
+
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #151f35;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #3868d0;
+      border-radius: 10px;
+      border: 3px solid #151f35;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: #4d80ee;
+    }
+
     .modal {
       display: none;
       position: fixed;
@@ -111,31 +186,28 @@
       height: 100%;
       overflow: auto;
       background-color: rgba(0, 0, 0, 0.8);
+      overflow: hidden;
     }
 
     .modal-content {
       background-color: #151f35;
-      margin: 10% auto;
-      padding: 30px;
+      margin: 8% auto;
+      padding: 20px;
       border: 1px solid #888;
-      width: 85%;
-      max-width: 500px;
+      width: 80%;
+      max-width: 700px;
       color: #ecf0f1;
       border-radius: 10px;
-      text-align: center;
-      animation: fadeInModal 0.5s ease-in-out;
+      text-align: left;
     }
 
-    @keyframes fadeInModal {
-      from {
-        opacity: 0;
-        transform: scale(0.8);
-      }
+    .modal-content p {
+      font-size: 18px;
+      line-height: 1.6;
+    }
 
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
+    .modal-content .button-container {
+      text-align: center;
     }
 
     .feedback-message {
@@ -151,324 +223,345 @@
     .feedback-fail {
       color: #f44336;
     }
-
-    ::-webkit-scrollbar {
-      width: 10px;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background-color: #3868d0;
-      border-radius: 10px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background-color: #4d80ee;
-    }
-
-    .footer {
-  position: fixed;
-  right: 10px;
-  bottom: 10px;
-  display: flex;
-  align-items: center;
-}
-
-.footer input[type="checkbox"] {
-  margin-right: 5px;
-}
-
-.footer label {
-  margin-right: 15px;
-}
-
-button {
-  margin: 10px;
-  padding: 12px 24px;
-  font-size: 16px;
-  border: none;
-  border-radius: 25px;
-  background-color: #3868d0;
-  color: white;
-  cursor: pointer;
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
-  transition: background 0.3s, transform 0.2s;
-}
-
-button:hover {
-  background: #4d80ee;
-  transform: scale(1.05);
-}
-
   </style>
 </head>
 
 <body>
   <div class="center-content">
+    <!-- Question 1: Start -->
     <div id="question1">
-      <h1>SENARYO 1</h1>
+      <h1>REFRİGATOR SECURİTY</h1>
       <p>
-        Önemli bir uyarı almak üzeresiniz! Buzdolabınızdan şüpheli faaliyetler tespit edildi. Cihazlarınızın güvenliği
-        bizim için büyük önem taşıyor. Bu nedenle, hemen kontrol etmeye hazır mısınız?
+        You are about to receive an important alert! Suspicious activity has been detected from your refrigerator. The
+        security of your devices is of utmost importance to us. Are you ready to check it right away?
       </p>
       <div class="button-container">
-        <button onclick="showQuestion('question2')">EVET sorunu çözmeye başlayalım</button>
-        <button onclick="showQuestion('question3')">Hayır, daha sonra</button>
+        <button onclick="showQuestion('question2')">YES, let's start solving the issue</button>
+        <button onclick="showQuestion('question3')">No, I'll do it later</button>
       </div>
     </div>
 
+    <!-- Question 2: Let's Begin -->
     <div id="question2" style="display: none">
-      <p>Hadi başlayalım!</p>
+      <h1>Let's Begin!</h1>
+      <p>We detected suspicious traffic. We will use the necessary tools to examine the source of this traffic and
+        identify any abnormalities in the network.</p>
       <div class="button-container">
-        <button onclick="showQuestion('question4')">Trafik detaylarını inceleyin</button>
-        <button onclick="showQuestion('postpone')">Çok uzun iş, sonra yaparım</button>
+        <button onclick="showQuestion('question4')">Examine the traffic details</button>
+        <button onclick="showQuestion('endScenario')">It's too long, I'll do it later</button>
       </div>
     </div>
 
+    <!-- Question 3: Security Warning -->
     <div id="question3" style="display: none">
+      <h1>Security Warning</h1>
       <p>
-        Güvenlik sorunlarını göz ardı etmek, ağınızda daha büyük risklere yol açabilir. Sorunları hemen çözmek önemli,
-        daha sonra kontrol etmek istediğine emin misin?
+        Ignoring security issues can lead to bigger risks on your network. Solving problems immediately is crucial. Are
+        you sure you want to check it later?
       </p>
       <div class="button-container">
-        <button onclick="showQuestion('question4')">Vazgeçtim hemen şimdi yapalım</button>
-        <button onclick="showQuestion('endScenario')">Asla, bu konuda endişelenmiyorum</button>
+        <button onclick="showQuestion('question4')">I've changed my mind, let's do it now</button>
+        <button onclick="showQuestion('endScenario')">No, I don't care about this</button>
       </div>
     </div>
 
-    <div id="endScenario" style="display: none">
-      <p>
-        Ağ güvenliği ciddiye alınması gereken bir konudur ve ihmal edilmesi, kişisel verilerin kötü niyetli kişilerin
-        eline geçmesine neden olabilir. Yine de yardıma hazırız, ne zaman istersen.
-      </p>
-      <div class="button-container">
-        <button onclick="location.href='http://127.0.0.1:5000/quiz'">Senaryoyu Bitir</button>
-      </div>
-    </div>
-
+    <!-- Question 4: Wireshark Analysis -->
     <div id="question4" style="display: none">
-      <p>
-        Buzdolabının son trafiğini analiz edeceğiz. Bunu hangi araç yardımıyla yapabiliriz?
-      </p>
-      <div class="button-container">
-        <button onclick="showQuestion('question5')">nmap</button>
-        <button onclick="showQuestion('question6')">wireshark</button>
-        <button onclick="showQuestion('shodan')">shodan</button>
-        <button onclick="showQuestion('hydra')">hydra</button>
-      </div>
-    </div>
-
-    <div id="question5" style="display: none">
-      <h1 class="baslık">Nmap</h1>
-      <p>Nmap, ağ keşfi ve güvenlik denetimi için kullanılan güçlü, açık kaynaklı bir araçtır.</p>
-      <div class="button-container">
-        <button onclick="showQuestion('question7')">Bu bilgiler bana yeterli, devam edelim</button>
-        <button onclick="showQuestion('question4')">Başka araçların çıktılarını da incelemek istiyorum</button>
-      </div>
-    </div>
-
-    <div id="question6" style="display: none">
-      <h1 class="baslık">Wireshark</h1>
-      <p>Wireshark, ağ trafiğini izlemek, analiz etmek ve sorunları gidermek için kullanılan bir ağ protokol analizörüdür.</p>
-      <h2>Rastgele Veri Çekme</h2>
-      <div class="table-container">
-        {% if data_malicious %}
-        <table>
-          <thead>
-            <tr>
-              <th>id.orig_h</th>
-              <th>id.resp_h</th>
-              <th>id.resp_p</th>
-              <th>proto</th>
-              <th>duration</th>
-              <th>orig_bytes</th>
-              <th>resp_bytes</th>
-              <th>history</th>
-              <th>orig_pkts</th>
-              <th>orig_ip_bytes</th>
-              <th>resp_pkts</th>
-              <th>malware_status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for row in data_malicious %}
-            <tr>
-              <td>{{ row[1] }}</td>
-              <td>{{ row[2] }}</td>
-              <td>{{ row[3] }}</td>
-              <td>{{ row[4] }}</td>
-              <td>{{ row[5] }}</td>
-              <td>{{ row[6] }}</td>
-              <td>{{ row[7] }}</td>
-              <td>{{ row[8] }}</td>
-              <td>{{ row[9] }}</td>
-              <td>{{ row[10] }}</td>
-              <td>{{ row[11] }}</td>
-              <td>{{ row[12] }}</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-        {% else %}
-        <p>Veri bulunamadı.</p>
-        {% endif %}
-      </div>
-      <div class="button-container">
-        <button onclick="showQuestion('moreResearch')">İlgili IP adresini daha fazla araştırırım</button>
-        <button onclick="showQuestion('disconnectFridge')">Buzdolabını ağdan çıkarırım</button>
-      </div>
-    </div>
-
-    <div id="question7" style="display: none">
-      <p>
-        Bu bilgiler sana yeterli değil :) Başka araçları kullanmalıydın. Ne yapmak istersin?
-      </p>
-      <div class="button-container">
-        <button onclick="showQuestion('question4')">Hadi inceleyelim</button>
-        <button onclick="location.href='http://127.0.0.1:5000/quiz'">Burada bitsin, incelemek istemiyorum</button>
-      </div>
-    </div>
-
-    <div id="shodan" style="display: none">
-      <h1 class="baslık">Shodan</h1>
-      <p>Shodan, internete bağlı cihazları ve bu cihazların sunduğu servisleri arayan bir arama motorudur.</p>
-      <div class="button-container">
-        <button onclick="showQuestion('question4')">Soru 4'e Geri Dön</button>
-        <button onclick="location.href='http://127.0.0.1:5000/quiz'">Senaryolara Geri Dön</button>
-      </div>
-    </div>
-
-    <div id="hydra" style="display: none">
-      <h1 class="baslık">Hydra</h1>
-      <p>Hydra, hızlı ve esnek bir parola kırma aracıdır.</p>
-      <div class="button-container">
-        <button onclick="showQuestion('question4')">Soru 4'e Geri Dön</button>
-        <button onclick="location.href='http://127.0.0.1:5000/quiz'">Senaryolara Geri Dön</button>
-      </div>
-    </div>
-
-    <div id="postpone" style="display: none">
-      <p>
-        Anlıyorum, şu anda başka önceliklerin olabilir. Ancak unutma, ağ güvenliğini ertelemek, beklenmedik sorunlara yol
-        açabilir. Kişisel bilgilerin korunması ve ağının güvenliği için düzenli kontroller ve güncellemeler önemlidir.
-      </p>
-    </div>
-
-    <div id="moreResearch" style="display: none">
-      <p>IP adresi daha detaylı araştırılıyor...</p>
-    </div>
-
-    <div id="disconnectFridge" style="display: none">
-      <p>Buzdolabı ağdan çıkarıldı.</p>
-    </div>
-
-    <!-- Modal structure -->
-    <div id="myModal" class="modal">
-      <div class="modal-content">
-        <p>Bu senaryonun kazanımları:</p>
-        <ul>
-          <li>Ağ güvenliğinin önemi ve temel ilkeleri.</li>
-          <li>Güvenlik araçlarının kullanımı ve sağladığı veriler.</li>
-          <li>Ağ trafiği analizi ve şüpheli aktivitelerin tespiti.</li>
-        </ul>
-        <div class="button-container">
-          <button onclick="handleLearnedForScenario1()">Öğrendim</button>
-          <button onclick="handleNotLearned()">Öğrenmedim</button>
+      <h2>Wireshark</h2>
+      <p>Wireshark is a tool used to monitor and analyze network traffic. You can use it to observe suspicious
+        activities on your network.</p>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>proto</th>
+                <th>duration</th>
+                <th>orig_bytes</th>
+                <th>resp_bytes</th>
+                <th>history</th>
+                <th>orig_pkts</th>
+                <th>orig_ip_bytes</th>
+                <th>resp_pkts</th>
+                <th>resp_ip_bytes</th>
+                <th>malware_status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% if data %}
+              {% for row in data %}
+              <tr>
+                <td>{{ row[0] }}</td>
+                <td>{{ row[1] }}</td>
+                <td>{{ row[2] }}</td>
+                <td>{{ row[3] }}</td>
+                <td>{{ row[4] }}</td>
+                <td>{{ row[5] }}</td>
+                <td>{{ row[6] }}</td>
+                <td>{{ row[7] }}</td>
+                <td>{{ row[8] }}</td>
+                <td>{{ row[9] }}</td>
+              </tr>
+              {% endfor %}
+              {% else %}
+              <tr>
+                <td colspan="10">No data available.</td>
+              </tr>
+              {% endif %}
+            </tbody>
+          </table>
         </div>
+      <div class="button-container">
+        <button onclick="showQuestion('question5')">See Nmap Scan Results</button>
+      </div>
+    </div>
+
+    <!-- Question 5: Nmap Scan Results -->
+    <div id="question5" style="display: none">
+      <h2>Nmap</h2>
+      <p>Nmap is a powerful tool used for network discovery and security auditing. Below are the open ports and services
+        detected by the Nmap scan:</p>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>proto</th>
+                <th>resp_bytes</th>
+                <th>history</th>
+                <th>malware_status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% if data %}
+              {% for row in data %}
+              <tr>
+                <td>{{ row[0] }}</td>
+                <td>{{ row[3] }}</td>
+                <td>{{ row[4] }}</td>
+                <td>{{ row[9] }}</td>
+              </tr>
+              {% endfor %}
+              {% else %}
+              <tr>
+                <td colspan="9">No data available.</td>
+              </tr>
+              {% endif %}
+            </tbody>
+          </table>
+        </div>
+      <div class="button-container">
+        <button onclick="showQuestion('question6')">See Shodan Results</button>
+      </div>
+    </div>
+
+    <!-- Question 6: Shodan Results -->
+    <div id="question6" style="display: none">
+      <h2>Shodan</h2>
+      <p>Shodan is a search engine that allows you to find internet-connected devices and the services they provide.
+        Below are the device details found using Shodan:</p>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>resp_bytes</th>
+                <th>history</th>
+                <th>malware_status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% if data %}
+              {% for row in data %}
+              <tr>
+                <td>{{ row[3] }}</td>
+                <td>{{ row[4] }}</td>
+                <td>{{ row[9] }}</td>
+              </tr>
+              {% endfor %}
+              {% else %}
+              <tr>
+                <td colspan="10">No data available.</td>
+              </tr>
+              {% endif %}
+            </tbody>
+          </table>
+        </div>
+      <div class="button-container">
+        <button onclick="showQuestion('question7')">See Hydra Password Cracking Results</button>
+      </div>
+    </div>
+
+    <!-- Question 7: Hydra Password Cracking -->
+    <div id="question7" style="display: none">
+      <h2>Hydra</h2>
+      <p>Hydra is a fast and flexible password cracking tool. It is used to test weak passwords on certain systems. Here
+        are the test results:</p>
+      <p><strong>Successful Password: </strong>admin123</p>
+      <div class="button-container">
+        <button onclick="showQuestion('question8')">Proceed</button>
+      </div>
+    </div>
+
+    <!-- Question 8: Device Privileges Review -->
+    <div id="question8" style="display: none">
+      <h2>Device Privileges</h2>
+      <p>You have reviewed the internet access and connection privileges of your device. Have you confirmed the security
+        of all devices?</p>
+      <div class="button-container">
+        <button onclick="showQuestion('question9')">Yes, I have checked them all</button>
+        <button onclick="showQuestion('question10')">No, I need further analysis</button>
+      </div>
+    </div>
+
+    <!-- Question 9: Security Level -->
+    <div id="question9" style="display: none">
+      <h2>Security Level</h2>
+      <p>Do you think your network security is sufficient?</p>
+      <div class="button-container">
+        <button onclick="showQuestion('endScenario')">Yes, it is secure</button>
+        <button onclick="showQuestion('question10')">No, I will take more precautions</button>
+      </div>
+    </div>
+
+    <!-- Question 10: Final Check -->
+    <div id="question10" style="display: none">
+      <h2>Final Check</h2>
+      <p>You have completed the scenario. Would you like to do further analysis?</p>
+      <div class="button-container">
+        <button onclick="location.href='http://127.0.0.1:5000/quiz'">No, finish the scenario</button>
+        <button onclick="showQuestion('question4')">Yes, repeat the analysis</button>
+      </div>
+    </div>
+
+    <!-- Scenario End -->
+    <div id="endScenario" style="display: none">
+      <h2>Scenario Completed</h2>
+      <p>You have successfully completed this scenario. You have taken the necessary steps to ensure the security of
+        your refrigerator.</p>
+      <div class="button-container">
+        <button onclick="location.href='http://127.0.0.1:5000/quiz'">Finish</button>
       </div>
     </div>
   </div>
 
-  <div class="footer">
-    <input type="checkbox" id="checkbox1" name="completed" onclick="syncCheckboxes('checkbox1', this.checked)" />
-    <label for="completed">Completed</label>
-    <button onclick="location.href='http://127.0.0.1:5000/quiz'">Back to Scenarios</button>
-    <button onclick="location.href='http://127.0.0.1:5000/'">Home</button>
-  </div>
+  <!-- Modal for Learned Info -->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <h3>What have you learned from this scenario?</h3>
+      <ol>
+        <li><b>Detecting Suspicious Activity from IoT Devices:</b> You will learn how to identify suspicious activities
+          originating from smart devices like your refrigerator.</li>
+        <li><b>Monitoring Network Traffic of IoT Devices:</b> You will use Wireshark to monitor and analyze the traffic
+          generated by your refrigerator.</li>
+        <li><b>Assessing Vulnerabilities of IoT Devices:</b> With Nmap, you will learn to detect open ports and services
+          that may pose risks to your refrigerator.</li>
+        <li><b>Identifying Internet Exposure of Devices:</b> By using Shodan, you will understand how your refrigerator
+          and other devices are exposed on the internet and how to secure them.</li>
+        <li><b>Testing Weak Passwords on IoT Devices:</b> You will use Hydra to test the password strength of your
+          refrigerator’s system and improve its security.</li>
+        <li><b>Making Decisions on Disconnecting Devices:</b> You will decide whether to disconnect the refrigerator
+          from the network based on your analysis.</li>
+        <li><b>Learning How to Respond to Security Alerts:</b> You will understand the importance of quickly responding
+          to a security alert regarding your smart devices.</li>
+        <li><b>Improving the Security of Your Refrigerator:</b> By the end of the scenario, you will have implemented
+          measures to protect your refrigerator from cyber threats.
+        </li>
+      </ol>
+      <div class="button-container">
+        <button onclick="handleLearnedForScenario1()">I Learned</button>
+        <button onclick="handleNotLearned()">I Did Not Learn</button>
+      </div>
+    </div>
+    </div>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const checkbox1 = document.getElementById("checkbox1");
-      checkbox1.checked = localStorage.getItem("checkbox1") === "true";
-    });
+    <div class="footer">
+      <input type="checkbox" id="checkbox3" name="completed" onclick="syncCheckboxes('checkbox1', this.checked)" />
+      <label for="completed">Completed</label>
+      <button onclick="location.href='http://127.0.0.1:5000/quiz'">Return to Scenarios</button>
+      <button onclick="location.href='http://127.0.0.1:5000/'">Return to Homepage</button>
+    </div>
 
-    function syncCheckboxes(checkboxId, isChecked) {
-      localStorage.setItem(checkboxId, isChecked);
-      if (isChecked) {
-        showModal();
-      }
-    }
-
-    function showModal() {
-      var modal = document.getElementById("myModal");
-      modal.style.display = "block";
-    }
-
-    function closeModal() {
-      var modal = document.getElementById("myModal");
-      modal.style.display = "none";
-    }
-
-    function handleLearnedForScenario1() {
-      fetch('/save-learned-info', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          scenario: 'senaryo1',
-          learnedText: "senaryo kazanımları"})
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          alert("Başarıyla kaydedildi!");
-          window.location.href = '/quiz';
-        } else {
-          alert("Kaydedilemedi, lütfen tekrar deneyin.");
+    <!-- JavaScript Functions -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Load the checkbox state from localStorage
+        const checkbox1 = document.getElementById("checkbox1");
+        checkbox3.checked = localStorage.getItem("checkbox1") === "true";
+      });
+  
+      function syncCheckboxes(checkboxId, isChecked) {
+        localStorage.setItem(checkboxId, isChecked);
+        if (isChecked) {
+          showModal();
         }
-      })
-      .catch(error => {
-        console.error("Hata:", error);
-        alert("Bir hata oluştu, lütfen tekrar deneyin.");
-      });
-    }
-
-
-    function handleNotLearned() {
-      closeModal();
-      var checkbox1 = document.getElementById("checkbox1");
-      checkbox1.checked = false;
-      localStorage.setItem("checkbox1", "false");
-      showFeedback("Tekrar deneyin. Quiz sayfasına yönlendiriliyorsunuz.", "fail");
-      setTimeout(function () {
-        location.href = 'http://127.0.0.1:5000/quiz';
-      }, 2000);
-    }
-
-    function showFeedback(message, type) {
-      var feedbackModal = document.getElementById("feedbackModal");
-      var feedbackMessage = document.getElementById("feedbackMessage");
-      feedbackMessage.textContent = message;
-      if (type === "success") {
-        feedbackMessage.classList.add("feedback-success");
-        feedbackMessage.classList.remove("feedback-fail");
-      } else {
-        feedbackMessage.classList.add("feedback-fail");
-        feedbackMessage.classList.remove("feedback-success");
       }
-      feedbackModal.style.display = "block";
-    }
+  
+      function showModal() {
+        var modal = document.getElementById("myModal");
+        modal.style.display = "block";
+      }
+  
+      function closeModal() {
+        var modal = document.getElementById("myModal");
+        modal.style.display = "none";
+      }
+  
+      function handleLearnedForScenario1() {
+        fetch('/save-learned-info', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            scenario: 'senaryo1',
+            learnedText: "Detecting Suspicious Activity from IoT Devices, Monitoring Network Traffic of IoT Devices, Assessing Vulnerabilities of IoT Devices, Identifying Internet Exposure of Devices, Testing Weak Passwords on IoT Devices, Making Decisions on Disconnecting Devices, Learning How to Respond to Security Alerts, Improving the Security of Your Refrigerator"})
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert("Başarıyla kaydedildi!");
+            window.location.href = '/quiz';
+          } else {
+            alert("Kaydedilemedi, lütfen tekrar deneyin.");
+          }
+        })
+        .catch(error => {
+          console.error("Hata:", error);
+          alert("Bir hata oluştu, lütfen tekrar deneyin.");
+        });
+      }
+  
+      function handleNotLearned() {
+        closeModal();
+        var checkbox1 = document.getElementById("checkbox1");
+        checkbox1.checked = false;
+        localStorage.setItem("checkbox1", "false");
+        showFeedback("Please try again. You are being redirected to the quiz page.", "fail");
+        setTimeout(function () {
+          location.href = 'http://127.0.0.1:5000/quiz';
+        }, 2000);
+      }
+  
+      function showFeedback(message, type) {
+        var feedbackModal = document.getElementById("feedbackModal");
+        var feedbackMessage = document.getElementById("feedbackMessage");
+        feedbackMessage.textContent = message;
+        if (type === "success") {
+          feedbackMessage.classList.add("feedback-success");
+          feedbackMessage.classList.remove("feedback-fail");
+        } else {
+          feedbackMessage.classList.add("feedback-fail");
+          feedbackMessage.classList.remove("feedback-success");
+        }
+        feedbackModal.style.display = "block";
+      }
+  
+      function showQuestion(questionId) {
+        var questions = document.querySelectorAll('div[id^="question"], div[id^="endScenario"]');
+        questions.forEach(function (question) {
+          question.style.display = "none";
+        });
+        document.getElementById(questionId).style.display = "block";
+      }
+    </script>
+  </body>
 
-    function showQuestion(questionId) {
-      var questions = document.querySelectorAll(
-        'div[id^="question"], div[id^="incorrectTool"], div[id^="postpone"], div[id^="moreResearch"], div[id^="disconnectFridge"]'
-      );
-      questions.forEach(function (question) {
-        question.style.display = "none";
-      });
-      document.getElementById(questionId).style.display = "block";
-    }
-  </script>
-</body>
-
-</html>
+  </html>

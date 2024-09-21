@@ -125,23 +125,22 @@ def hakkimda():
     return render_template('hakkimda.html')
 
 @views.route('/senaryo1')
-@login_required
 def senaryo1():
     # Veritabanı oturumu oluştur
     Session = sessionmaker(bind=db.engine)
     session = Session()
     
-    # generated_data_dataset tablosundan rastgele beş satır çek
-    data_generated = session.query(GeneratedDataDataset).order_by(func.random()).limit(5).all()
-    data_malicious = session.query(MaliciousDataset).order_by(func.random()).limit(5).all()
-
+    # Veritabanından rastgele üç satır çek
+    query = text("SELECT * FROM generated_data_dataset ORDER BY RAND() LIMIT 5")
+    result = session.execute(query)
+    data = result.fetchall()
+    
     # Verileri konsola yazdır
-    print("Generated Data:", data_generated)
-    print("Malicious Data:", data_malicious)
+    print(data)
     
     session.close()
     
-    return render_template('senaryo1.html', data_generated=data_generated, data_malicious=data_malicious)
+    return render_template('senaryo1.html', data=data)
 
 @views.route('/senaryo2')
 def senaryo2():
