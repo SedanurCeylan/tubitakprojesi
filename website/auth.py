@@ -16,7 +16,7 @@ def login():
         email = request.form.get('email')
         password = request.form.get('password')
 
-        # Özel karakter kontrolü
+
         special_characters = ['<', '>', '#', '\'', '!', '$', '%', '^', '&', '*', '(', ')', '+', '=', '{', '}', '[', ']', '|', '\\', ':', ';', '"', ',', '<', '>', '?', '/', '`', '~']
         if any(char in special_characters for char in email):
             errors['email'] = 'Special characters are not allowed in email.'
@@ -55,7 +55,7 @@ def logout():
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
-    errors = {}  # Hata mesajlarını depolamak için bir sözlük oluşturuyoruz.
+    errors = {}  
 
     if request.method == 'POST':
         username = request.form.get('username')
@@ -63,14 +63,14 @@ def sign_up():
         password = request.form.get('password')
         confirm_password = request.form.get('confirm-password')
 
-        # Özel karakterleri kontrol et
+
         special_characters = ['<', '>', '#', '\'', '!', '$', '%', '^', '&', '*', '(', ')', '+', '=', '{', '}', '[', ']', '|', '\\', ':', ';', '"', ',', '<', '>', '?', '/', '`', '~']
         if any(char in special_characters for char in username):
             errors['username'] = 'Special characters are not allowed in username.'
         if any(char in special_characters for char in email):
             errors['email'] = 'Special characters  are not allowed in email.'
 
-        # Kullanıcı adı, email ve şifrelerin dolu olduğunu kontrol et
+
         if not username:
             errors['username'] = 'Username is required.'
         if not email:
@@ -85,11 +85,10 @@ def sign_up():
         if len(password) < 8 or not re.search(r'[A-Z]', password) or not re.search(r'[a-z]', password) or not re.search(r'[0-9]', password) or not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
             errors['password'] = 'Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character.'
 
-        # Şifrelerin eşleştiğini kontrol et
         if password != confirm_password:
             errors['confirm_password'] = 'Passwords must match.'
 
-        # Kullanıcı adı veya e-posta adresinin zaten kullanımda olup olmadığını kontrol et
+
         existing_user_email = User.query.filter_by(email=email).first()
         existing_user_username = User.query.filter_by(username=username).first()
         if existing_user_email:
@@ -97,11 +96,10 @@ def sign_up():
         if existing_user_username:
             errors['username'] = 'Username already in use.'
 
-        # Hatalar varsa, sayfayı yeniden render et ve hataları göster
         if errors:
             return render_template("sign_up.html", errors=errors, username=username, email=email)
 
-        # Şifreyi hashle ve yeni kullanıcıyı oluştur
+   
         hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
         new_user = User(username=username, email=email, password=hashed_password)
         db.session.add(new_user)

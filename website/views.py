@@ -42,8 +42,7 @@ def inject_user():
 
 @views.route('/data')
 def data_display():
-    datasets = MaliciousDataset.query.all()  # Veritabanından verileri çekerken hangi tabloyu kullanacağını belirtiyoruz
-
+    datasets = MaliciousDataset.query.all()  
     random_data1 = random.choice(datasets)
     random_data2 = random.choice(datasets)
     random_data3 = random.choice(datasets)
@@ -95,22 +94,19 @@ def sonuclar():
         data = request.get_json()
         score = data.get('score')
 
-        # Kullanıcının mevcut test skorunu al ve yeni skoru ekle
         user = User.query.get(current_user.id)
         if user:
             user.test_score += score
             db.session.commit()
 
-        # Yeni test sonucunu AnalysisResult tablosuna ekle, user_id ile ilişkilendir
         new_result = AnalysisResult(score=score, user_id=current_user.id)
         db.session.add(new_result)
         db.session.commit()
 
         return jsonify({"status": "success"})
 
-    # Sadece giriş yapan kullanıcının sonuçlarını çek
     results = AnalysisResult.query.filter_by(user_id=current_user.id).order_by(AnalysisResult.timestamp.desc()).all()
-    test_score = current_user.test_score  # Mevcut kullanıcının toplam puanını al
+    test_score = current_user.test_score 
 
     return render_template('sonuclar.html', results=results, test_score=test_score)
 
@@ -126,16 +122,13 @@ def hakkimda():
 
 @views.route('/senaryo1')
 def senaryo1():
-    # Veritabanı oturumu oluştur
     Session = sessionmaker(bind=db.engine)
     session = Session()
     
-    # Veritabanından rastgele üç satır çek
     query = text("SELECT * FROM generated_data_dataset ORDER BY RAND() LIMIT 5")
     result = session.execute(query)
     data = result.fetchall()
     
-    # Verileri konsola yazdır
     print(data)
     
     session.close()
@@ -144,16 +137,13 @@ def senaryo1():
 
 @views.route('/senaryo2')
 def senaryo2():
-    # Veritabanı oturumu oluştur
     Session = sessionmaker(bind=db.engine)
     session = Session()
     
-    # Veritabanından rastgele üç satır çek
     query = text("SELECT * FROM generated_data_dataset ORDER BY RAND() LIMIT 5")
     result = session.execute(query)
     data = result.fetchall()
     
-    # Verileri konsola yazdır
     print(data)
     
     session.close()
@@ -162,16 +152,14 @@ def senaryo2():
 
 @views.route('/senaryo3')
 def senaryo3():
-    # Veritabanı oturumu oluştur
     Session = sessionmaker(bind=db.engine)
     session = Session()
     
-    # Veritabanından rastgele üç satır çek
     query = text("SELECT * FROM generated_data_dataset ORDER BY RAND() LIMIT 5")
     result = session.execute(query)
     data = result.fetchall()
     
-    # Verileri konsola yazdır
+    
     print(data)
     
     session.close()
@@ -193,27 +181,26 @@ def senaryo5():
 @views.route('/profil')
 @login_required
 def profil():
-    users = User.query.order_by(User.total_score.desc()).all()  # Tüm kullanıcıları puana göre sırala
-    learned_info = LearnedInfo.query.filter_by(user_id=current_user.id).first()  # Mevcut kullanıcıya ait learned_info verilerini al
+    users = User.query.order_by(User.total_score.desc()).all()  
+    learned_info = LearnedInfo.query.filter_by(user_id=current_user.id).first()  
     return render_template('profil.html', user=current_user, users=users, learned_info=learned_info)
 
     
 @views.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
-    user = User.query.get(current_user.id)  # Mevcut kullanıcıyı al
+    user = User.query.get(current_user.id)  
     errors = {}
 
     if request.method == 'POST':
         new_username = request.form.get('username')
         new_photo = request.form.get('profile_picture')
 
-        # Özel karakter kontrolü (noktali harfler hariç)
         special_characters = ['<', '>', '#', '\'', '!', '@', '$', '%', '^', '&', '*', '(', ')', '+', '=', '{', '}', '[', ']', '|', '\\', ':', ';', '"', ',', '<', '>', '?', '/', '`', '~']
         if any(char in special_characters for char in new_username):
             errors['username'] = 'Kullanıcı adı özel karakterler içeremez, yalnızca harfler, rakamlar ve "." kullanılabilir.'
 
-        # Kullanıcı adının zaten kullanımda olup olmadığını kontrol et
+       
         existing_user = User.query.filter_by(username=new_username).first()
         if existing_user and existing_user.id != current_user.id:
             errors['username'] = 'Bu kullanıcı adı zaten kullanımda.'
@@ -221,21 +208,19 @@ def edit_profile():
         if errors:
             return render_template('edit_profile.html', user=user, photos=["default.png", "photo1.png", "photo2.png", "photo3.png", "photo4.png", "photo5.png", "photo6.png"], errors=errors)
 
-        # Kullanıcı adı ve profil fotoğrafını güncelle
         user.username = new_username
         user.profile_picture = new_photo
 
         try:
-            # Veritabanında güncellemeleri kaydet
             db.session.commit()
             flash('Profil başarıyla güncellendi!', category='success')
         except Exception as e:
-            db.session.rollback()  # Hata durumunda değişiklikleri geri al
+            db.session.rollback()  
             flash('Bir hata oluştu. Lütfen tekrar deneyin.', category='error')
 
         return redirect(url_for('views.profil'))
 
-    # Fotoğraf seçenekleri
+
     photos = ["default.png", "photo1.png", "photo2.png", "photo3.png", "photo4.png", "photo5.png", "photo6.png"]
 
     return render_template('edit_profile.html', user=user, photos=photos)
@@ -251,7 +236,6 @@ def update_score():
         data = request.get_json()
         total_score = data.get('total_score')
         
-        # Kullanıcının total_score değerini güncelle
         user = User.query.get(current_user.id)
         if user:
             user.total_score = total_score
@@ -276,13 +260,11 @@ def save_learned_info():
     learned_text = data['learnedText']
     scenario = data['scenario']
 
-    # Oturum açmış kullanıcıyı kontrol et
-    user_id = current_user.id  # Oturum açmış kullanıcının ID'sini al
-
-    # Veritabanına senaryoya göre kaydet
-    existing_info = LearnedInfo.query.filter_by(user_id=user_id).first()  # Mevcut kayıt olup olmadığını kontrol edin
+    
+    user_id = current_user.id  
+    existing_info = LearnedInfo.query.filter_by(user_id=user_id).first() 
     if not existing_info:
-        existing_info = LearnedInfo(user_id=user_id)  # Yeni kayıt oluştur
+        existing_info = LearnedInfo(user_id=user_id)  
 
     if scenario == 'senaryo1':
         existing_info.senaryo1_learned_text = learned_text
@@ -309,5 +291,5 @@ def save_learned_info():
 @views.route('/results')
 @login_required
 def results():
-    results = AnalysisResult.query.filter_by(user_id=current_user.id).all()  # Giriş yapan kullanıcının sonuçlarını al
+    results = AnalysisResult.query.filter_by(user_id=current_user.id).all()  
     return render_template('sonuclar.html', results=results)
