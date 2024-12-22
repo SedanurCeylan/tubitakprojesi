@@ -94,7 +94,8 @@ Projenin farklı bölümlerine ait ekran görüntülerini buraya ekleyebilirsini
 
 ## Video
 
-Projenin tanıtım videosunu buraya ekleyebilirsiniz (YouTube linki veya dosya yolu belirtilebilir).
+Projenin tanıtım videosunu linkten izleyebilirsiniz
+https://youtu.be/t84r9F5Eb9k
 
 ---
 
